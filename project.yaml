@@ -2,7 +2,12 @@
 name: SeedLine
 slug: seedline
 area: Agriculture
-status: concept          # concept | design | prototype | tested | released
+trl: 2                   # Technology Readiness Level, see .kit/STANDARDS.md section 9
+trl_target: 3
+trl_evidence:
+  - docs/01-problem.md
+  - docs/02-concept.md
+  - docs/03-requirements.md
 shortlisted: false
 pitch: >-
   Push seeder whose metering plates are 3D printed per crop and driven by the ground wheel, with an optional row-spacing kit.
