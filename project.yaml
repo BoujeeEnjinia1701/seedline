@@ -1,0 +1,17 @@
+# Card metadata consumed by https://amishchadha.com
+name: SeedLine
+slug: seedline
+area: Agriculture
+status: concept          # concept | design | prototype | tested | released
+shortlisted: false
+pitch: >-
+  Push seeder whose metering plates are 3D printed per crop and driven by the ground wheel, with an optional row-spacing kit.
+problem: >-
+  Hand-seeding is slow and uneven, and precision planters are too costly for small plots.
+budget_usd: 400
+difficulty: 2  # 1 easiest, 5 hardest
+hero_image: media/hero.png
+licenses:
+  hardware: CERN-OHL-S-2.0
+  software: MIT
+tags: [agriculture, open-hardware, cern-ohl-s]
