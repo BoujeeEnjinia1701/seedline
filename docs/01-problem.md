@@ -3,7 +3,7 @@ doc_id: SDL-PRB-001
 title: SeedLine problem statement
 project: SeedLine
 doc_type: Problem statement
-version: "0.2"
+version: "0.3"
 status: Draft
 date: '2026-09-25'
 author: Amish Chadha
@@ -17,6 +17,10 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Populate to TRL 2 (problem, users, context, constraints, out of scope, prior work with sources)
+- version: "0.3"
+  date: '2026-09-25'
+  author: Amish Chadha
+  change: Record the first user group and row-spacing kit decisions (SDL-DDR-001); update open questions
 ---
 
 # SeedLine problem statement
@@ -34,6 +38,8 @@ Three problems follow:
 3. **Cost and fit of existing tools.** Low-cost plate seeders such as the Earthway 1001-B (about $187 with six plates) pick up several seeds at a time, so crops usually need thinning, while singulating roller seeders such as the Jang JP-1 cost about $499 before rollers at about $25 each ([University of Minnesota Extension, 2024](https://blog-fruit-vegetable-ipm.extension.umn.edu/2024/11/lower-cost-equipment-for-seeding-and.html)). Users also report that the Earthway is inaccurate with small seed and has no in-row spacing adjustment ([Paperpot Co.](https://paperpot.co/jang-seeder-vs-earthway-josh-sattin/)). A farmer whose crop or seed size does not match a stock plate has no easy way to get one.
 
 SeedLine is a single-row push seeder whose ground wheel drives a vertical metering plate through a chain. The plate is 3D printed for each crop and seed size, so a farmer, a cooperative or a local maker with a printer can make a plate for any seed. An optional row-marker kit sets the spacing between rows.
+
+**First users (decided by Amish, 2026-09-25, SDL-DDR-001):** smallholder field crops, meaning maize, beans, sorghum and groundnut on 0.75 m rows. Market-garden vegetables follow as a second plate set, with seed under 2 mm sown pelleted. The row-spacing kit is a marker arm.
 
 ## Users and context
 
@@ -75,15 +81,14 @@ SeedLine is a single-row push seeder whose ground wheel drives a vertical meteri
 - **Open 3D-printed seeders.** The Hour Farm published a hackable, 3D-printed precision seeder with interchangeable printed seed discs on FarmHack in 2019 under CC BY 4.0 ([FarmHack](https://farmhack.org/tools/hackable-3d-printed-precision-seeder)). It shows that printed discs work for vegetable seed at bed scale.
 - **Printed parts in precision metering.** A Norfolk farmer printed singulator discs and sprockets for a six-row vacuum maize planter, reporting about 99 % singulation and no visible wear after 70 ha ([3D Printing Industry, 2019](https://3dprintingindustry.com/news/farmer-builds-diy-seed-metering-system-with-3d-printed-parts-161204/)). This is a tractor planter, but it supports the durability of printed metering parts.
 - **Jab planters.** Hand jab planters are promoted for conservation agriculture in Africa and cut planting time to about a third of hoe planting ([CSBE study](https://library.csbe-scgab.ca/docs/meetings/2010/CSBE101037.pdf); [FAO jab planter user manual](https://www.fao.org/family-farming/detail/en/c/1619181/)). They place seed hill by hill, so spacing depends on the operator.
-- **Research push planters.** Many university studies build and test manual single-row planters with plate or cell-wheel metering (for example, [a manually operated planter for different seeds](https://www.academia.edu/77427641/Manually_Operated_Planter_for_Planting_Different_Seeds_in_Small_Areas)). Their field capacity and seed placement data will be reviewed at TRL 3 to check the estimates in SDL-PRC-001.
+- **Research push planters.** Many university studies build and test manual single-row planters with plate or cell-wheel metering (for example, [a manually operated planter for different seeds](https://www.academia.edu/77427641/Manually_Operated_Planter_for_Planting_Different_Seeds_in_Small_Areas)). Their field capacity and seed placement data have not yet been reviewed against SDL-CAL-001; that review remains open.
 
 ## Open questions
 
-- Which users first: smallholder field crops (maize and beans at 0.75 m rows) or market-garden vegetables? This changes the wheel, opener and plate range. Proposed, awaiting Amish (see SDL-PRC-001).
-- Which partner and region for co-design and field trials? Proposed, awaiting Amish.
+- Which partner and region for co-design and field trials? Proposed, awaiting Amish; under the portfolio rule of 2026-09-25, community designs pick co-design partners per area later.
 - Who prints plates in practice: the farmer, a cooperative, an agro-dealer or a central maker who mails them?
 - How common is treated seed among target users, and what handling rules apply?
-- Is the row marker enough, or do users want two or three units ganged on one frame?
+- Do market gardeners want two or three metering units ganged on one frame (the later bed-seeding variant)?
 
 ## User research and co-design
 

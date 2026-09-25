@@ -69,3 +69,66 @@ Budget: the prototype parts cost (about $223) is inside `budget_usd` ($400). No 
 ### Recommended next step
 
 Review this note and the media, then decide items 1 to 5. If approved, run `/advance-trl3` to check metering speed, placement quality, slip and push force by calculation, and to produce the parametric model, plate generator and drawing sheet.
+
+## Session 2026-09-25: TRL 3
+
+Amish reviewed the TRL 2 points and wrote on 2026-09-25: "proceed with all of your recommendations across all batches. Make sure we don't proceed to TRL 4 on any of them." This session advanced SeedLine from TRL 2 to TRL 3 and stopped there. **TRL 4 is on hold by Amish's instruction.**
+
+### What was done
+
+- `docs/decisions/0001-trl2-review-decisions.md` (SDL-DDR-001 v0.1): items 1 to 9 recorded as "Decided by Amish, 2026-09-25: go with recommendation"; the open items listed.
+- `docs/04-calcs/01-sizing.md` (SDL-CAL-001 v0.1) and `docs/04-calcs/sizing.py`: drive and spacing, chain lengths and idler, metering speed and meter torque, plates per crop, mass and center of mass, push force by planar statics with a Brixius soil model, slip, stress checks, work rate, hopper, depth sensitivity, a Monte Carlo spacing check and cost, with a results table for all 18 requirements. The script prints every quoted number and writes `docs/04-calcs/results.csv`.
+- `cad/src/model.py`: parametric build123d model (wheels, sprockets from tooth counts, plate cells from seed size, hopper, handle angle, depth and marker reach as parameters) exporting `cad/step/` and `cad/stl/` for the assembly, the maize plate, the hopper and the housing.
+- `cad/src/sheets.py` and `cad/drawings/SDL-DWG-001.svg`, `.pdf`, `.png`: general arrangement at Rev P1, marked "CONCEPT, NOT FOR FABRICATION" and "PRELIMINARY, NOT FOR FABRICATION". The concept sheet keeps SDL-DWG-010, so the general arrangement takes SDL-DWG-001 as named in `/advance-trl3`.
+- `bom/bom.csv`: all 15 lines priced with a supplier type; `bom/bom-notes.md` updated.
+- `cad/src/concept_media.py` now builds from `model.py`; all media in `media/` refreshed and checked by eye. The cutaway is cut on the row centerline with the kit renderer so the plate cells show. Temporary `_views` folders removed.
+- `docs/01-problem.md`, `docs/02-concept.md`, `docs/03-requirements.md` bumped to v0.3 with the decisions and the SDL-CAL-001 numbers; `README.md` and `project.yaml` (trl: 3, trl_target: 3, trl_evidence) updated. PDFs in `docs/pdf/`.
+
+### Requirements summary (SDL-CAL-001 Table 8)
+
+10 met, 4 at risk, 2 not met, 2 not verifiable at TRL 3.
+
+| ID | Status | Value |
+| --- | --- | --- |
+| R11 | **Not met** | 14.6 kg base, 15.6 kg with the marker kit (target 15 kg) |
+| R17 | **Not met** | $214 base seeder (target about $200) |
+| R1 | At risk | Cell speed 0.31 m/s at 3 km/h against an assumed 0.30 m/s fill limit |
+| R2 | At risk | Spacing CV 31 % (all spacings) with assumed 5 % misses and 4 % doubles |
+| R8 | At risk | ±10 mm depth only for wheel-path bumps of about ±15 mm |
+| R10 | At risk | 136 N along the handle in the design case; 178 N at best on a heavy, loose seedbed |
+| R7, R15 | Not verifiable at TRL 3 | Plate change time; wear life |
+| R3, R4, R5, R6, R9, R12, R13, R14, R16, R18 | Met | Spacing 22 to 589 mm; skid 1.2 to 1.7 %; raw seed 3.5 to 15 mm plus pelleted small seed; plates 1.5 to 2.0 h; 0.145 ha/h; 2.40 L hopper; $238 total |
+
+Numbers that changed from TRL 2: the plates are 40 to 54 g and 1.5 to 2.0 h (not 25 g and 1 h), the mass is about 0.5 kg higher, the push is lower in the design case (136 N) and in the heavy case (178 N), and a purely horizontal push turns out not to balance at all. Table 13 of SDL-CAL-001 lists every correction.
+
+### Decisions recorded (SDL-DDR-001)
+
+Decided by Amish, 2026-09-25, go with recommendation: (1) vertical cell plate; (2) smallholder field crops first, vegetable plates second; (3) marker arm now, gang bar later; (4) 12, 15 or 18 T wheel sprocket with an idler; (5) keep R3 and add skip-cell plates; (6) pelleted seed for 1 to 2 mm seed; (7) front drive wheel; (8) bolted frame by default; (9) PETG default, ASA in strong sun, PLA for trials. The budget ($400), pitch and problem line stay unchanged, as the TRL 2 review proposed no change. The SwapCell decisions do not apply (no battery).
+
+### Proposed, awaiting Amish
+
+1. **Co-design partner and region** (TRL 2 item 10). No recommendation; open under the rule that community designs pick partners per area later.
+2. **Standalone plate generator.** `make_plate` in the model already does the job; publishing it as a tool for printers is Amish's call.
+3. **R11, mass with the marker kit.** Options: a lighter handle (for example 22 x 1.2 mm tube, about 0.6 kg saved, factor on yield falls from 2.9 to about 1.8 under the 100 N side load), apply the 15 kg limit to the base seeder only, or relax it to 16 kg. Recommendation: the lighter handle, checked at the next design pass.
+4. **R17, base cost.** Options: bicycle-standard sprockets and chain, supply the 12 and 18 T sprockets as an optional kit, or relax the target to about $215. Recommendation: keep the target and move the alternate sprockets to an optional ratio kit, which would bring the base under $200 on paper.
+5. **R1, cell speed.** Options: tell operators to walk at about 2.9 km/h (2.4 km/h with 1.2 ratio plates), or reduce the plate to about 100 mm diameter. Recommendation: the walking-speed rule for now; revisit plate size only with bench data.
+6. **R8, depth on rough seedbeds.** Options: accept, or add a spring-loaded opener or depth-gauge shoe. Recommendation: accept for field crops on ploughed land and review with partner data.
+
+### Safety concerns
+
+- Chain and sprocket nip points move whenever the wheel turns. The guard now has an outboard face plate; it must be fitted in use and plate changes done with the wheel held still.
+- Sharp opener point and wheel lugs; transport cover needed.
+- Toxic treated seed during filling and cleaning; gloves, label rules, no reuse of the hopper for food.
+- Marker arm striking people at row ends; fold it for turns and transport.
+- Manual handling: 15.6 kg with the marker kit, and a 178 N push on heavy, loose seedbeds. Pushing down hard along the handle on loose soil sinks the press wheel, so operators should push at a flatter angle there.
+
+### Other notes
+
+- No TRL 4 material exists in the repo (`build-log/` holds only its README; `electronics/` and `firmware/` are empty), and none was created.
+- The TRL 2 review listed no unchecked citations, so none were re-verified in this session. The research push planter data cited in SDL-PRB-001 have not yet been compared with SDL-CAL-001.
+- The Brixius rolling resistance model is used outside its calibrated range (small, rigid wheels), and the cell fill limit, miss and double rates are assumptions. These carry R1, R2 and R10.
+- In the exploded view the singulator brush (item 7) is still small; its callout is readable.
+
+### Recommended next step
+
+Review SDL-CAL-001 and decide items 3 to 6 above. Any follow-up should stay at TRL 3: a design pass on the handle mass and the optional ratio kit, then a rerun of `sizing.py`. TRL 4 is on hold by Amish's instruction. For the record, TRL 4 would need: a bench rig with a sticky belt to measure misses, multiples and spacing CV for printed plates at several cell speeds; a built prototype weighed and pushed with a spring scale on tilled soil; a wear check of plates and brush; a test report (TST) with `environment: lab`; and build-log entries.

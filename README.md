@@ -1,14 +1,14 @@
 # SeedLine
 
-![TRL 2](https://img.shields.io/badge/TRL-2%20of%209-0F766E) ![Hardware: CERN-OHL-S-2.0](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-111827) ![Software: MIT](https://img.shields.io/badge/software-MIT-111827)
+![TRL 3](https://img.shields.io/badge/TRL-3%20of%209-0F766E) ![Hardware: CERN-OHL-S-2.0](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-111827) ![Software: MIT](https://img.shields.io/badge/software-MIT-111827)
 
-**Area:** Agriculture · **TRL:** 2 of 9 (concept formulated) · **Prototype budget:** about $400 USD · **Difficulty:** 2 of 5
+**Area:** Agriculture · **TRL:** 3 of 9 (proof of concept on paper) · **Prototype budget:** about $400 USD · **Difficulty:** 2 of 5
 
 Push seeder whose metering plates are 3D printed per crop and driven by the ground wheel, with an optional row-spacing kit.
 
 ![SeedLine concept](media/hero.png)
 
-[Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [Review note](docs/REVIEW.md)
+[Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [General arrangement SDL-DWG-001 (PDF)](cad/drawings/SDL-DWG-001.pdf) · [Calculations SDL-CAL-001](docs/04-calcs/01-sizing.md) · [Review note](docs/REVIEW.md)
 
 ## Problem
 
@@ -16,22 +16,24 @@ Hand-seeding is slow and uneven, and precision planters are too costly for small
 
 ## Concept
 
-A single-row push seeder. A 300 mm lugged ground wheel drives an upright, 3D-printed seed plate through a roller chain, so seed spacing follows distance travelled rather than walking speed. A runner opener cuts the furrow, drag chains cover the seed and a press wheel firms it. Swapping the printed plate (3 to 36 cells) and one sprocket sets in-row spacing from about 20 to 390 mm. An optional marker arm sets the next row at 200 to 900 mm. Estimates: about 0.14 ha/h for maize on 0.75 m rows, about 14 kg, and about $223 in parts with the marker kit.
+A single-row push seeder for smallholder field crops first, with vegetable plates to follow. A 300 mm lugged ground wheel drives an upright, 3D-printed seed plate through a #35 roller chain, so seed spacing follows distance travelled rather than walking speed. A runner opener cuts the furrow, drag chains cover the seed and a press wheel firms it. Swapping the printed plate (1 to 36 cells, including skip-cell plates for long spacings) and one of three wheel sprockets sets in-row spacing from 22 to 589 mm. Seed under 2 mm is sown pelleted. A marker arm sets the next row at 200 to 900 mm. The frame bolts together from 25 mm square tube.
+
+TRL 3 calculations (SDL-CAL-001): 0.145 ha/h for maize on 0.75 m rows, about 136 N push in the design case, 14.6 kg (15.6 kg with the marker kit) and about $214 in parts for the base seeder ($238 with the marker kit). The mass with the kit and the base cost miss their targets; placement quality, depth control and push effort on heavy seedbeds are at risk.
 
 Full design precis: [docs/02-concept.md](docs/02-concept.md)
 
 ## Key components
 
 - 300 mm lugged ground drive wheel
-- #35 chain drive with alternate sprockets and a chain guard
-- 2 L seed hopper and metering housing
-- 3D-printed seed plates, one per crop and spacing, with a singulator brush
+- #35 chain drive with 12, 15 and 18 T wheel sprockets, a spring idler and a chain guard
+- 2.4 L seed hopper and metering housing
+- 3D-printed PETG seed plates, one per crop and spacing, with a singulator brush
 - Runner furrow opener with depth bracket and covering chains
 - 200 mm concave press wheel
-- Steel frame and telescoping handle
+- Bolted steel frame and telescoping handle
 - Row marker arm (optional row-spacing kit)
 
-The working bill of materials is in [bom/bom.csv](bom/bom.csv).
+The priced bill of materials is in [bom/bom.csv](bom/bom.csv). The parametric model is [cad/src/model.py](cad/src/model.py), with STEP and STL exports in `cad/step/` and `cad/stl/`.
 
 ## Safety
 
