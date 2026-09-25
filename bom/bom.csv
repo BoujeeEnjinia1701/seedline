@@ -1,7 +1,16 @@
 item,qty,spec,supplier,unit_cost_usd,make_buy,notes
-Ground wheel,,,,,,
-Chain drive,,,,,,
-Printed seed plates,,,,,,
-Furrow opener,,,,,,
-Press wheel,,,,,,
-Steel frame,,,,,,
+1 Ground drive wheel,1,"300 mm diameter, 45 mm wide steel or solid rubber wheel with 18 lugs, two 6201 or 6202 bearings, 16 mm axle",Trolley or wheelbarrow wheel from hardware trade; lugs added locally,22.00,buy,Indicative price; lug tips rounded
+2 Chain drive,1,"#35 (3/8 in pitch) roller chain about 76 links; 15 T sprocket for the plate shaft; 12 T, 15 T and 18 T sprockets for the wheel axle; spring idler",Power transmission or bicycle parts supplier,36.00,buy,Indicative price; alternate sprockets change the plate ratio (0.8 / 1.0 / 1.2)
+3 Chain guard,1,"Open-sided band guard around the chain loop, PETG print or 1 mm sheet steel, bolted to the frame",Local print or sheet metal,4.00,make,Indicative material cost; must be fitted in use
+4 Seed hopper,1,"About 2.1 L, 170 x 120 x 160 mm, printed PETG or cut from an HDPE container, with lid",Local print or reused container,6.00,make,Indicative material cost
+5 Metering housing shaft and bearings,1,"Printed PETG housing with seed outlet and side door; 12 mm steel shaft; two 12 mm flange bearings; hand knob",Bearing supplier and local print,18.00,buy,Indicative price (bearings about $8)
+6 Printed seed plates,6,"120 mm diameter, 6 mm thick, 3 to 36 rim cells sized to the seed; about 25 g PETG each",Local FDM print,1.30,make,Indicative filament cost at about $25/kg plus waste; starter set of six crops
+7 Singulator brush,1,"Nylon strip brush about 30 mm long on a printed holder with adjustable gap",Hardware or industrial brush supplier,5.00,buy,Indicative price; wear part
+8 Seed drop tube,1,"20 mm OD PVC or PE tube, about 150 mm",Hardware shop,3.00,buy,Indicative price
+9 Furrow opener and depth bracket,1,"Runner shoe from 3 mm steel plate on a 20 x 12 mm steel shank; slotted clamp bracket for 10 to 60 mm depth",Local fabricator,14.00,make,Indicative material and labor
+10 Covering chains,1,"Two 250 mm lengths of 3 to 4 mm light chain on a steel bracket",Hardware shop,5.00,buy,Indicative price
+11 Press wheel,1,"200 mm diameter, 70 mm wide concave rubber tread on bearings",Trolley wheel supplier,16.00,buy,Indicative price
+12 Steel frame,1,"25 x 25 x 2 mm square steel tube about 2.2 m; 6 mm axle drop plates; hopper posts; welded or bolted (proposed, awaiting Amish)",Local steel stockist and fabricator,32.00,make,Indicative material and labor
+13 Handle,1,"Two 25 mm steel tubes, telescoping sleeves with pins for 850 to 1050 mm grip height, cross grip with rubber grips",Local steel stockist,16.00,make,Indicative price
+14 Row marker arm (row-spacing kit),1,"Telescoping 20 mm tube arm, 200 to 900 mm reach, 140 mm steel marker disc, fold-up clip on the front cross member",Local fabricator,24.00,make,Optional kit; indicative price
+15 Fasteners and consumables,1,"M6 and M8 bolts, nuts, washers, pins, grease, paint",Local hardware shop,14.00,buy,Indicative price; no exploded-view callout

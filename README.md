@@ -6,26 +6,36 @@
 
 Push seeder whose metering plates are 3D printed per crop and driven by the ground wheel, with an optional row-spacing kit.
 
+![SeedLine concept](media/hero.png)
+
+[Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [Review note](docs/REVIEW.md)
+
 ## Problem
 
 Hand-seeding is slow and uneven, and precision planters are too costly for small plots.
 
 ## Concept
 
-Push seeder whose metering plates are 3D printed per crop and driven by the ground wheel, with an optional row-spacing kit.
+A single-row push seeder. A 300 mm lugged ground wheel drives an upright, 3D-printed seed plate through a roller chain, so seed spacing follows distance travelled rather than walking speed. A runner opener cuts the furrow, drag chains cover the seed and a press wheel firms it. Swapping the printed plate (3 to 36 cells) and one sprocket sets in-row spacing from about 20 to 390 mm. An optional marker arm sets the next row at 200 to 900 mm. Estimates: about 0.14 ha/h for maize on 0.75 m rows, about 14 kg, and about $223 in parts with the marker kit.
 
 Full design precis: [docs/02-concept.md](docs/02-concept.md)
 
 ## Key components
 
-- Ground wheel
-- Chain drive
-- Printed seed plates
-- Furrow opener
-- Press wheel
-- Steel frame
+- 300 mm lugged ground drive wheel
+- #35 chain drive with alternate sprockets and a chain guard
+- 2 L seed hopper and metering housing
+- 3D-printed seed plates, one per crop and spacing, with a singulator brush
+- Runner furrow opener with depth bracket and covering chains
+- 200 mm concave press wheel
+- Steel frame and telescoping handle
+- Row marker arm (optional row-spacing kit)
 
 The working bill of materials is in [bom/bom.csv](bom/bom.csv).
+
+## Safety
+
+> **Safety:** The chain drive turns whenever the wheel turns and has nip points; keep the guard fitted and hold the wheel still for plate changes and cleaning. The opener and wheel lugs are sharp. Seed treated with pesticides is toxic: follow the seed label, wear gloves and never reuse the hopper for food. See the safety section of [docs/02-concept.md](docs/02-concept.md).
 
 ## Repository layout
 
