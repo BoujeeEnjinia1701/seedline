@@ -16,6 +16,8 @@ Decisions carried by this model (Amish, 2026-09-25, SDL-DDR-001): vertical cell 
 on a transverse shaft driven by #35 chain (item 1), front drive wheel and rear press
 wheel (item 7), 12, 15 or 18 T wheel sprocket with a spring idler (item 4), bolted
 square-tube frame (item 8), telescoping marker arm as the row-spacing kit (item 3).
+Accepted by Amish, 2026-09-25 (SDL-DDR-002): lighter 22 x 1.2 mm handle tube (R11); the 12 and
+18 T wheel sprockets move to an optional ratio kit, so the base seeder carries the 15 T only (R17).
 """
 import copy
 import math
@@ -54,13 +56,15 @@ PARAMS = {
     # Drive: #35 chain, 9.525 mm pitch
     "PITCH": 9.525,
     "T_PLATE": 15,
-    "T_WHEEL": 15,           # 12, 15 or 18 (ratio 0.8, 1.0, 1.2)
+    "T_WHEEL": 15,           # base 15 (ratio 1.0); 12 or 18 T in the optional ratio kit (0.8, 1.2)
     "Y_CHAIN": -92.0,
     # Opener
     "DEPTH": 50.0,           # sowing depth below the seedbed surface, 10 to 60 in 10 mm steps
     # Handle
     "GRIP_H": 950.0,         # grip height, 850 to 1,050 by telescoping
     "HANDLE_ANGLE": 50.0,    # degrees above the ground
+    "HANDLE_OD": 22.0,       # round tube outside diameter (SDL-DDR-002; was 25)
+    "HANDLE_T": 1.2,         # round tube wall (SDL-DDR-002; was 1.5)
     # Row marker (row-spacing kit)
     "ROW_SPACING": 750.0,    # maize on 0.75 m rows
     "MARKER_D": 140.0,
@@ -309,8 +313,9 @@ def build_parts():
     # 13 Handle: two tubes from the rear of the rails to a cross grip, with a brace
     (hbx, hbz), (gx, gz) = handle_points()
     spread = 4.2
-    handle = union([tube3((hbx, y, hbz), (gx, y * spread, gz), 12.5) for y in (-ry, ry)])
-    handle = handle + tube3((gx - 10, -ry * spread - 45, gz), (gx - 10, ry * spread + 45, gz), 12.5)
+    rh = P["HANDLE_OD"] / 2
+    handle = union([tube3((hbx, y, hbz), (gx, y * spread, gz), rh) for y in (-ry, ry)])
+    handle = handle + tube3((gx - 10, -ry * spread - 45, gz), (gx - 10, ry * spread + 45, gz), rh)
     mx, mz = hbx + (gx - hbx) * 0.45, hbz + (gz - hbz) * 0.45
     parts[13] = handle + tube3((mx, -ry * (1 + 0.45 * (spread - 1)), mz), (mx, ry * (1 + 0.45 * (spread - 1)), mz), 9)
 

@@ -105,14 +105,14 @@ Numbers that changed from TRL 2: the plates are 40 to 54 g and 1.5 to 2.0 h (not
 
 Decided by Amish, 2026-09-25, go with recommendation: (1) vertical cell plate; (2) smallholder field crops first, vegetable plates second; (3) marker arm now, gang bar later; (4) 12, 15 or 18 T wheel sprocket with an idler; (5) keep R3 and add skip-cell plates; (6) pelleted seed for 1 to 2 mm seed; (7) front drive wheel; (8) bolted frame by default; (9) PETG default, ASA in strong sun, PLA for trials. The budget ($400), pitch and problem line stay unchanged, as the TRL 2 review proposed no change. The SwapCell decisions do not apply (no battery).
 
-### Proposed, awaiting Amish
+### Proposed, awaiting Amish (status updated 2026-09-25, see SDL-DDR-002)
 
-1. **Co-design partner and region** (TRL 2 item 10). No recommendation; open under the rule that community designs pick partners per area later.
-2. **Standalone plate generator.** `make_plate` in the model already does the job; publishing it as a tool for printers is Amish's call.
-3. **R11, mass with the marker kit.** Options: a lighter handle (for example 22 x 1.2 mm tube, about 0.6 kg saved, factor on yield falls from 2.9 to about 1.8 under the 100 N side load), apply the 15 kg limit to the base seeder only, or relax it to 16 kg. Recommendation: the lighter handle, checked at the next design pass.
-4. **R17, base cost.** Options: bicycle-standard sprockets and chain, supply the 12 and 18 T sprockets as an optional kit, or relax the target to about $215. Recommendation: keep the target and move the alternate sprockets to an optional ratio kit, which would bring the base under $200 on paper.
-5. **R1, cell speed.** Options: tell operators to walk at about 2.9 km/h (2.4 km/h with 1.2 ratio plates), or reduce the plate to about 100 mm diameter. Recommendation: the walking-speed rule for now; revisit plate size only with bench data.
-6. **R8, depth on rough seedbeds.** Options: accept, or add a spring-loaded opener or depth-gauge shoe. Recommendation: accept for field crops on ploughed land and review with partner data.
+1. **Co-design partner and region** (TRL 2 item 10). Still proposed, awaiting Amish. No recommendation; open under the rule that community designs pick partners per area later.
+2. **Standalone plate generator.** `make_plate` in the model already does the job; publishing it as a tool for printers is Amish's call. Still proposed, awaiting Amish.
+3. **R11, mass with the marker kit.** Options: a lighter handle (for example 22 x 1.2 mm tube, about 0.6 kg saved, factor on yield falls from 2.9 to about 1.8 under the 100 N side load), apply the 15 kg limit to the base seeder only, or relax it to 16 kg. Recommendation: the lighter handle, checked at the next design pass. **Decided by Amish, 2026-09-25: go with recommendation.**
+4. **R17, base cost.** Options: bicycle-standard sprockets and chain, supply the 12 and 18 T sprockets as an optional kit, or relax the target to about $215. Recommendation: keep the target and move the alternate sprockets to an optional ratio kit, which would bring the base under $200 on paper. **Decided by Amish, 2026-09-25: go with recommendation.**
+5. **R1, cell speed.** Options: tell operators to walk at about 2.9 km/h (2.4 km/h with 1.2 ratio plates), or reduce the plate to about 100 mm diameter. Recommendation: the walking-speed rule for now; revisit plate size only with bench data. **Decided by Amish, 2026-09-25: go with recommendation.**
+6. **R8, depth on rough seedbeds.** Options: accept, or add a spring-loaded opener or depth-gauge shoe. Recommendation: accept for field crops on ploughed land and review with partner data. **Decided by Amish, 2026-09-25: go with recommendation.**
 
 ### Safety concerns
 
@@ -132,3 +132,53 @@ Decided by Amish, 2026-09-25, go with recommendation: (1) vertical cell plate; (
 ### Recommended next step
 
 Review SDL-CAL-001 and decide items 3 to 6 above. Any follow-up should stay at TRL 3: a design pass on the handle mass and the optional ratio kit, then a rerun of `sizing.py`. TRL 4 is on hold by Amish's instruction. For the record, TRL 4 would need: a bench rig with a sticky belt to measure misses, multiples and spacing CV for printed plates at several cell speeds; a built prototype weighed and pushed with a spring scale on tilled soil; a wear check of plates and brush; a test report (TST) with `environment: lab`; and build-log entries.
+
+## Session 2026-09-25: recommendations accepted
+
+Amish wrote on 2026-09-25: "i accept all your recommendations, go with them across all repos." Every open item with a recommendation is now **Decided by Amish, 2026-09-25: go with recommendation**, recorded in `docs/decisions/0002-recommendations-accepted.md` (SDL-DDR-002 v0.1). **TRL 4 remains on hold by Amish's instruction**; `trl: 3` and `trl_target: 3` are unchanged.
+
+### Decisions applied and what changed
+
+| Item | Decision | Before | After |
+| --- | --- | --- | --- |
+| 3, R11 mass | 22 x 1.2 mm handle tube (was 25 x 1.5) | Handle 2.99 kg; 14.6 kg base, 15.6 kg with marker (not met) | Handle 2.34 kg; 13.9 kg base, 14.9 kg with marker (met, 0.06 kg margin); handle factor on yield 2.9 to 1.9 |
+| 4, R17 base cost | 12 and 18 T wheel sprockets moved to an optional ratio kit (BOM line 16, $16) | Base $213.50 (not met); item 2 $47; handle $16 | Base $197.50 (met, 1.2 % margin); item 2 $33; handle $14; total with both kits $237.50 (unchanged) |
+| 5, R1 cell speed | Walking-speed rule, 2.9 km/h (2.4 km/h at 1.2); plate size only with bench data | Design case 3 km/h, cell speed 0.309 m/s, 0.145 ha/h | Design case 2.9 km/h, cell speed 0.299 m/s, 0.142 ha/h; R1 still at risk |
+| 6, R8 depth | Accept rigid opener for field crops on ploughed land; review with partner data | R8 at risk | R8 restated for ploughed field-crop seedbeds, met on paper |
+
+Knock-on: design-case push 136 to 132 N; heavy seedbed 178 N at 35° to 177 N at 36°. Budget unchanged at $400 (no recommendation to change it); pitch and problem line unchanged.
+
+Files changed: `cad/src/model.py` (handle parameters), STEP and STL re-exported; `cad/src/sheets.py` and SDL-DWG-001 Rev P1 to P2; `docs/04-calcs/sizing.py`, `results.csv` and SDL-CAL-001 v0.1 to v0.2 (new Table 14 of changes); SDL-REQ-001 v0.3 to v0.4; SDL-PRC-001 v0.3 to v0.4; `bom/bom.csv` (16 lines) and `bom/bom-notes.md`; `cad/src/concept_media.py` key figures and all media regenerated; `README.md`.
+
+Also this session: all PDFs, drawings and media regenerated so the footers show designmolecule.com; README now has "Concept rationale", "Burning platform", "Where it could be used" and "What sparked the idea" sections. The inspiration point is Jethro Tull's 1701 seed drill with a grooved feeding cylinder.
+
+### Requirement status (SDL-CAL-001 v0.2)
+
+13 met, 3 at risk, 0 not met, 2 not verifiable at TRL 3 (was 10 met, 4 at risk, 2 not met, 2 not verifiable).
+
+- **Not met:** none.
+- **At risk:** R1 (cell speed 0.299 m/s against an assumed 0.30 m/s limit, no margin); R2 (spacing CV 31 %, assumed miss and double rates); R10 (132 N design case; 177 N at best on a heavy, loose seedbed).
+- **Not verifiable at TRL 3:** R7 (plate change time), R15 (wear life).
+- **Met, thin margin:** R11 (14.9 kg against 15 kg), R17 ($197.50 against about $200), R6 (groundnut plate 1.96 h against 2 h).
+- **Met:** R3 (with the ratio kit), R4, R5, R8 (restated), R9, R12, R13, R14, R16, R18.
+
+### Still proposed, awaiting Amish
+
+1. Co-design partner and region (no recommendation).
+2. Standalone plate generator (no recommendation).
+
+### Cross-repo actions
+
+None. No decision needs another repo to change.
+
+### Decided but on hold (TRL 4)
+
+- Revisiting the plate diameter with bench data on cell fill (item 5).
+- Reviewing depth control with partner soil data (item 6).
+- Bench and fatigue check of the lighter handle and its telescoping joint (item 3).
+
+TRL 4 remains on hold by Amish's instruction; none of this was started.
+
+### Safety
+
+Unchanged hazards (chain nip points, sharp opener and lugs, treated seed, marker arm, manual handling). The lighter handle has a factor of 1.9 on yield under a 100 N static side load; fatigue at the telescoping joint is unverified and should be checked before any build.

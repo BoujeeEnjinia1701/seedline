@@ -1,19 +1,19 @@
 requirement,quantity,value,target,status
-R1,Single-seed placement (cell speed as the paper check),cell speed 0.31 m/s against an assumed 0.30 m/s limit; misses and multiples not calculable,"misses 5 % or less, multiples 5 % or less",at risk
+R1,Single-seed placement (cell speed as the paper check),"cell speed 0.299 m/s at the 2.9 km/h walking-speed rule, against an assumed 0.30 m/s limit (no margin); misses and multiples not calculable","misses 5 % or less, multiples 5 % or less",at risk
 R2,Spacing uniformity,CV 31 % of all spacings; 9 % for singles (inputs assumed),CV 30 % or less,at risk
-R3,Spacing range,22 to 589 mm nominal; every 25 to 400 mm target within 11.1 %,25 to 400 mm,met
+R3,Spacing range,"22 to 589 mm nominal with the ratio kit, every 25 to 400 mm target within 11.1 %; base 15 T only 26 to 471 mm, within 17 %",25 to 400 mm,met
 R4,Spacing follows travel; slip,skid 1.2 to 1.7 % from meter torque; rolling radius uncertain by up to 6.7 %,8 % or less,met
 R5,Seed size range,3.5 to 15 mm raw seed (spinach to groundnut); 1 to 2 mm seed only as pelleted seed (about 3.3 mm pellets),"1.5 to 15 mm; seed under 2 mm pelleted (redefined, DDR-001 item 6)",met
 R6,Printable plates,"1.5 h, 40 g PETG (maize); up to 2.0 h for the 10 mm groundnut plate; +/-0.2 mm accuracy not verifiable",2 h or less; +/-0.2 mm,met
 R7,Crop change,Side door and hand knob in the model; no tools,"2 min or less, no tools",not verifiable at TRL 3
-R8,Sowing depth,10 to 60 mm in 10 mm steps; +/-10 mm holds only for wheel-path bumps of +/-15 mm or less,10 to 60 mm; +/-10 mm,at risk
-R9,Work rate,0.145 ha/h (6.9 h/ha),0.1 ha/h or more,met
-R10,"Push effort, design case","136 N along the handle, 109 N at the best angle (28 deg); heavy loose seedbed 178 N at best, no balance along the handle",150 N or less,at risk
-R11,Mass and handling,"14.6 kg base; 15.6 kg with the marker kit; grip 850 to 1,050 mm",15 kg or less,not met
+R8,Sowing depth,10 to 60 mm in 10 mm steps; +/-10 mm for wheel-path bumps of +/-15 mm or less under the drive wheel (ploughed field-crop seedbed),"10 to 60 mm; +/-10 mm on a ploughed field-crop seedbed (restated, DDR-002)",met
+R9,Work rate,0.142 ha/h (7.1 h/ha),0.1 ha/h or more,met
+R10,"Push effort, design case","132 N along the handle, 108 N at the best angle (30 deg); heavy loose seedbed 177 N at best, no balance along the handle",150 N or less,at risk
+R11,Mass and handling,"13.9 kg base; 14.9 kg with the marker kit; grip 850 to 1,050 mm",15 kg or less,met
 R12,Hopper,"2.40 L; 1,438 m of maize row per fill",2 L or more,met
 R13,Row spacing kit,"Marker reach 200 to 900 mm in the model, set at 750 mm","200 to 900 mm, +/-25 mm",met
 R14,Guarding,Band guard with an outboard face plate over both sprockets and the idler,Nip points covered,met
 R15,Durability,"Stresses low (section 7); wear life of plates, brush and chain unknown",5 seasons; plates 1 season,not verifiable at TRL 3
 R16,Prototype cost,$238,$400 or less,met
-R17,"Replication cost, base seeder",$214,about $200 or less,not met
+R17,"Replication cost, base seeder",$198,about $200 or less,met
 R18,Local build,"Bolted 25 mm square tube, 6 mm plate, #35 chain; drill and bolts",Common sections and parts,met

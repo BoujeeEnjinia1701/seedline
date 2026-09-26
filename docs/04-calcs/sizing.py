@@ -35,7 +35,7 @@ def req(rid, quantity, value, target, status):
 # ---------------------------------------------------------------------------
 # 1. Assumptions
 # ---------------------------------------------------------------------------
-V_WALK = 3.0 / 3.6            # m/s, design case
+V_WALK = 2.9 / 3.6            # m/s, design case: walking-speed rule for R1 (SDL-DDR-002 item 5; was 3.0 km/h)
 SLIP_TYP = 0.05               # typical travel reduction used for the spacing tables
 CELL_V_LIMIT = 0.30           # m/s, assumed working limit for cell fill (to be checked by bench test)
 FDM_TOL = 0.2                 # mm, cell size tolerance on a 0.4 mm nozzle (R6)
@@ -100,7 +100,16 @@ for tgt in range(25, 401):
         worst = (best[0], (tgt, best[1], best[2]))
 print(f"worst spacing error over 25 to 400 mm with the best plate: {100 * worst[0]:.1f} % "
       f"(target {worst[1][0]} mm, {worst[1][1]} cells at {worst[1][2]:.1f})")
-req("R3", "Spacing range", f"{s_min:.0f} to {s_max2:.0f} mm nominal; every 25 to 400 mm target within {100 * worst[0]:.1f} %",
+# Base seeder with the 15 T wheel sprocket only (the 12 and 18 T are the optional ratio kit, SDL-DDR-002 item 4)
+worst1 = (0, None)
+for tgt in range(25, 401):
+    best = min((abs(spacing(n, 1.0, SLIP_TYP) - tgt) / tgt, n) for n in range(1, 37))
+    if best[0] > worst1[0]:
+        worst1 = (best[0], (tgt, best[1]))
+print(f"base seeder, 15 T only (ratio 1.0): {spacing(36, 1.0):.1f} to {spacing(2, 1.0):.1f} mm nominal; worst error over "
+      f"25 to 400 mm {100 * worst1[0]:.1f} % (target {worst1[1][0]} mm, {worst1[1][1]} cells)")
+req("R3", "Spacing range", f"{s_min:.0f} to {s_max2:.0f} mm nominal with the ratio kit, every 25 to 400 mm target within "
+    f"{100 * worst[0]:.1f} %; base 15 T only {spacing(36, 1.0):.0f} to {spacing(2, 1.0):.0f} mm, within {100 * worst1[0]:.0f} %",
     "25 to 400 mm", "met")
 
 # ---------------------------------------------------------------------------
@@ -126,7 +135,8 @@ print(f"kinematic fill indicator, maize cell {clen:.1f} x {cdep:.1f} mm: {v_fill
       f"(a still seed; seeds dragged by the plate fill at higher cell speeds)")
 v_design = cellv[1.0]
 req("R1", "Single-seed placement (cell speed as the paper check)",
-    f"cell speed {v_design:.2f} m/s against an assumed {CELL_V_LIMIT:.2f} m/s limit; misses and multiples not calculable",
+    f"cell speed {v_design:.3f} m/s at the {3.6 * V_WALK:.1f} km/h walking-speed rule, against an assumed {CELL_V_LIMIT:.2f} m/s limit (no margin); "
+    f"misses and multiples not calculable",
     "misses 5 % or less, multiples 5 % or less", "at risk")
 
 # Meter torque, first principles
@@ -179,7 +189,9 @@ h("5 Mass")
 spread = 4.2
 tube25x15 = (25 ** 2 - 22 ** 2) * STEEL * 1000         # kg/m, 25 x 25 x 1.5 square tube
 tube20x15 = (20 ** 2 - 17 ** 2) * STEEL * 1000
-rnd25x15 = math.pi / 4 * (25 ** 2 - 22 ** 2) * STEEL * 1000
+HOD, HT = P["HANDLE_OD"], P["HANDLE_T"]
+rnd_h = math.pi / 4 * (HOD ** 2 - (HOD - 2 * HT) ** 2) * STEEL * 1000   # handle round tube (SDL-DDR-002)
+rnd25x15 = math.pi / 4 * (25 ** 2 - 22 ** 2) * STEEL * 1000              # TRL 3 v0.1 handle, for comparison
 rnd18x15 = math.pi / 4 * (18 ** 2 - 15 ** 2) * STEEL * 1000
 ry, rz, rs = P["RAIL_Y"], P["RAIL_Z"], P["RAIL_S"]
 rail_len = 2 * ((P["X_WHEEL"] + 60) - (P["X_PRESS"] - 40)) / 1000
@@ -192,7 +204,8 @@ frame = rail_len * tube25x15 + cross_len * tube25x15 + drop_f + drop_r + posts +
 h_len = math.dist((hbx, ry, hbz), (gx, ry * spread, gz)) / 1000
 grip_len = 2 * (ry * spread + 45) / 1000
 brace_len = 2 * ry * (1 + 0.45 * (spread - 1)) / 1000
-handle = (2 * h_len + grip_len) * rnd25x15 + brace_len * rnd18x15 + 2 * 0.25 * 0.98 + 0.10
+handle = (2 * h_len + grip_len) * rnd_h + brace_len * rnd18x15 + 2 * 0.25 * 0.98 + 0.10
+handle_old = (2 * h_len + grip_len) * rnd25x15 + brace_len * rnd18x15 + 2 * 0.25 * 0.98 + 0.10
 axle = lambda length: math.pi / 4 * P["AXLE_D"] ** 2 * length * STEEL  # noqa: E731
 _parts = model.build_parts()
 hopper_kg = _parts[4].volume / 1000 * RHO_PETG / 1000
@@ -226,7 +239,8 @@ for m in MASS + [MARKER]:
 for k, v in groups.items():
     print(f"  {k:22s} {v:5.2f} kg")
 print(f"frame {frame:.2f} kg ({rail_len + cross_len:.2f} m of 25 x 25 x 1.5 tube); handle {handle:.2f} kg "
-      f"({h_len * 1000:.0f} mm per side tube)")
+      f"({h_len * 1000:.0f} mm per side tube, {HOD:.0f} x {HT} round); 25 x 1.5 handle would be {handle_old:.2f} kg, "
+      f"saving {handle_old - handle:.2f} kg")
 print(f"base seeder {base:.2f} kg, with marker kit {full:.2f} kg; center of mass x = {xcg:.0f} mm, z = {zcg:.0f} mm")
 seed_kg = model.hopper_volume_l() * 0.72
 print(f"seed load, full hopper of maize: {seed_kg:.2f} kg")
@@ -327,7 +341,8 @@ req("R4", "Spacing follows travel; slip", f"skid {100 * min(SLIP.values()):.1f} 
 # ---------------------------------------------------------------------------
 h("7 Structure")
 Z_rail = (25 ** 4 - 22 ** 4) / (6 * 25)
-Z_rnd = math.pi * (25 ** 4 - 22 ** 4) / (32 * 25)
+Z_rnd = math.pi * (HOD ** 4 - (HOD - 2 * HT) ** 4) / (32 * HOD)
+Z_rnd_old = math.pi * (25 ** 4 - 22 ** 4) / (32 * 25)
 F_rail = (W + PUSH["heavy"]["use"]["V"]) / 2
 M_rail = F_rail * (P["X_WHEEL"] - P["X_PRESS"]) / 4 / 1000 * IMPACT
 M_clamp = PUSH["heavy"]["use"]["draft"] * (rz + P["DEPTH"] / 2) / 1000 / 2
@@ -341,8 +356,8 @@ chain_t = T_METER * 1.2 / (model.sprocket_pd(15) / 2000)
 dflat = T_METER * 1.2 / 0.005 / (6 * 7)
 print(f"rail: M = {M_rail:.1f} N m (x{IMPACT:.0f} impact) + clamp {M_clamp:.1f} N m on Z = {Z_rail:.0f} mm^3: "
       f"{s_rail:.0f} MPa, factor {YIELD / s_rail:.1f}")
-print(f"handle side tube: {LAT_GRIP:.0f} N lateral at the grip, M = {M_h:.0f} N m per tube, "
-      f"{s_h:.0f} MPa, factor {YIELD / s_h:.1f}")
+print(f"handle side tube {HOD:.0f} x {HT}: {LAT_GRIP:.0f} N lateral at the grip, M = {M_h:.0f} N m per tube, "
+      f"{s_h:.0f} MPa, factor {YIELD / s_h:.1f} (25 x 1.5 tube: factor {YIELD / (M_h * 1000 / Z_rnd_old):.1f})")
 print(f"press axle: {M_ax:.1f} N m (x{IMPACT:.0f}), {s_ax:.0f} MPa; chain tension {chain_t:.0f} N "
       f"(about 7.8 kN minimum tensile for #35); plate D-flat bearing {dflat:.1f} MPa in PETG")
 
@@ -378,8 +393,8 @@ kf = (x_tip - xp) / (P["X_WHEEL"] - xp)
 print(f"opener point x = {x_tip:.0f} mm: depth changes by {kf:.2f} of a front wheel rise and {1 - kf:.2f} of a press wheel rise")
 print(f"+/-10 mm depth allows +/-{10 / kf:.0f} mm under the front wheel or +/-{10 / (1 - kf):.0f} mm under the press wheel; "
       f"a 50 mm clod under the front wheel lifts the opener {50 * kf:.0f} mm")
-req("R8", "Sowing depth", f"10 to 60 mm in 10 mm steps; +/-10 mm holds only for wheel-path bumps of +/-{10 / kf:.0f} mm or less",
-    "10 to 60 mm; +/-10 mm", "at risk")
+req("R8", "Sowing depth", f"10 to 60 mm in 10 mm steps; +/-10 mm for wheel-path bumps of +/-{10 / kf:.0f} mm or less "
+    f"under the drive wheel (ploughed field-crop seedbed)", "10 to 60 mm; +/-10 mm on a ploughed field-crop seedbed (restated, DDR-002)", "met")
 
 # ---------------------------------------------------------------------------
 # 10. Spacing uniformity (R2), Monte Carlo
@@ -421,11 +436,12 @@ h("11 Cost")
 rows = list(csv.DictReader((ROOT / "bom/bom.csv").open()))
 tot = sum(float(r["qty"]) * float(r["unit_cost_usd"]) for r in rows)
 marker = sum(float(r["qty"]) * float(r["unit_cost_usd"]) for r in rows if r["item"].startswith("14 "))
-base_usd = tot - marker
+ratio_kit = sum(float(r["qty"]) * float(r["unit_cost_usd"]) for r in rows if r["item"].startswith("16 "))
+base_usd = tot - marker - ratio_kit
 budget = 400
-print(f"BOM {len(rows)} lines, all priced: base ${base_usd:.2f}, marker kit ${marker:.2f}, total ${tot:.2f} "
-      f"against budget_usd ${budget}")
-print(f"base cost {100 * (base_usd / 200 - 1):.1f} % over the about $200 target of R17")
+print(f"BOM {len(rows)} lines, all priced: base ${base_usd:.2f}, marker kit ${marker:.2f}, ratio kit ${ratio_kit:.2f}, "
+      f"total ${tot:.2f} against budget_usd ${budget}")
+print(f"base cost {100 * (base_usd / 200 - 1):+.1f} % against the about $200 target of R17")
 req("R16", "Prototype cost", f"${tot:.0f}", "$400 or less", "met" if tot <= budget else "not met")
 req("R17", "Replication cost, base seeder", f"${base_usd:.0f}", "about $200 or less",
     "met" if base_usd <= 200 else "not met")
