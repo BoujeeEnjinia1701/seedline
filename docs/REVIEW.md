@@ -182,3 +182,18 @@ TRL 4 remains on hold by Amish's instruction; none of this was started.
 ### Safety
 
 Unchanged hazards (chain nip points, sharp opener and lugs, treated seed, marker arm, manual handling). The lighter handle has a factor of 1.9 on yield under a 100 N static side load; fatigue at the telescoping joint is unverified and should be checked before any build.
+
+## Session 2026-09-26: sources strengthened
+
+README.md only; no controlled document changed.
+
+| Where | Old source | New source |
+| --- | --- | --- |
+| Burning platform, farm-size share | Our World in Data alone | Lowder, Skoet and Raney, *World Development* 87 (2016), with Our World in Data kept alongside |
+| Burning platform, hoe planting labor | CSBE jab planter study | Same study, now attributed to Baudron et al. as cited there |
+| Country row: Malawi, Zambia and Zimbabwe | FAO jab planter user manual (could not be fetched) | Replaced by "Zambia and southern Africa": Haggblade and Tembo, IFPRI (2003), and the CSBE jab planter study |
+| Country row: Ethiopia and Kenya | None | Replaced by "Ethiopia and Tanzania": FAO small family farms country factsheets for Ethiopia and Tanzania |
+| Country row: Guatemala and Central America | None | Rewritten as "Guatemala": FAO small family farms country factsheet for Guatemala |
+| What sparked the idea | ASME and Wikipedia | ASME and two Science Museum Group collection pages; Wikipedia removed. Inspiration event unchanged |
+
+Not re-verified this session (links kept, fetch not possible here): Purdue University spacing trial (Nielsen) and University of Minnesota Extension seeder prices. Both are university primary sources. `docs/01-problem.md` still cites Paperpot Co. and 3D Printing Industry for prior-work notes; these are outside the README claims and were not changed.

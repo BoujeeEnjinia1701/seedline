@@ -18,7 +18,7 @@ Everything else is deliberately ordinary: square steel tube bolted with a drill 
 
 ## Burning platform
 
-Most of the world's farms are small: about 84 % of the roughly 570 million farms worldwide are under 2 ha ([Our World in Data, from Lowder et al.](https://ourworldindata.org/smallholder-food-production)), and in India the average operational holding fell to 1.08 ha in 2015 to 2016, with 68 % of holdings under 1 ha ([Agriculture Census 2015-16, Government of India](https://www.fao.org/fileadmin/templates/ess/ess_test_folder/World_Census_Agriculture/WCA_2020/WCA_2020_new_doc/IND_REP_ENG_2015_2016.pdf)). On such plots seed is still sown by hand, and hoe planting has been estimated at about 56 h per hectare for one worker in southern Africa ([CSBE jab planter study](https://library.csbe-scgab.ca/docs/meetings/2010/CSBE101037.pdf)), squeezed into the short planting window after the first rains.
+Most of the world's farms are small: about 84 % of the more than 570 million farms worldwide are under 2 ha ([Lowder, Skoet and Raney, *World Development*, 2016](https://www.sciencedirect.com/science/article/pii/S0305750X15002703); [Our World in Data](https://ourworldindata.org/smallholder-food-production)), and in India the average operational holding fell to 1.08 ha in 2015 to 2016, with 68 % of holdings under 1 ha ([Agriculture Census 2015-16, Government of India](https://www.fao.org/fileadmin/templates/ess/ess_test_folder/World_Census_Agriculture/WCA_2020/WCA_2020_new_doc/IND_REP_ENG_2015_2016.pdf)). On such plots seed is still sown by hand, and hoe planting has been estimated at about 56 h per hectare for one worker in southern Africa (Baudron et al., cited in a [CSBE jab planter study](https://library.csbe-scgab.ca/docs/meetings/2010/CSBE101037.pdf)), squeezed into the short planting window after the first rains.
 
 Uneven hand placement also costs yield. Purdue University trials on maize found a loss of about 2.2 to 2.5 bu/acre (about 140 to 160 kg/ha) for each inch (25 mm) increase in the standard deviation of plant-to-plant spacing ([Nielsen, Purdue University](https://www.agry.purdue.edu/ext/corn/research/psv/update2004.html)). Singulating push seeders that fix this cost about $499 before rollers, while low-cost plate seeders drop several seeds per cell ([University of Minnesota Extension](https://blog-fruit-vegetable-ipm.extension.umn.edu/2024/11/lower-cost-equipment-for-seeding-and.html)).
 
@@ -39,15 +39,15 @@ Uneven hand placement also costs yield. Purdue University trials on maize found 
 
 | Country or region | Why it matters there |
 | --- | --- |
-| Malawi, Zambia and Zimbabwe | Rain-fed maize on small plots, planted by hoe or jab planter; conservation agriculture programs already promote precise row planting ([FAO jab planter user manual](https://www.fao.org/family-farming/detail/en/c/1619181/)) |
+| Zambia and southern Africa | Conservation farming lays out hand-hoe planting basins in a precise grid of 15,850 per hectare and plants with the first rains ([Haggblade and Tembo, IFPRI, 2003](https://cgspace.cgiar.org/items/90eae4be-ba6d-448a-8d95-77e7a87ad25c)); hoe planting takes about 56 h per hectare for one worker ([CSBE jab planter study](https://library.csbe-scgab.ca/docs/meetings/2010/CSBE101037.pdf)) |
 | India | Average holding of 1.08 ha, with 68 % of holdings under 1 ha ([Agriculture Census 2015-16](https://www.fao.org/fileadmin/templates/ess/ess_test_folder/World_Census_Agriculture/WCA_2020/WCA_2020_new_doc/IND_REP_ENG_2015_2016.pdf)), too small for tractor planters |
-| Ethiopia and Kenya | Smallholder maize, sorghum and bean systems, all crops in SeedLine's starter plate set |
-| Guatemala and Central America | Maize and bean plots on hillsides where tractors cannot work |
+| Ethiopia and Tanzania | Small family farms average 0.8 ha in Ethiopia, where maize and sorghum are staples and only 3.7 % of smallholders have access to machinery ([FAO country factsheet, Ethiopia](https://www.fao.org/3/I8911EN/i8911en.pdf)); in Tanzania maize is the main staple and 1.4 % of smallholder households use motorized equipment ([FAO country factsheet, Tanzania](https://www.fao.org/3/I8356EN/i8356en.pdf)) |
+| Guatemala | Small family farms make up 82 % of farms and average 0.6 ha, and mountains bound the cultivable area ([FAO country factsheet, Guatemala](https://www.fao.org/3/I8357EN/i8357en.pdf)); plots this small suit a push seeder rather than a tractor planter |
 | United States and Canada | Market gardens that choose between a $187 plate seeder and a $499 roller seeder ([UMN Extension](https://blog-fruit-vegetable-ipm.extension.umn.edu/2024/11/lower-cost-equipment-for-seeding-and.html)); a printable plate fills the gap |
 
 ## What sparked the idea
 
-The starting point was Jethro Tull's horse-drawn seed drill of 1701, which replaced broadcast sowing with a rotating cylinder whose cut grooves carried seed from a hopper down to a funnel and into the furrow, where it was covered ([ASME](https://www.asme.org/topics-resources/content/jethro-tull); [Wikipedia, on Tull and *Horse-Hoeing Husbandry*, 1731](https://en.wikipedia.org/wiki/Jethro_Tull_(agriculturist))). Tull was the first to use cavities cut into a solid cylinder to feed seed, and that idea still sits inside almost every mechanical planter. SeedLine keeps the principle and changes who can make the metering part: the cells are cut into a flat plate that anyone with a desktop printer can produce for their own seed, three centuries after Tull cut his by hand.
+The starting point was Jethro Tull's horse-drawn seed drill of about 1701, which replaced broadcast sowing with a rotating cylinder whose cut grooves carried seed from a hopper down to a funnel and into the furrow, where it was covered ([ASME](https://www.asme.org/topics-resources/content/jethro-tull)). The grooves were cut into the axle beneath the hoppers, so seed dropped at even intervals as the drill moved forward and sowed three regular rows; Tull described the machine in *Horse-Hoeing Husbandry*, first published in 1731 ([Science Museum Group, model of Tull's drill](https://collection.sciencemuseumgroup.org.uk/objects/co39077/1-4-scale-model-of-jethro-tulls-seed-drill); [Science Museum Group, Jethro Tull](https://collection.sciencemuseumgroup.org.uk/people/cp37700/jethro-tull)). SeedLine borrows that principle, seed carried in cells on a part turned by the machine's own travel, and changes who can make the metering part: the cells are cut into a flat plate that anyone with a desktop printer can produce for their own seed, three centuries after Tull cut his by hand.
 
 ## Problem
 
@@ -95,6 +95,12 @@ The priced bill of materials is in [bom/bom.csv](bom/bom.csv). The parametric mo
 ## Documentation
 
 Controlled documents follow the portfolio [documentation standard](.kit/STANDARDS.md). Each carries a document ID (SDL-PRC-001 for the precis), a version and a revision history. Branded PDFs are built with `python .kit/render.py` and attached to GitHub Releases when a document is tagged, for example `SDL-PRC-001/v1.0`.
+
+## Credits
+
+Designed by Amish Chadha. See [CONTRIBUTORS.md](CONTRIBUTORS.md) for roles. To cite this design, use [CITATION.cff](CITATION.cff) (GitHub shows it as "Cite this repository").
+
+AI assistance (Claude) was used to accelerate concept renders, prototype documentation and first-pass sizing calculations. Design direction and all decisions are Amish Chadha's, recorded in this repository's decision records (`docs/decisions/`).
 
 ## Licenses
 
