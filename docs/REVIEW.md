@@ -197,3 +197,46 @@ README.md only; no controlled document changed.
 | What sparked the idea | ASME and Wikipedia | ASME and two Science Museum Group collection pages; Wikipedia removed. Inspiration event unchanged |
 
 Not re-verified this session (links kept, fetch not possible here): Purdue University spacing trial (Nielsen) and University of Minnesota Extension seeder prices. Both are university primary sources. `docs/01-problem.md` still cites Paperpot Co. and 3D Printing Industry for prior-work notes; these are outside the README claims and were not changed.
+
+## Session 2026-09-26: product appearance model and photoreal renders
+
+Amish chose this repo for the first batch of product renders on 2026-09-26.
+
+### What was done
+
+- New `cad/src/product_model.py`: an appearance model for photoreal renders. `product_parts()` returns 56 parts (35 shell, 11 internal, 8 accessory, 2 context) with colour, material class, BOM line, group and exploded-view offset. `TITLE` and `RENDER_VIEWS` define three views: `hero` (front right, about 30 deg), `exploded` (front right, about 28 deg) and `detail` (the metering unit alone, from the side opposite the chain).
+- README hero image now points to `media/render-hero.png`, with a link to `media/render-exploded.png`. The render files are produced separately; they were not created in this session.
+
+### What the appearance model adds
+
+- Powder-coated frame and handle with rounded tube edges, plastic end caps, hex bolts and washers at the cross members, axle drop plates and handle clevis.
+- Spoked drive wheel with filleted lugs; press wheel as a rubber concave tread on a light rim and hub; axle nuts.
+- Toothed 15 T sprockets, a roller chain and the spring idler behind a printed amber chain guard carrying a raised "SeedLine" wordmark and two bolts.
+- Hopper with rounded corners, a rolled rim, clear side windows with bezels and fill-level ticks, maize seed visible inside, and a lid with a teal tab and hinge knuckles.
+- Metering housing with a parting line, a clear side door with four screws, a knurled plate knob with a teal cap, and pressed-steel flange bearings.
+- Printed maize plate (teal) with a raised "MAIZE 4" label and kernels in three of its four cells; strip brush with bristle slots.
+- Opener with a zinc-plated shank, depth pin and ring clip; covering chains built from links.
+- Handle rubber grips with ribs and teal height-adjust collars.
+- Accessories: the row-marker kit (telescoping arm, collar, disc and hub) and three more printed plates from the starter set (common bean 9 cells, sorghum 6 cells, groundnut 6 cells, seed sizes and cell counts from SDL-CAL-001) with raised crop labels.
+- Context: a compact strip of tilled soil with an open furrow at the opener, a firmed press-wheel track and clods.
+
+All main dimensions and interfaces come from `PARAMS` and the helper functions in `cad/src/model.py`; `model.py`, the BOM and the controlled documents are unchanged.
+
+### Differences from model.py, Proposed, awaiting Amish
+
+1. **Hopper windows.** The appearance model cuts a clear window into each side wall of the hopper so the seed level shows. Neither `model.py` nor the BOM has windows. Recommendation: keep one window on the chain side as a seed-level check; it costs one clear insert and a few grams of print.
+2. **Clear housing door.** The side door is shown in clear polycarbonate so the plate and its cells show. `model.py` does not set a material; the BOM prices a printed PETG housing. Recommendation: adopt a clear door. It lets the operator see cell fill and plate identity without opening the housing.
+3. **Housing in two halves.** A parting line at the row centerline shows the housing printed as two halves. Recommendation: accept as the print orientation to explore at TRL 4, not now.
+4. **Drive wheel form.** The wheel is shown as a spoked steel wheel with six lightening holes and a separate hub. `model.py` has a closed disc with a hollow rim, and the BOM allows a solid-rubber or steel wheel. Recommendation: keep the BOM choice open. The render shows one credible option only.
+5. **Handle details.** Rubber grips, collars at the telescoping joints (placed about 60 % of the way up the tubes) and clevis plates at the rear of the rails are shown. `model.py` does not locate the telescoping joint or the handle mounting. Recommendation: accept as illustrative; fix the joint position when the handle fatigue check (TRL 4, on hold) is done.
+6. **Colours and wordmark.** Amber chain guard, teal plate and accents, graphite powder coat and a raised "SeedLine" wordmark on the guard. Recommendation: accept; naming and branding stay Amish's decision.
+7. **Hardware positions.** Bolt, screw and nut positions are illustrative, not a fastener schedule. Recommendation: accept as illustrative.
+8. **Row marker out of the hero.** The row-marker kit is grouped as an accessory, so the hero render shows the base seeder without it (the earlier concept hero showed it deployed at 0.75 m); it appears, at its `model.py` position plus an offset, in the exploded render. Recommendation: accept, since the kit is optional and the base seeder then fills the frame.
+
+### TRL
+
+This is an appearance model only: no tolerances, no fabrication detail. `trl` stays 3 and TRL 4 remains on hold.
+
+### Recommended next step
+
+Render the three views with `.kit/photoreal.py`, then review the hero and the detail view with Amish, including items 1 and 2 above.
