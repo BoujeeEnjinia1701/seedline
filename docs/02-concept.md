@@ -3,9 +3,9 @@ doc_id: SDL-PRC-001
 title: SeedLine design precis
 project: SeedLine
 doc_type: Design precis
-version: "0.4"
+version: "0.5"
 status: Draft
-date: '2026-09-25'
+date: '2026-10-01'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -25,11 +25,15 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Recommendations accepted by Amish (DDR-002)
+- version: "0.5"
+  date: '2026-10-01'
+  author: Amish Chadha
+  change: Constructable design (SDL-DDR-003) and build plan (SDL-BLD-001); key numbers from SDL-CAL-001 v0.3; budget treated as a value-engineering target
 ---
 
 # SeedLine design precis
 
-SeedLine is a single-row push seeder. A 300 mm lugged ground wheel drives a vertical, 3D-printed seed plate through a #35 roller chain, so seeds are placed at a spacing set by distance travelled, not by walking speed. A runner opener cuts the furrow, chains cover the seed and a concave press wheel firms the row. Crop and spacing change by swapping a printed plate (1 to 36 cells) and, if needed, a 12 or 18 T wheel sprocket from an optional ratio kit. An optional telescoping marker arm scratches the line of the next row. The TRL 3 calculations (SDL-CAL-001 v0.2, after the recommendations Amish accepted in SDL-DDR-002) give an in-row spacing range of 22 to 589 mm with the ratio kit, a work rate of 0.142 ha/h for maize on 0.75 m rows at 2.9 km/h (7.1 h/ha against about 56 h/ha by hoe), a push of about 132 N in the design case, a mass of 13.9 kg (14.9 kg with the marker kit) and a parts cost of $197.50 for the base seeder and $237.50 with both kits. Every requirement is now met on paper or cannot be verified at TRL 3 except placement quality (R1, R2) and push effort (R10), which are at risk; mass (R11) and base cost (R17) are met with thin margins.
+SeedLine is a single-row push seeder. A 300 mm lugged ground wheel drives a vertical, 3D-printed seed plate through a #35 roller chain, so seeds are placed at a spacing set by distance travelled, not by walking speed. A runner opener cuts the furrow, chains cover the seed and a concave press wheel firms the row. Crop and spacing change by swapping a printed plate (1 to 36 cells) and, if needed, a 12 or 18 T wheel sprocket from an optional ratio kit. An optional telescoping marker arm scratches the line of the next row. The design is now constructable: every part can be made with a saw, drill, tap, vice and a 3D printer and bolts to the parts next to it (SDL-DDR-003), and the prototype build plan SDL-BLD-001 shows how. The TRL 3 calculations (SDL-CAL-001 v0.3) give an in-row spacing range of 22 to 589 mm with the ratio kit, a work rate of 0.142 ha/h for maize on 0.75 m rows at 2.9 km/h (7.1 h/ha against about 56 h/ha by hoe), a push of about 132 N in the design case and a mass of 14.0 kg (14.8 kg with the marker kit). Value-engineering target: USD 400. Estimated cost of the constructable design: USD 261.50 with both kits (USD 138.50 under the target); the base seeder is USD 219.50, USD 19.50 over its about USD 200 target. Every requirement is met on paper or cannot be verified at TRL 3 except placement quality (R1, R2) and push effort (R10), which are at risk; mass (R11) is met with a thin margin.
 
 ![Hero render](../media/hero.png)
 
@@ -95,11 +99,11 @@ The TRL 2 estimates in version 0.2 are replaced by the calculations in SDL-CAL-0
 | Spacing CV, maize | 31 % of all spacings, 9 % of single spacings (assumed miss and double rates) | R2 at risk |
 | Plates | 40 to 54 g PETG, 1.5 to 2.0 h each; raw seed 3.5 to 15 mm, smaller seed pelleted | R5 met, R6 met with no margin |
 | Push force (horizontal part) | 80 N good, 132 N design case along the handle; 177 N at best on a heavy, loose seedbed | R10 at risk |
-| Mass | 13.9 kg base, 14.9 kg with the marker kit | R11 met, 0.06 kg margin |
+| Mass | 14.0 kg base, 14.8 kg with the marker kit (constructable design, weighed part by part) | R11 met, 0.19 kg margin |
 | Work rate | 0.142 ha/h (7.1 h/ha) on 0.75 m rows at 2.9 km/h | R9 met |
-| Hopper | 2.40 L, 1,438 m of maize row per fill | R12 met |
+| Hopper | 2.42 L, 1,451 m of maize row per fill | R12 met |
 | Depth | ±10 mm needs wheel-path bumps within about ±15 mm under the drive wheel | R8 met on paper, restated for ploughed field-crop seedbeds |
-| Parts cost | $197.50 base; $237.50 with the marker kit ($24) and the ratio kit ($16) | R16 met, R17 met with 1.2 % margin |
+| Parts cost | USD 219.50 base; USD 261.50 with the marker kit (USD 24) and the ratio kit (USD 18) | R16 USD 138.50 under its value-engineering target; R17 USD 19.50 over |
 
 A purely horizontal push at the grip pitches the seeder forward and lifts the press wheel, so the operator pushes down along the handle; on a heavy, loose seedbed a push along the full 50° handle angle sinks the press wheel, and a flatter push of about 36° works best. The base seeder costs a little more than an Earthway 1001-B with six plates (about $187) and well under a Jang JP-1 without rollers (about $499) ([UMN Extension](https://blog-fruit-vegetable-ipm.extension.umn.edu/2024/11/lower-cost-equipment-for-seeding-and.html)).
 

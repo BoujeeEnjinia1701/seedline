@@ -2,13 +2,13 @@
 
 ![TRL 3](https://img.shields.io/badge/TRL-3%20of%209-0F766E) ![Hardware: CERN-OHL-S-2.0](https://img.shields.io/badge/hardware-CERN--OHL--S--2.0-111827) ![Software: MIT](https://img.shields.io/badge/software-MIT-111827) [![DOI](https://zenodo.org/badge/1386352405.svg)](https://zenodo.org/badge/latestdoi/1386352405) [![REUSE compliant](https://github.com/BoujeeEnjinia1701/seedline/actions/workflows/reuse.yml/badge.svg)](https://github.com/BoujeeEnjinia1701/seedline/actions/workflows/reuse.yml) [![Archived in Software Heritage](https://archive.softwareheritage.org/badge/origin/https://github.com/BoujeeEnjinia1701/seedline/)](https://archive.softwareheritage.org/browse/origin/?origin_url=https://github.com/BoujeeEnjinia1701/seedline)
 
-**Area:** Agriculture · **TRL:** 3 of 9 (proof of concept on paper) · **Prototype budget:** about $400 USD · **Difficulty:** 2 of 5
+**Area:** Agriculture · **TRL:** 3 of 9 (proof of concept on paper) · **Value-engineering target:** about $400 USD · **Difficulty:** 2 of 5
 
 Push seeder whose metering plates are 3D printed per crop and driven by the ground wheel, with an optional row-spacing kit.
 
 ![SeedLine: push seeder with 3D-printed seed plates, product render](media/render-hero.png)
 
-[Exploded render](media/render-exploded.png) · [Detail render](media/render-detail.png) · [Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [General arrangement SDL-DWG-001 (PDF)](cad/drawings/SDL-DWG-001.pdf) · [Calculations SDL-CAL-001](docs/04-calcs/01-sizing.md) · [Review note](docs/REVIEW.md)
+[Exploded render](media/render-exploded.png) · [Detail render](media/render-detail.png) · [Interactive 3D model](media/viewer.html) · [Concept blueprint (PDF)](media/concept-blueprint.pdf) · [General arrangement SDL-DWG-001 (PDF)](cad/drawings/SDL-DWG-001.pdf) · [Calculations SDL-CAL-001](docs/04-calcs/01-sizing.md) · [Prototype build plan](docs/05-build-plan.md) · [Design decisions](docs/06-design-decisions.md) · [Review note](docs/REVIEW.md)
 
 ## Concept rationale
 
@@ -57,22 +57,28 @@ Hand-seeding is slow and uneven, and precision planters are too costly for small
 
 A single-row push seeder for smallholder field crops first, with vegetable plates to follow. A 300 mm lugged ground wheel drives an upright, 3D-printed seed plate through a #35 roller chain, so seed spacing follows distance travelled rather than walking speed. A runner opener cuts the furrow, drag chains cover the seed and a press wheel firms it. Swapping the printed plate (1 to 36 cells, including skip-cell plates for long spacings) sets in-row spacing; the base seeder runs a 15 T wheel sprocket (26 to 471 mm), and an optional ratio kit with 12 and 18 T sprockets extends the range to 22 to 589 mm. Seed under 2 mm is sown pelleted. The operator walks at about 2.9 km/h so the plate cells fill. A marker arm sets the next row at 200 to 900 mm. The frame bolts together from 25 mm square tube, with a 22 mm tube handle.
 
-TRL 3 calculations (SDL-CAL-001 v0.2, after the recommendations accepted in SDL-DDR-002): 0.142 ha/h for maize on 0.75 m rows, about 132 N push in the design case, 13.9 kg (14.9 kg with the marker kit) and $197.50 in parts for the base seeder ($237.50 with the marker and ratio kits). Mass and base cost now meet their targets with thin margins; placement quality and push effort on heavy seedbeds remain at risk.
+TRL 3 calculations (SDL-CAL-001 v0.3, on the constructable design of SDL-DDR-003): 0.142 ha/h for maize on 0.75 m rows, about 132 N push in the design case, 14.0 kg (14.8 kg with the marker kit) and an estimated USD 219.50 in parts for the base seeder (USD 261.50 with the marker and ratio kits, USD 138.50 under the USD 400 value-engineering target). Mass meets its target with a thin margin; placement quality and push effort on heavy seedbeds remain at risk.
 
 Full design precis: [docs/02-concept.md](docs/02-concept.md)
 
 ## Key components
 
 - 300 mm lugged ground drive wheel
-- #35 chain drive with a 15 T wheel sprocket, a spring idler and a chain guard; 12 and 18 T sprockets in an optional ratio kit
+- #35 chain drive with a 15 T wheel sprocket, a spring tensioner and a chain guard; 12 and 18 T sprockets in an optional ratio kit
 - 2.4 L seed hopper and metering housing
 - 3D-printed PETG seed plates, one per crop and spacing, with a singulator brush
-- Runner furrow opener with depth bracket and covering chains
+- Furrow opener (shank and boot) with six depth settings, and covering chains
 - 200 mm concave press wheel
 - Bolted steel frame and telescoping 22 x 1.2 mm tube handle
 - Row marker arm (optional row-spacing kit)
 
 The priced bill of materials is in [bom/bom.csv](bom/bom.csv). The parametric model is [cad/src/model.py](cad/src/model.py), with STEP and STL exports in `cad/step/` and `cad/stl/`.
+
+## Building the prototype
+
+The prototype build plan ([docs/05-build-plan.md](docs/05-build-plan.md), SDL-BLD-001) takes a capable maker through the first proof-of-concept seeder component by component, with a making sketch for each made part, close-ups of the joints and a picture for every assembly step. Everything is cut, drilled, tapped, bent or printed and then bolted together; nothing is welded. Making the concept buildable changed some details (an opener cross member behind the drive wheel, a chain-side shaft support, a hopper collar and uprights, a spring tensioner inside a fixed guard), recorded in SDL-DDR-003 and open for review. It is a plan, not yet built: building and testing to it is TRL 4 work.
+
+![SeedLine prototype: every component pulled apart and numbered in build order](docs/05-build-plan/overview.png)
 
 ## Safety
 

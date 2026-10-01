@@ -246,3 +246,60 @@ Render the three views with `.kit/photoreal.py`, then review the hero and the de
 - Kit 1.5.0 synced: STANDARDS v1.5 (sections 12 to 15: product renders, storefront images and image quality, public release, authorship and signing), `.kit/cards.py`, `.kit/image_qc.py`, `.kit/release_gate.py`, issue templates, and the `/render-product` and `/release` commands. `CLAUDE.md` now matches `.kit/CLAUDE.md`.
 - Every `media/render-*.png` recaptioned from its original render with the new layout: the title, concept label and repository sit in a band above the render and the view note in a band below it, each line wrapped to the image width, so no text overlaps other text or the render or runs off the image. `media/card.png` and `media/social-preview.png` regenerated with the same rules.
 - `python .kit/image_qc.py` and `python .kit/release_gate.py` pass. trl stays 3.
+
+## Session 2026-10-01: constructable design and prototype build plan (kit 1.7.0)
+
+Under Amish's 2026-09-30 instruction ("If you are realising that the design cannot be built as per concept - fix the design assumptions to match and be physically feasible as you draw the illustrations") and the approved build plan format.
+
+### What was done
+
+- Kit 1.7.0 installed (`.kit/`, `.claude/commands/`); `CLAUDE.md` matches `.kit/CLAUDE.md`.
+- Constructability review of the TRL 3 model with build123d: the concept's parts ran through each other (front cross member through the drive wheel, opener shank and clamp through the housing and seed plate, chain bracket through the housing, handle tubes inside the rails) and many had no fixing.
+- `cad/src/model.py` rebuilt as separate components with 78 constructability checks (`python cad/src/model.py --check`); all pass. STEP and STL regenerated.
+- New decision record `docs/decisions/0003-design-for-construction.md` (SDL-DDR-003, Draft, open for Amish's review).
+- `bom/bom.csv` respecified and repriced; `docs/04-calcs/sizing.py` now weighs the steel and printed parts from the model; SDL-CAL-001 v0.3, SDL-REQ-001 v0.5, SDL-PRC-001 v0.5.
+- General arrangement SDL-DWG-001 Rev P3; making sketches SDL-DWG-101 to 124; build plan pictures in `docs/05-build-plan/` (overview, 12 joints, 17 steps) from `cad/src/build_plan_media.py`.
+- New `docs/05-build-plan.md` (SDL-BLD-001) and `docs/06-design-decisions.md` (SDL-DEC-001); `design_state: constructable` and both in `trl_evidence`; README links and "Building the prototype" section.
+- Concept media regenerated from the constructable model.
+
+### Design changes made for construction (SDL-DDR-003)
+
+1. Front cross member (ran through the drive wheel) removed; a 40 x 20 mm opener cross member sits behind the wheel, 19 mm clear of the lugs.
+2. Drive wheel fixed to its axle by a cross bolt; axle turns in two flange bearings inside the front drop plates, with spacers.
+3. Opener shank moved ahead of the housing onto the opener cross member, held by two M6 bolts into eight tapped holes (six depth settings); boot of two 3 mm plates; leading edge 181 mm behind the axle (182 mm before).
+4. Covering chain bracket moved to the rear face of the middle cross member.
+5. Plate shaft held from the chain side only, in two flange bearings on a 4 mm bearing plate; housing hung on two lugs sharing the bearing plate's bolts; plate hub, shaft collar, knob into the shaft end and a clear door for tool-free plate changes.
+6. Housing collar with a funnel to the slot; hopper with a straight neck, raised 10 mm, carried by four 20 x 3 mm uprights with M5 inserts (hopper now 2.42 L).
+7. Brush through a slot in the housing's rear wall, holder outside.
+8. Handle tubes flattened and bolted to the outside of the rear drop plates and to the grip; sleeves placed; brace across the front of the lower tubes.
+9. Rear cross member (4 mm over the press tyre) removed; the clamped press axle ties the rails.
+10. Six flat corner plates replaced by four angle clips.
+11. Bought spring chain tensioner on an M8 pivot through the chain-side rail; guard reshaped to enclose its travel and fixed by two spacers and M5 screws; chain plane moved out 12 mm; hubbed sprockets.
+12. Wheel lugs bent from strip, two M5 screws each.
+13. Marker on a bent U-bracket at the rail front (rails 20 mm longer); lighter tubes and a 2 mm disc.
+14. Drop tube slides on a 60 mm housing spigot and rests on the boot, so it follows the depth setting.
+15. Drop plates 4 mm (were 6 mm) and lid 2 mm, to hold the mass.
+
+### Key results (SDL-CAL-001 v0.3)
+
+- Mass 14.0 kg base, 14.8 kg with the marker kit: R11 met with 0.19 kg of margin.
+- Push 132 N along the handle in the design case (unchanged), 178 N at best on a heavy, loose seedbed: R10 still at risk.
+- Depth, spacing, slip and work rate unchanged; hopper 2.42 L.
+- Cost: value-engineering target USD 400; estimated cost of the constructable design USD 261.50 with both kits (USD 138.50 under). Base seeder USD 219.50 against its about USD 200 target (R17): USD 19.50 over.
+- Requirements: 11 met, 3 at risk (R1, R2, R10), 2 not verifiable at TRL 3 (R7, R15), R16 under and R17 over their value-engineering targets. None is not met.
+
+### Proposed, awaiting Amish
+
+All open items are in the design decisions register (`docs/06-design-decisions.md`): acceptance of SDL-DDR-003; housing slot against plate thickness; whole or split housing print; base cost over its target; clear door and hopper window; drive wheel form; appearance-model items; co-design partner; plate generator.
+
+### Stale media
+
+The photoreal renders (`media/render-hero.png`, `media/render-exploded.png`, `media/render-detail.png`), `media/card.png` and `media/social-preview.png` still show the concept frame, posts, opener, idler and guard. They are made on Amish's Mac and were not regenerated; `cad/src/product_model.py` needs the same changes first.
+
+### Safety
+
+The chain guard now covers the tensioner's full travel and is fixed; hazards are unchanged otherwise (chain nip points, sharp opener and lugs, treated seed, marker arm, manual handling). The build plan has six safety stops.
+
+### Recommended next step
+
+Amish reviews SDL-DDR-003 and the register. TRL 4 (building and testing to SDL-BLD-001) stays on hold until he says otherwise.

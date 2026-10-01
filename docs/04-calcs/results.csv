@@ -8,12 +8,12 @@ R6,Printable plates,"1.5 h, 40 g PETG (maize); up to 2.0 h for the 10 mm groundn
 R7,Crop change,Side door and hand knob in the model; no tools,"2 min or less, no tools",not verifiable at TRL 3
 R8,Sowing depth,10 to 60 mm in 10 mm steps; +/-10 mm for wheel-path bumps of +/-15 mm or less under the drive wheel (ploughed field-crop seedbed),"10 to 60 mm; +/-10 mm on a ploughed field-crop seedbed (restated, DDR-002)",met
 R9,Work rate,0.142 ha/h (7.1 h/ha),0.1 ha/h or more,met
-R10,"Push effort, design case","132 N along the handle, 108 N at the best angle (30 deg); heavy loose seedbed 177 N at best, no balance along the handle",150 N or less,at risk
-R11,Mass and handling,"13.9 kg base; 14.9 kg with the marker kit; grip 850 to 1,050 mm",15 kg or less,met
-R12,Hopper,"2.40 L; 1,438 m of maize row per fill",2 L or more,met
+R10,"Push effort, design case","132 N along the handle, 109 N at the best angle (31 deg); heavy loose seedbed 178 N at best, no balance along the handle",150 N or less,at risk
+R11,Mass and handling,"14.0 kg base; 14.8 kg with the marker kit; grip 850 to 1,050 mm",15 kg or less,met
+R12,Hopper,"2.42 L; 1,451 m of maize row per fill",2 L or more,met
 R13,Row spacing kit,"Marker reach 200 to 900 mm in the model, set at 750 mm","200 to 900 mm, +/-25 mm",met
-R14,Guarding,Band guard with an outboard face plate over both sprockets and the idler,Nip points covered,met
+R14,Guarding,"Printed shroud with an outboard face plate over both sprockets, the chain and the tensioner's full travel, on two spacers",Nip points covered,met
 R15,Durability,"Stresses low (section 7); wear life of plates, brush and chain unknown",5 seasons; plates 1 season,not verifiable at TRL 3
-R16,Prototype cost,$238,$400 or less,met
-R17,"Replication cost, base seeder",$198,about $200 or less,met
-R18,Local build,"Bolted 25 mm square tube, 6 mm plate, #35 chain; drill and bolts",Common sections and parts,met
+R16,Prototype cost,"$261.50 estimated, value-engineering target $400",$400 value-engineering target,under target by $138.50
+R17,"Replication cost, base seeder",$219.50 estimated,about $200 (value-engineering target),over target by $19.50
+R18,Local build,"Bolted 25 mm square tube, 4 mm plate, angle and flat bar, #35 chain; saw, drill, tap and bolts",Common sections and parts,met

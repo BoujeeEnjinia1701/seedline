@@ -185,50 +185,50 @@ req("R6", "Printable plates", f"{mz[8]:.1f} h, {mz[7]:.0f} g PETG (maize); up to
 # 5. Mass, center of mass and structure (R11)
 # ---------------------------------------------------------------------------
 h("5 Mass")
+# SDL-CAL-001 v0.3: steel and printed parts are weighed from the constructable model (SDL-DDR-003);
+# bought parts keep catalogue-class estimates.
 (hbx, hbz), (gx, gz) = model.handle_points()
-spread = 4.2
-tube25x15 = (25 ** 2 - 22 ** 2) * STEEL * 1000         # kg/m, 25 x 25 x 1.5 square tube
-tube20x15 = (20 ** 2 - 17 ** 2) * STEEL * 1000
 HOD, HT = P["HANDLE_OD"], P["HANDLE_T"]
-rnd_h = math.pi / 4 * (HOD ** 2 - (HOD - 2 * HT) ** 2) * STEEL * 1000   # handle round tube (SDL-DDR-002)
-rnd25x15 = math.pi / 4 * (25 ** 2 - 22 ** 2) * STEEL * 1000              # TRL 3 v0.1 handle, for comparison
-rnd18x15 = math.pi / 4 * (18 ** 2 - 15 ** 2) * STEEL * 1000
+rnd = lambda od, t: math.pi / 4 * (od ** 2 - (od - 2 * t) ** 2) * STEEL * 1000  # noqa: E731  kg/m of round tube
+rnd_h = rnd(HOD, HT)                     # handle round tube (SDL-DDR-002)
+rnd25x15 = rnd(25, 1.5)                  # TRL 3 v0.1 handle, for comparison
+rnd18x15 = rnd(18, 1.5)
 ry, rz, rs = P["RAIL_Y"], P["RAIL_Z"], P["RAIL_S"]
-rail_len = 2 * ((P["X_WHEEL"] + 60) - (P["X_PRESS"] - 40)) / 1000
-cross_len = 3 * (2 * ry - rs) / 1000
-drop_f = 2 * 40 * (rz + rs / 2 - (P["WHEEL_D"] / 2 - 20)) * 6 * STEEL
-drop_r = 2 * 40 * (rz + rs / 2 - (P["PRESS_D"] / 2 - 20)) * 6 * STEEL
-posts = 4 * (392 - (rz + rs / 2)) / 1000 * tube20x15
-brackets = 6 * 2 * 44 * 25 * 3 * STEEL
-frame = rail_len * tube25x15 + cross_len * tube25x15 + drop_f + drop_r + posts + brackets
-h_len = math.dist((hbx, ry, hbz), (gx, ry * spread, gz)) / 1000
-grip_len = 2 * (ry * spread + 45) / 1000
-brace_len = 2 * ry * (1 + 0.45 * (spread - 1)) / 1000
-handle = (2 * h_len + grip_len) * rnd_h + brace_len * rnd18x15 + 2 * 0.25 * 0.98 + 0.10
-handle_old = (2 * h_len + grip_len) * rnd25x15 + brace_len * rnd18x15 + 2 * 0.25 * 0.98 + 0.10
-axle = lambda length: math.pi / 4 * P["AXLE_D"] ** 2 * length * STEEL  # noqa: E731
-_parts = model.build_parts()
-hopper_kg = _parts[4].volume / 1000 * RHO_PETG / 1000
+COMP = model.build_components()
+vol = lambda *ks: sum(COMP[k].shape.volume for k in ks)  # noqa: E731  mm^3
+steel = lambda *ks: vol(*ks) * STEEL  # noqa: E731
+petg = lambda *ks: vol(*ks) * RHO_PETG / 1e6  # noqa: E731  kg, printed solid
+frame_keys = ("rail_l", "rail_r", "cross_mid", "opener_bar", "clips", "drop_front", "drop_rear", "bplate", "uprights")
+frame = steel(*frame_keys)
+rail_len = 2 * (P["X_FRONT"] - P["X_REAR"]) / 1000
+HG = model.handle_geometry()
+h_len = HG["side"] / 1000
+grip_len, brace_len = HG["grip"] / 1000, HG["brace"] / 1000
+SLEEVE = 2 * 0.25 * rnd(25, 1.2)          # two 250 mm sleeves of 25 x 1.2 tube
+handle = (2 * h_len + grip_len) * rnd_h + brace_len * rnd18x15 + SLEEVE + 0.10   # 0.10 kg rubber grips
+handle_old = (2 * h_len + grip_len) * rnd25x15 + brace_len * rnd18x15 + SLEEVE + 0.10
+hopper_kg = petg("hopper", "lid")
 plate_kg = mz[7] / 1000
-shank = 20 * 12 * (rz + 60 + P["DEPTH"] - 40) * STEEL
 xm, xp = P["X_METER"], P["X_PRESS"]
 MASS = [  # (item, group, kg, x of center in mm, z of center in mm)
-    ("Drive wheel, 300 mm, with bearings", "wheels", 2.20, 0, 150),
-    ("Drive axle, 16 mm", "wheels", axle(P["Y_CHAIN"] * -1 + ry + 17), 0, 150),
-    ("Press wheel, 200 mm, with bearings", "wheels", 1.20, xp, 100),
-    ("Press axle, 16 mm", "wheels", axle(2 * ry + 50), xp, 100),
-    ("Chain, sprockets fitted, idler", "drive and metering", 0.24 + 0.25 + 0.15, -135, 200),
-    ("Chain guard, PETG", "drive and metering", 0.15, -135, 200),
-    ("Hopper, PETG (model volume)", "drive and metering", hopper_kg, xm, 420),
-    ("Housing, shaft, bearings, knob", "drive and metering", 0.30 + axle(1) * 0 + math.pi / 4 * 144 * 178 * STEEL + 0.30 + 0.03, xm, 245),
+    ("Drive wheel body, steel, plain bore (bought, estimate)", "wheels", 1.70, 0, 150),
+    ("Wheel lugs (18), model", "wheels", steel("lugs"), 0, 150),
+    ("Drive axle, flange bearings (0.12 kg each), spacers", "wheels", steel("axle", "axle_spacers") + 0.24, 0, 150),
+    ("Press wheel, 200 mm, with bearings (bought)", "wheels", 1.20, xp, 100),
+    ("Press axle bolt with nuts (0.30 kg), spacers", "wheels", 0.30 + steel("press_spacers"), xp, 100),
+    ("Sprockets with hubs (0.15 kg each), chain (0.25), tensioner (0.20)", "drive and metering", 0.30 + 0.25 + 0.20, -135, 200),
+    ("Chain guard, PETG (model), spacers", "drive and metering", petg("guard") + 0.02, -135, 200),
+    ("Hopper and lid, PETG (model)", "drive and metering", hopper_kg, xm, 440),
+    ("Housing, PETG (model); clear door; knob", "drive and metering", petg("housing") + vol("door") * 1.2e-6 + 0.01, xm, 260),
+    ("Shaft (model), two flange bearings (0.30), collar", "drive and metering", steel("shaft") + 0.30 + 0.02, xm, 245),
     ("Seed plate, brush, drop tube", "drive and metering", plate_kg + 0.05 + 0.03, xm, 230),
-    ("Opener shoe, shank, clamp", "opener and covering", 0.35 + shank + 0.30, -215, 100),
-    ("Covering chains and bracket", "opener and covering", 0.40, -380, 80),
-    ("Frame: rails, cross members, drops, posts, brackets", "frame and handle", frame, -280, 215),
-    ("Handle, grip, brace, sleeves", "frame and handle", handle, (hbx + gx) / 2, (hbz + gz) / 2),
-    ("Fasteners, pins, paint", "hardware", 0.45, -300, 215),
+    ("Opener shank and boot plates (model)", "opener and covering", steel("shank", "boot") + 0.01, -215, 0),
+    ("Covering chains (0.30) and bracket (model)", "opener and covering", 0.30 + steel("chain_bracket"), -440, 100),
+    ("Frame: rails, cross members, clips, drop plates, bearing plate, uprights (model)", "frame and handle", frame, -280, 240),
+    ("Handle: tubes, grip, brace, sleeves, rubber grips", "frame and handle", handle, (hbx + gx) / 2, (hbz + gz) / 2),
+    ("Fasteners: about 50 M6 and M8 sets, 36 M5 lug screws, inserts; paint", "hardware", 0.58, -300, 215),
 ]
-MARKER = ("Row marker kit", "marker", 1.0, 47, 150)
+MARKER = ("Row marker kit (model)", "marker", steel("marker_mount", "marker_arm", "marker_disc", "marker_bolts"), 47, 150)
 base = sum(m[2] for m in MASS)
 xcg = sum(m[2] * m[3] for m in MASS) / base
 zcg = sum(m[2] * m[4] for m in MASS) / base
@@ -238,7 +238,7 @@ for m in MASS + [MARKER]:
     groups[m[1]] = groups.get(m[1], 0) + m[2]
 for k, v in groups.items():
     print(f"  {k:22s} {v:5.2f} kg")
-print(f"frame {frame:.2f} kg ({rail_len + cross_len:.2f} m of 25 x 25 x 1.5 tube); handle {handle:.2f} kg "
+print(f"frame {frame:.2f} kg ({rail_len:.2f} m of rail); handle {handle:.2f} kg "
       f"({h_len * 1000:.0f} mm per side tube, {HOD:.0f} x {HT} round); 25 x 1.5 handle would be {handle_old:.2f} kg, "
       f"saving {handle_old - handle:.2f} kg")
 print(f"base seeder {base:.2f} kg, with marker kit {full:.2f} kg; center of mass x = {xcg:.0f} mm, z = {zcg:.0f} mm")
@@ -388,7 +388,7 @@ req("R12", "Hopper", f"{hop_l:.2f} L; {row_fill:,.0f} m of maize row per fill", 
 # 9. Depth control (R8)
 # ---------------------------------------------------------------------------
 h("9 Depth")
-x_tip = xm + 88
+x_tip = model.opener_front_x()      # front face of the opener shank (SDL-DDR-003)
 kf = (x_tip - xp) / (P["X_WHEEL"] - xp)
 print(f"opener point x = {x_tip:.0f} mm: depth changes by {kf:.2f} of a front wheel rise and {1 - kf:.2f} of a press wheel rise")
 print(f"+/-10 mm depth allows +/-{10 / kf:.0f} mm under the front wheel or +/-{10 / (1 - kf):.0f} mm under the press wheel; "
@@ -438,29 +438,33 @@ tot = sum(float(r["qty"]) * float(r["unit_cost_usd"]) for r in rows)
 marker = sum(float(r["qty"]) * float(r["unit_cost_usd"]) for r in rows if r["item"].startswith("14 "))
 ratio_kit = sum(float(r["qty"]) * float(r["unit_cost_usd"]) for r in rows if r["item"].startswith("16 "))
 base_usd = tot - marker - ratio_kit
-budget = 400
+budget = 400     # budget_usd: a value-engineering target, not a limit (STANDARDS section 18)
 print(f"BOM {len(rows)} lines, all priced: base ${base_usd:.2f}, marker kit ${marker:.2f}, ratio kit ${ratio_kit:.2f}, "
-      f"total ${tot:.2f} against budget_usd ${budget}")
-print(f"base cost {100 * (base_usd / 200 - 1):+.1f} % against the about $200 target of R17")
-req("R16", "Prototype cost", f"${tot:.0f}", "$400 or less", "met" if tot <= budget else "not met")
-req("R17", "Replication cost, base seeder", f"${base_usd:.0f}", "about $200 or less",
-    "met" if base_usd <= 200 else "not met")
+      f"total ${tot:.2f}; value-engineering target ${budget} (${budget - tot:.2f} under)")
+print(f"base cost {100 * (base_usd / 200 - 1):+.1f} % against the about $200 replication target of R17 "
+      f"(${base_usd - 200:+.2f})")
+ve = lambda v, t: f"under target by ${t - v:.2f}" if v <= t else f"over target by ${v - t:.2f}"  # noqa: E731
+req("R16", "Prototype cost", f"${tot:.2f} estimated, value-engineering target ${budget}", "$400 value-engineering target", ve(tot, budget))
+req("R17", "Replication cost, base seeder", f"${base_usd:.2f} estimated", "about $200 (value-engineering target)", ve(base_usd, 200))
 
 # ---------------------------------------------------------------------------
 # Design-review requirements (no number to calculate at TRL 3)
 # ---------------------------------------------------------------------------
 req("R7", "Crop change", "Side door and hand knob in the model; no tools", "2 min or less, no tools", "not verifiable at TRL 3")
 req("R13", "Row spacing kit", f"Marker reach 200 to 900 mm in the model, set at {P['ROW_SPACING']:.0f} mm", "200 to 900 mm, +/-25 mm", "met")
-req("R14", "Guarding", "Band guard with an outboard face plate over both sprockets and the idler", "Nip points covered", "met")
+req("R14", "Guarding", "Printed shroud with an outboard face plate over both sprockets, the chain and the tensioner's full travel, on two spacers", "Nip points covered", "met")
 req("R15", "Durability", "Stresses low (section 7); wear life of plates, brush and chain unknown", "5 seasons; plates 1 season", "not verifiable at TRL 3")
-req("R18", "Local build", "Bolted 25 mm square tube, 6 mm plate, #35 chain; drill and bolts", "Common sections and parts", "met")
+req("R18", "Local build", "Bolted 25 mm square tube, 4 mm plate, angle and flat bar, #35 chain; saw, drill, tap and bolts", "Common sections and parts", "met")
 
 h("Requirements")
 order = {"not met": 0, "at risk": 1, "not verifiable at TRL 3": 2, "met": 3}
+for r in OUT:
+    if r[4].startswith(("under target", "over target")):
+        order.setdefault(r[4].split(" by")[0], 4)
 OUT.sort(key=lambda r: int(r[0][1:]))
 for r in OUT:
     print(f"  {r[0]:4s} {r[4]:24s} {r[2]}")
-counts = {k: sum(1 for r in OUT if r[4] == k) for k in order}
+counts = {k: sum(1 for r in OUT if r[4].split(" by")[0] == k) for k in order}
 print("counts:", ", ".join(f"{k} {v}" for k, v in counts.items()), f"(total {len(OUT)})")
 with (Path(__file__).parent / "results.csv").open("w", newline="") as f:
     w = csv.writer(f)

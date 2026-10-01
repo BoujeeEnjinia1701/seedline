@@ -1,7 +1,7 @@
 """SeedLine concept media (TRL 3), generated from the parametric model in cad/src/model.py.
 
 Run from the repo root:  python cad/src/concept_media.py
-Massing-plus model; CONCEPT, NOT FOR FABRICATION.
+Constructable model (SDL-DDR-003); CONCEPT, NOT FOR FABRICATION.
 
 Coordinates in mm. X is the direction of travel (+X forward), Y is across the row,
 Z is up, ground at Z = 0. The chain drive sits on the -Y side so it shows in the hero view.
@@ -30,13 +30,13 @@ parts = [Part(NAMES[k], _p[k], _style[k][0], k, _style[k][1]) for k in sorted(_p
 if __name__ == "__main__":
     render_all(
         parts, project="SeedLine", title="Push seeder concept", dwg_no="SDL-DWG-010",
-        date="2026-09-25",
+        date="2026-10-01",
         key_figures=["Single row; 300 mm ground wheel drives the plate by #35 chain",
                      "Spacing = 942 mm / (cells x ratio); 22 to 589 mm nominal",
                      "Printed plates: 1 to 36 cells; ratio 1.0 (0.8, 1.2 with ratio kit)",
                      "0.142 ha/h at 0.75 m rows, 2.9 km/h (SDL-CAL-001)",
                      "Push 132 N along the handle, design case (R10 at risk)",
-                     "13.9 kg base, 14.9 kg with marker; parts $198 base, $238 with kits"],
+                     "14.0 kg base, 14.8 kg with marker; parts $220 base, $262 with kits"],
         cut=False,
         flow={"title": "seeds per 100 m of row, maize plate at 250 mm; doubles add seeds (all values are estimates, SDL-CAL-001)",
               "unit": "seeds",
