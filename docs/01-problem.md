@@ -3,9 +3,9 @@ doc_id: SDL-PRB-001
 title: SeedLine problem statement
 project: SeedLine
 doc_type: Problem statement
-version: "0.3"
+version: "0.4"
 status: Draft
-date: '2026-09-25'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -21,6 +21,10 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Record the first user group and row-spacing kit decisions (SDL-DDR-001); update open questions
+- version: "0.4"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "Partner rule and first candidate to approach (SDL-DEC-001, 2026-10-02)"
 ---
 
 # SeedLine problem statement
@@ -85,7 +89,7 @@ SeedLine is a single-row push seeder whose ground wheel drives a vertical meteri
 
 ## Open questions
 
-- Which partner and region for co-design and field trials? Proposed, awaiting Amish; under the portfolio rule of 2026-09-25, community designs pick co-design partners per area later.
+- Which partner and region for co-design and field trials? Decided by Amish, 2026-10-02 (SDL-DEC-001): a partner already working with smallholder maize and bean farmers on 0.75 m rows on ploughed land, ideally with field trial capacity; first candidate to approach, CIMMYT's small-scale mechanization work in Eastern and Southern Africa. Nothing is agreed yet.
 - Who prints plates in practice: the farmer, a cooperative, an agro-dealer or a central maker who mails them?
 - How common is treated seed among target users, and what handling rules apply?
 - Do market gardeners want two or three metering units ganged on one frame (the later bed-seeding variant)?

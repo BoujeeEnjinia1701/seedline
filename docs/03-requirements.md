@@ -3,9 +3,9 @@ doc_id: SDL-REQ-001
 title: SeedLine requirements
 project: SeedLine
 doc_type: Requirements
-version: "0.5"
+version: "0.6"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -29,6 +29,10 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: Status from SDL-CAL-001 v0.3 on the constructable design (SDL-DDR-003); R16 and R17 reported against value-engineering targets
+- version: "0.6"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "R17: USD 219.50 accepted for the prototype (SDL-DDR-003 A3, 2026-10-02); no status changed"
 ---
 
 # SeedLine requirements
@@ -59,7 +63,7 @@ Status is from SDL-CAL-001 v0.3: met, at risk, not met, or not verifiable at TRL
 | R14 | Guarding | Chain and sprocket nip points covered on the side facing the operator's hands and feet; no exposed sharp edges above the opener | Design review | Met on paper: printed shroud with an outboard face plate over both sprockets, the chain and the tensioner's full travel |
 | R15 | Durability | Frame, drive and opener last 5 seasons of about 2 ha each with only chain, brush and plate replacement; plates last 1 season or more | Stress checks (CAL section 7); wear test later | Not verifiable at TRL 3: stresses are low, wear life unknown |
 | R16 | Prototype cost | Prototype parts against the USD 400 value-engineering target (`budget_usd`) | Priced BOM (`bom/bom.csv`) | USD 261.50 estimated, USD 138.50 under the target |
-| R17 | Replication cost | Base seeder (all items except the row marker kit and the optional ratio kit) about USD 200 in parts, a value-engineering target | Priced BOM | USD 219.50 estimated, USD 19.50 over the target |
+| R17 | Replication cost | Base seeder (all items except the row marker kit and the optional ratio kit) about USD 200 in parts, a value-engineering target | Priced BOM | USD 219.50 estimated, USD 19.50 over the target; accepted for the prototype on 2026-10-02 (SDL-DDR-003 A3), with the bronze bushing and go-kart kit savings to try at TRL 4 |
 | R18 | Local build | Frame, handle and opener made from common steel sections with a drill and bolts (default, SDL-DDR-001 item 8) or a welder; drive from standard #35 roller chain or bicycle parts | Design review | Met on paper |
 
 ## Requirements not met or at risk
@@ -70,7 +74,7 @@ No requirement is not met on paper after SDL-DDR-003. Three are at risk, one is 
 - **R2 at risk:** the all-spacings CV depends on miss and double rates that need a bench test.
 - **R10 at risk:** the design case is inside 150 N with a 12 % margin on assumed soil values; a heavy, loose seedbed needs about 178 N.
 - **R11 thin margin:** 14.8 kg with the marker kit against 15 kg (0.19 kg margin), with the lighter 22 x 1.2 mm handle.
-- **R17 over its value-engineering target:** base parts USD 219.50 against about USD 200, USD 19.50 over. The bearings, hubbed sprockets, tensioner, clips and fixings that make the design buildable added USD 22.00 (SDL-CAL-001 section 11); savings worth trying are in the design decisions register (SDL-DEC-001).
+- **R17 over its value-engineering target:** base parts USD 219.50 against about USD 200, USD 19.50 over. The bearings, hubbed sprockets, tensioner, clips and fixings that make the design buildable added USD 22.00 (SDL-CAL-001 section 11); savings worth trying are in the design decisions register (SDL-DEC-001). On 2026-10-02 Amish accepted the USD 219.50 for the prototype; the bronze bushing and go-kart kit savings are tried at TRL 4.
 - **R8 restated:** met on paper for ploughed field-crop seedbeds; the rigid opener follows the wheels, so clods under the drive wheel on rough, hand-tilled seedbeds will change the depth.
 
 ## Assumptions

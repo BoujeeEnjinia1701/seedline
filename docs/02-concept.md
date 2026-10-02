@@ -3,9 +3,9 @@ doc_id: SDL-PRC-001
 title: SeedLine design precis
 project: SeedLine
 doc_type: Design precis
-version: "0.5"
+version: "0.6"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -29,6 +29,10 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: Constructable design (SDL-DDR-003) and build plan (SDL-BLD-001); key numbers from SDL-CAL-001 v0.3; budget treated as a value-engineering target
+- version: "0.6"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "Decisions of 2026-10-02: plate generator, partner rule and first candidate, housing slot and door, no hopper window, R17 cost accepted"
 ---
 
 # SeedLine design precis
@@ -130,10 +134,12 @@ Decided by Amish on 2026-09-25 (SDL-DDR-002: go with the TRL 3 recommendations):
 - **Cell speed (R1):** a walking-speed rule of about 2.9 km/h (2.4 km/h with the 1.2 ratio); the plate size is revisited only with bench data, which is TRL 4 work and on hold.
 - **Depth on rough seedbeds (R8):** accept the rigid opener for field crops on ploughed land and review with partner data; a spring-loaded opener or depth-gauge shoe is not added now.
 
-Still proposed, awaiting Amish:
+Decided by Amish on 2026-10-02 (SDL-DEC-001):
 
-- **Standalone plate generator.** The model's `make_plate` function already makes a plate from seed dimensions and cell count. Whether to publish it as a separate tool for printers is open.
-- **Partner and region for co-design.** Left open under the portfolio rule that community designs pick co-design partners per area later.
+- **Standalone plate generator.** The model's `make_plate` function already makes a plate from seed dimensions and cell count. It stays in this repo with a short usage note, and is published as a separate tool for printers only after bench tests confirm the cell sizes it produces.
+- **Partner and region for co-design.** A partner already working with smallholder maize and bean farmers on 0.75 m rows on ploughed land, ideally with field trial capacity. First candidate to approach: CIMMYT's small-scale mechanization work in Eastern and Southern Africa; nothing is agreed yet.
+- **Metering housing.** One housing with a 13 mm slot and printed side liners for each plate thickness, printed whole; a clear polycarbonate door in a UV-stabilized grade; no hopper window for the prototype; the steel disc drive wheel.
+- **Base cost (R17).** USD 219.50 accepted for the prototype; the bronze bushing and go-kart kit savings are tried at TRL 4.
 
 ## Safety
 
@@ -150,12 +156,12 @@ Still proposed, awaiting Amish:
 
 TRL 4 is on hold by Amish's instruction. These questions remain for review:
 
-- R11 and R17 are met with thin margins (0.06 kg and $2.50); any added part needs a matching saving.
+- R11 is met with a thin margin (0.19 kg); R17 is USD 19.50 over its value-engineering target, accepted for the prototype on 2026-10-02. Any added part needs a matching saving.
 - Whether the lighter 22 x 1.2 mm handle and its telescoping joint stand up to use (factor 1.9 on yield under the static side load; fatigue needs a test at TRL 4).
 - Whether to reduce the plate diameter to lower cell speed (R1), revisited only with bench data (SDL-DDR-002 item 5).
 - Whether a spring-loaded opener or a depth-gauge shoe is needed on rough, hand-tilled seedbeds (R8), to be reviewed with partner data.
 - Soil data (cone index, opener draft) from the partner region to firm up the push force (R10).
 - The miss and double rates of printed plates, which only a bench test can give (R1, R2).
-- The co-design partner, region and first crops and spacings to support.
+- The first crops and spacings to support, to be set with the co-design partner (first candidate: CIMMYT's small-scale mechanization work in Eastern and Southern Africa).
 
 Concept media: [blueprint sheet](../media/concept-blueprint.pdf), [interactive 3D model](../media/viewer.html). General arrangement: [SDL-DWG-001](../cad/drawings/SDL-DWG-001.pdf). Calculations: [SDL-CAL-001](04-calcs/01-sizing.md).

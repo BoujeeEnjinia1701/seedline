@@ -303,3 +303,58 @@ The chain guard now covers the tensioner's full travel and is fixed; hazards are
 ### Recommended next step
 
 Amish reviews SDL-DDR-003 and the register. TRL 4 (building and testing to SDL-BLD-001) stays on hold until he says otherwise.
+
+## Session 2026-10-02: open decisions decided
+
+Amish, 2026-10-02: "i approve your recommendations for all 555 open decisions." This approves the recommendation written for every open decision in the design decisions register (SDL-DEC-001). trl stays 3; nothing was built, bought or tested, and TRL 4 remains on hold.
+
+### Decisions recorded (10)
+
+| Register item | Decision |
+| --- | --- |
+| 1 | SDL-DDR-003 accepted: P1 to P16 and their knock-on changes, as made |
+| 2 | One housing with a 13 mm slot and printed side liners for each plate thickness |
+| 3 | Housing printed whole; split on the row centre only if the print fails |
+| 4 | USD 219.50 base cost accepted for the prototype; bronze bushing and go-kart kit savings tried at TRL 4 |
+| 5 | Clear polycarbonate housing door in a UV-stabilized grade |
+| 6 | No hopper side window for the prototype (changed from the register's recommendation); reconsider at TRL 4 |
+| 7 | Steel disc drive wheel kept; spoked wheel a render option |
+| 8 | Handle collars and clevis, colours, illustrative hardware and the hero render's marker accepted as illustrative; name and wordmark Amish's call |
+| 9 | Partner working with smallholder maize and bean farmers on 0.75 m rows; first candidate to approach, CIMMYT's small-scale mechanization work in Eastern and Southern Africa |
+| 10 | Plate generator kept in this repo with a usage note; separate tool only after bench tests |
+
+All 10 moved to Decisions made in SDL-DEC-001, dated 2026-10-02; the Open decisions section now reads "None."
+
+### Documents changed
+
+- `docs/06-design-decisions.md` (SDL-DEC-001 v0.2): items 1 to 10 moved to Decisions made; Open decisions reads "None"; the 2026-09-30 row now points to the acceptance
+- `docs/decisions/0003-design-for-construction.md` (SDL-DDR-003 v0.2): status accepted (kept Draft); A1 to A3 marked accepted; consequence for the housing slot added
+- `docs/decisions/0001-trl2-review-decisions.md` (SDL-DDR-001 v0.2): items 10 and 11 ("Proposed, awaiting Amish") recorded as decided
+- `docs/decisions/0002-recommendations-accepted.md` (SDL-DDR-002 v0.2): partner and plate generator (awaiting Amish) recorded as decided
+- `docs/03-requirements.md` (SDL-REQ-001 v0.6): R17 cost accepted for the prototype; no status changed
+- `docs/04-calcs/01-sizing.md` (SDL-CAL-001 v0.4): SDL-DDR-003 accepted; R17 row notes the acceptance
+- `docs/02-concept.md` (SDL-PRC-001 v0.6): "Still proposed" list replaced by the decisions (plate generator, partner, housing, door, window, R17); margins line corrected
+- `docs/01-problem.md` (SDL-PRB-001 v0.4): partner rule and first candidate to approach
+- `docs/05-build-plan.md` (SDL-BLD-001 v0.2): section 2 says SDL-DDR-003 is accepted; the door is UV-stabilized polycarbonate
+- `bom/bom-notes.md`: door grade, housing slot and liners, disc wheel and no hopper window noted, not yet in BOM lines or prices
+- PDFs regenerated with `python3 .kit/render.py`; superseded versions removed.
+
+### Follow-up actions to carry approved decisions into the design
+
+The model, BOM quantities and prices, calculations and pictures were not changed in this session. These actions carry the approved decisions into them:
+
+1. Decision 2 (model, drawings, build plan pictures): Widen the housing slot from 9 to 13 mm in `cad/src/model.py` and add printed side liners for the 6, 8 and 10 mm plates; re-run the checks and regenerate the housing making sketch, the build plan text of section 3.7 ("9 mm slot") and its pictures.
+2. Decision 2 (BOM): Add the printed side liners to the housing BOM line (filament cost).
+3. Decision 5 (BOM): Specify UV-stabilized polycarbonate for the door in BOM line 5 and reprice if needed.
+4. Decision 6 and 7 (pictures): Update `cad/src/product_model.py` and the photoreal renders on Amish's Mac: no hopper window; steel disc drive wheel as the default (spoked only as a labelled render option).
+5. Decision 4 (BOM, calculations): At TRL 4, try the bronze bushing and go-kart kit savings and reprice R17 in `docs/04-calcs/sizing.py`.
+6. Decision 9 (documents): Approach the first candidate partner (CIMMYT's small-scale mechanization work in Eastern and Southern Africa); nothing is agreed yet.
+7. Decision 10 (documents): Write a short usage note for the plate generator (`make_plate` in `cad/src/model.py`).
+
+### Points found in the review
+
+Raised when the recommendations were written (2026-10-01) and kept here so they are not lost:
+
+- The design for construction already builds in the clear housing door (SDL-DDR-003, P5) while it was still an open appearance item, so item 5 is effectively decided by accepting item 1.
+- Item 4 compares like with like (base seeder against R17's about USD 200), but note that R17 was met in SDL-DDR-002 only by moving the 12 and 18 T sprockets to an optional ratio kit; the base seeder covers 26 to 471 mm and needs the kit for 25 mm pelleted seed.
+- R11 is met with only 0.19 kg of margin (14.8 kg with the marker kit) after the drop plates were thinned from 6 to 4 mm to hold it; the 4 mm plates now carry the axle bearings, so their stiffness should be checked at TRL 4.

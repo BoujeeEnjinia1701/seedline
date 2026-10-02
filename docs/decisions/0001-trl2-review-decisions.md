@@ -3,9 +3,9 @@ doc_id: SDL-DDR-001
 title: SeedLine TRL 2 review decisions
 project: SeedLine
 doc_type: Design decision record
-version: "0.1"
+version: "0.2"
 status: Draft
-date: '2026-09-25'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -13,12 +13,16 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Record Amish's 2026-09-25 decisions on the TRL 2 review and the items that remain open
+- version: "0.2"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "Items 10 and 11 decided by Amish on 2026-10-02 (SDL-DEC-001)"
 ---
 
 # 0001: TRL 2 review decisions
 
 - **Date:** 2026-09-25
-- **Status:** accepted (items 1 to 9); item 10 and the plate generator question remain proposed, awaiting Amish
+- **Status:** accepted (items 1 to 9); item 10 and the plate generator question (item 11) decided by Amish on 2026-10-02 (SDL-DEC-001)
 
 ## Context
 
@@ -50,12 +54,12 @@ Budget, pitch and problem line: the TRL 2 review proposed no change, so `budget_
 
 ### Items that remain open
 
-*Table 2. Items still proposed, awaiting Amish.*
+*Table 2. Items open on 2026-09-25, decided on 2026-10-02.*
 
 | # | Item | Why it is open |
 | --- | --- | --- |
-| 10 | Co-design partner and region | The TRL 2 review made no recommendation. Under the portfolio rule of 2026-09-25, community designs pick co-design partners per area later, so this stays open |
-| 11 | Standalone plate generator | SDL-PRC-001 v0.2 listed a parametric plate generator as a suggestion without a recommendation. The TRL 3 model has a parametric plate function (`make_plate` in `cad/src/model.py`); whether to publish it as a separate tool for printers is still for Amish |
+| 10 | Co-design partner and region | The TRL 2 review made no recommendation. Under the portfolio rule of 2026-09-25, community designs pick co-design partners per area later, so this stayed open. Decided by Amish, 2026-10-02: a partner already working with smallholder maize and bean farmers on 0.75 m rows on ploughed land; first candidate to approach, CIMMYT's small-scale mechanization work in Eastern and Southern Africa (SDL-DEC-001) |
+| 11 | Standalone plate generator | SDL-PRC-001 v0.2 listed a parametric plate generator as a suggestion without a recommendation. The TRL 3 model has a parametric plate function (`make_plate` in `cad/src/model.py`); whether to publish it as a separate tool for printers was for Amish. Decided by Amish, 2026-10-02: kept in this repo with a usage note; published as a separate tool only after bench tests confirm its cell sizes (SDL-DEC-001) |
 
 ## Consequences
 

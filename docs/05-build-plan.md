@@ -3,9 +3,9 @@ doc_id: SDL-BLD-001
 title: SeedLine prototype build plan
 project: SeedLine
 doc_type: Build plan
-version: "0.1"
+version: "0.2"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -13,6 +13,10 @@ revisions:
     date: '2026-10-01'
     author: Amish Chadha
     change: First build plan, with pictures by component and step; design made constructable (SDL-DDR-003)
+  - version: "0.2"
+    date: '2026-10-02'
+    author: Amish Chadha
+    change: "SDL-DDR-003 accepted (2026-10-02); door in UV-stabilized polycarbonate"
 ---
 
 # SeedLine prototype build plan
@@ -31,7 +35,7 @@ The prototype is one SeedLine push seeder set up for maize: a steel frame of two
 
 ## 2. What changed to make it buildable
 
-The concept showed what the seeder does; some of its parts ran through each other or had no fixing. Each change below keeps what the seeder does (the wheels, wheelbase, chain centres, plate, depth range, hopper size and handle position are unchanged), and all of them are recorded in decision record SDL-DDR-003, open for Amish's review.
+The concept showed what the seeder does; some of its parts ran through each other or had no fixing. Each change below keeps what the seeder does (the wheels, wheelbase, chain centres, plate, depth range, hopper size and handle position are unchanged), and all of them are recorded in decision record SDL-DDR-003, which Amish accepted on 2026-10-02.
 
 *Table 1. Changes from the concept.*
 
@@ -272,7 +276,7 @@ The plate bolts to the outside face of the chain-side rail, bottom edge flush wi
 
 *Figure 16. Housing door and plate knob making sketch (SDL-DWG-113).*
 
-**What they are and what they are made from.** A clear door over the housing's side opening, so you can see the cells fill, and a printed knob that holds the plate on. Clear polycarbonate sheet 3 mm; the knob in PETG with an M6 x 25 screw as its stud.
+**What they are and what they are made from.** A clear door over the housing's side opening, so you can see the cells fill, and a printed knob that holds the plate on. Clear polycarbonate sheet 3 mm, UV-stabilized grade; the knob in PETG with an M6 x 25 screw as its stud.
 
 **How to make them.**
 

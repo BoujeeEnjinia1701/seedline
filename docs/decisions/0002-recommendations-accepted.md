@@ -3,9 +3,9 @@ doc_id: SDL-DDR-002
 title: SeedLine TRL 3 recommendations accepted
 project: SeedLine
 doc_type: Design decision record
-version: "0.1"
+version: "0.2"
 status: Draft
-date: '2026-09-25'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -13,12 +13,16 @@ revisions:
   date: '2026-09-25'
   author: Amish Chadha
   change: Record Amish's acceptance of all open recommendations (TRL 3 review items 3 to 6) and the items that remain open
+- version: "0.2"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "Partner and plate generator decided by Amish on 2026-10-02 (SDL-DEC-001)"
 ---
 
 # 0002: TRL 3 recommendations accepted
 
 - **Date:** 2026-09-25
-- **Status:** accepted (items 3 to 6 of the TRL 3 review); the co-design partner and region and the standalone plate generator remain proposed, awaiting Amish
+- **Status:** accepted (items 3 to 6 of the TRL 3 review); the co-design partner and region and the standalone plate generator decided by Amish on 2026-10-02 (SDL-DEC-001)
 
 ## Context
 
@@ -47,12 +51,12 @@ Documents changed: SDL-PRC-001 v0.3 to v0.4, SDL-REQ-001 v0.3 to v0.4, SDL-CAL-0
 
 ### Items that remain open
 
-*Table 2. Items still proposed, awaiting Amish (no recommendation to accept).*
+*Table 2. Items open on 2026-09-25 (no recommendation to accept then), decided on 2026-10-02.*
 
 | # | Item | Why it is open |
 | --- | --- | --- |
-| 1 | Co-design partner and region (SDL-DDR-001 item 10) | No recommendation; under the portfolio rule, community designs pick co-design partners per area later |
-| 2 | Standalone plate generator (SDL-DDR-001 item 11) | No recommendation; `make_plate` in the model already does the job, and publishing it as a separate tool is Amish's call |
+| 1 | Co-design partner and region (SDL-DDR-001 item 10) | No recommendation; under the portfolio rule, community designs pick co-design partners per area later. Decided by Amish, 2026-10-02: a partner already working with smallholder maize and bean farmers on 0.75 m rows on ploughed land; first candidate to approach, CIMMYT's small-scale mechanization work in Eastern and Southern Africa (SDL-DEC-001) |
+| 2 | Standalone plate generator (SDL-DDR-001 item 11) | No recommendation; `make_plate` in the model already does the job, and publishing it as a separate tool was Amish's call. Decided by Amish, 2026-10-02: kept in this repo with a usage note; published as a separate tool only after bench tests confirm its cell sizes (SDL-DEC-001) |
 
 ## Consequences
 

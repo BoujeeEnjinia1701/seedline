@@ -3,9 +3,9 @@ doc_id: SDL-CAL-001
 title: SeedLine sizing and first-principles checks
 project: SeedLine
 doc_type: Calculation note
-version: "0.3"
+version: "0.4"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -21,6 +21,10 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: Re-run on the constructable design (SDL-DDR-003); mass from the model's parts, hopper, depth geometry, push force, cost against value-engineering targets
+- version: "0.4"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "SDL-DDR-003 accepted and R17 cost accepted for the prototype (2026-10-02)"
 ---
 
 # SeedLine sizing and first-principles checks
@@ -36,7 +40,7 @@ Every number in this note is printed by `docs/04-calcs/sizing.py` (run from the 
 | Input | Value | Basis |
 | --- | --- | --- |
 | Architecture | Vertical cell plate, #35 chain, front drive wheel, rear press wheel, bolted frame, marker arm; 15 T wheel sprocket on the base seeder, 12 and 18 T in an optional ratio kit; 22 x 1.2 mm handle tube | Decided, SDL-DDR-001 items 1, 3, 4, 7 and 8; SDL-DDR-002 items 3 and 4 |
-| Constructable design | Drive axle turning in two flange bearings with the wheel fixed to it; plate shaft held from the chain side only; opener cross member ahead of the housing; spring tensioner; parts as in `cad/src/model.py` | SDL-DDR-003 (Draft, open for Amish's review) |
+| Constructable design | Drive axle turning in two flange bearings with the wheel fixed to it; plate shaft held from the chain side only; opener cross member ahead of the housing; spring tensioner; parts as in `cad/src/model.py` | SDL-DDR-003 (accepted by Amish, 2026-10-02) |
 | Design case | Maize at 250 mm on 0.75 m rows, 50 mm deep, 2.9 km/h (0.81 m/s), the walking-speed rule for R1 | SDL-REQ-001 v0.4; SDL-DDR-002 item 5 (was 3 km/h) |
 | Drive wheel | 300 mm over the lug tips, 45 mm wide, 10 mm lugs; travel 942.5 mm per turn before slip | Model parameter |
 | Typical slip for spacing tables | 5 % | Allowance; the calculated skid (section 6) is lower |
@@ -190,7 +194,7 @@ All 16 BOM lines are priced; costs are estimates, not quotes. Both cost requirem
 | R7 | Crop change | Side door and hand knob in the model | 2 min or less, no tools | Not verifiable at TRL 3 |
 | R15 | Durability | Stresses low (section 7); wear life unknown | 5 seasons; plates 1 season | Not verifiable at TRL 3 |
 | R11 | Mass and handling | 14.0 kg base; 14.8 kg with the marker kit | 15 kg or less | Met, 0.19 kg margin |
-| R17 | Replication cost | USD 219.50 base seeder | About USD 200 (value-engineering target) | USD 19.50 over the target |
+| R17 | Replication cost | USD 219.50 base seeder | About USD 200 (value-engineering target) | USD 19.50 over the target; accepted for the prototype on 2026-10-02 |
 | R8 | Sowing depth | 10 to 60 mm in 10 mm steps; ±10 mm for wheel-path bumps within about ±15 mm | ±10 mm on a ploughed field-crop seedbed (restated) | Met on paper |
 | R3 | Spacing range | 22 to 589 mm nominal with the ratio kit, every 25 to 400 mm target within 11.1 %; base seeder 26 to 471 mm, within 17.3 % | 25 to 400 mm | Met (with the ratio kit) |
 | R4 | Spacing follows travel | Skid 1.2 to 1.7 %; rolling radius uncertain by up to 6.7 % | Slip 8 % or less | Met |

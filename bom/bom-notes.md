@@ -8,3 +8,4 @@
 - Item 13 uses 22 x 1.2 mm round tube (SDL-DDR-002 item 3; was 25 x 1.5 mm), which saves about 0.65 kg.
 - Base seeder (items 1 to 13 and 15): $197.50, inside the about $200 replication target (SDL-REQ-001 R17) with a thin margin. With the row marker kit (item 14, $24.00) and the ratio kit (item 16, $16.00): $237.50, inside the $400 prototype budget in `project.yaml`.
 - Mass (SDL-CAL-001 section 5): 13.9 kg base, 14.9 kg with the marker kit.
+- Decided on 2026-10-02 (SDL-DEC-001), not yet in the BOM lines or prices: the housing door (line 5) is clear polycarbonate in a UV-stabilized grade; the housing gets a 13 mm slot with printed side liners for each plate thickness; the drive wheel (line 1) stays a steel disc wheel; no hopper window. USD 219.50 for the base seeder is accepted for the prototype, with the bronze bushing and go-kart kit savings to try at TRL 4.

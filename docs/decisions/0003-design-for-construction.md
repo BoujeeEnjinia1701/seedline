@@ -3,9 +3,9 @@ doc_id: SDL-DDR-003
 title: SeedLine design for construction
 project: SeedLine
 doc_type: Design decision record
-version: "0.1"
+version: "0.2"
 status: Draft
-date: '2026-10-01'
+date: '2026-10-02'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -13,12 +13,16 @@ revisions:
   date: '2026-10-01'
   author: Amish Chadha
   change: Changes that make the concept physically buildable, with the reason for each; made under Amish's 2026-09-30 instruction to make the design physically buildable; open for his review
+- version: "0.2"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "Accepted by Amish (2026-10-02), with A1 to A3 as recommended; status kept Draft"
 ---
 
 # 0003: Design for construction
 
 - **Date:** 2026-10-01
-- **Status:** Draft. The changes in Table 1 were made under Amish's 2026-09-30 instruction to make the design physically buildable; they are open for his review. The questions in Table 3 are proposed, awaiting Amish, and are carried in the design decisions register (SDL-DEC-001).
+- **Status:** accepted. Amish, 2026-10-02: "i approve your recommendations for all 555 open decisions." This covers every change in Tables 1 and 2 and the recommendations for A1 to A3 in Table 3, which are now decided as recommended and recorded in the design decisions register (SDL-DEC-001).
 
 ## Context
 
@@ -60,17 +64,18 @@ The changes below keep what the seeder does: the same wheel sizes and wheelbase,
 | Drawings | SDL-DWG-001 Rev P3; making sketches SDL-DWG-101 to 124 added. | Follows the model. |
 | Media | Concept media regenerated from the model. The photoreal renders (`media/render-*.png`), `media/card.png` and `media/social-preview.png` still show the concept and are stale until re-rendered on Amish's Mac. | |
 
-*Table 3. Proposed, awaiting Amish (also in SDL-DEC-001).*
+*Table 3. Items proposed to Amish; accepted as recommended on 2026-10-02 (SDL-DEC-001).*
 
 | # | Question | Options | Recommendation |
 | --- | --- | --- | --- |
-| A1 | The housing slot is 9 mm, sized for the 6 mm plates; the bean (8 mm) and groundnut (10 mm) plates need a wider slot, and a wide slot lets small seed slip past a thin plate. | (a) one housing with a 13 mm slot and printed side liners for each plate thickness; (b) print every plate 6 mm thick and accept shallower cells for big seed; (c) a housing for each plate thickness. | (a): one housing, cheap liners. |
-| A2 | The housing is printed whole, with supports under the lugs and collar. | (a) print whole; (b) print in two halves split on the row centre and screw them together (the appearance model's parting line). | (a) for the prototype; (b) if prints fail. |
-| A3 | Base cost is USD 19.50 over the about USD 200 value-engineering target of R17. | (a) accept for the prototype and look for savings at TRL 4; (b) try the savings listed in SDL-DEC-001 now. | (a). |
+| A1 | The housing slot is 9 mm, sized for the 6 mm plates; the bean (8 mm) and groundnut (10 mm) plates need a wider slot, and a wide slot lets small seed slip past a thin plate. | (a) one housing with a 13 mm slot and printed side liners for each plate thickness; (b) print every plate 6 mm thick and accept shallower cells for big seed; (c) a housing for each plate thickness. | (a): one housing, cheap liners. Accepted 2026-10-02: one housing with a 13 mm slot and printed side liners for each plate thickness. |
+| A2 | The housing is printed whole, with supports under the lugs and collar. | (a) print whole; (b) print in two halves split on the row centre and screw them together (the appearance model's parting line). | (a) for the prototype; (b) if prints fail. Accepted 2026-10-02. |
+| A3 | Base cost is USD 19.50 over the about USD 200 value-engineering target of R17. | (a) accept for the prototype and look for savings at TRL 4; (b) try the savings listed in SDL-DEC-001 now. | (a). Accepted 2026-10-02: USD 219.50 for the prototype; the bronze bushing and go-kart kit savings are tried at TRL 4. |
 
 ## Consequences
 
 - `design_state: constructable` in `project.yaml`. The build plan SDL-BLD-001 shows every component and step in pictures generated from the model (`cad/src/build_plan_media.py`).
+- With A1 accepted on 2026-10-02, the housing slot becomes 13 mm with printed side liners; the model, the housing making sketch and the build plan text still show the 9 mm slot until the model is updated.
 - Requirement status: 11 met, 3 at risk (R1, R2, R10), 2 not verifiable at TRL 3 (R7, R15), and R16 and R17 reported against their value-engineering targets (under and over). None is not met.
 - The appearance model `cad/src/product_model.py` and the photoreal renders still show the concept frame, posts, opener and guard; they need updating on Amish's Mac, where Blender is.
 - The bearings, wheel, press wheel and tensioner are chosen when the parts are bought (TRL 4); their bolt spacings, bores and the press wheel's inner spacer must be checked then and the holes moved to suit.
