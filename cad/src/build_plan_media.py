@@ -23,14 +23,15 @@ from model import PARAMS as P, build_components, box, union  # noqa: E402
 
 OUT = ROOT / "docs" / "05-build-plan"
 DWG = ROOT / "cad" / "drawings"
-DATE = "2026-10-01"
+DATE = "2026-10-02"
+REV2 = {"107", "111", "112", "113", "114", "115"}      # making sketches revised by the decisions of 2026-10-02
 C = build_components()
 XM, ZS, YC = P["X_METER"], P["Z_SHAFT"], P["Y_CHAIN"]
 
 COL = {"rail": "#64748B", "cross": "#475569", "clip": "#1D4ED8", "drop": "#0E7490", "bplate": "#0369A1",
        "upright": "#7C3AED", "wheel": "#374151", "lugs": "#B45309", "axle": "#111827", "bearing": "#D4A017",
        "sprocket": "#9A3412", "chain": "#57534E", "tensioner": "#C2410C", "housing": "#0F766E",
-       "door": "#93C5FD", "knob": "#115E59", "plate": "#14B8A6", "brush": "#7C2D12", "hopper": "#CBD5E1",
+       "door": "#93C5FD", "liner": "#C4B5FD", "knob": "#115E59", "plate": "#14B8A6", "brush": "#7C2D12", "hopper": "#CBD5E1",
        "lid": "#94A3B8", "shank": "#6B7280", "boot": "#9CA3AF", "tube": "#0EA5E9", "press": "#1F2937",
        "spacer": "#A8A29E", "cover": "#78716C", "guard": "#F59E0B", "handle": "#115E59", "grip": "#0F172A",
        "marker": "#D97706", "bolt": "#111827"}
@@ -81,7 +82,7 @@ def made():
         ("sprockets", part("Sprockets (2)", S("sprocket_wheel", "sprocket_plate"), COL["sprocket"])),
         ("chain", part("Chain and spring tensioner", S("chain", "tensioner"), COL["tensioner"])),
         ("plate", part("Seed plate and knob", S("plate", "knob"), COL["plate"])),
-        ("door", part("Housing door", S("door"), COL["door"])),
+        ("door", part("Housing door and plate liners", S("door", "liner_chain", "liner_door"), COL["door"])),
         ("brush", part("Singulator brush", S("brush"), COL["brush"])),
         ("uprights", part("Hopper uprights (4)", S("uprights"), COL["upright"])),
         ("hopper", part("Hopper and lid", S("hopper", "lid"), COL["hopper"])),
@@ -124,7 +125,11 @@ def sheets(only=None):
     def sheet(no, name, shape, neighbours, title, material, notes, view_shape=None, inset_view=(24, -130)):
         if only and no not in only:
             return
-        out.append(bv.component_sheet(Part(name, shape, COL.get("rail")), neighbours, dwg_no=f"SDL-DWG-{no}",
+        rv = {}
+        if no in REV2:
+            rv = dict(rev="P2", revisions=[("P1", "Making sketch for the prototype build plan", "2026-10-01", "AC"),
+                                           ("P2", "SDL-DEC-001: 13 mm slot, plate liners, UV-stabilized door", "2026-10-02", "AC")])
+        out.append(bv.component_sheet(Part(name, shape, COL.get("rail")), neighbours, dwg_no=f"SDL-DWG-{no}", **rv,
                                       title=f"SeedLine {title}: making sketch", material=material, notes=notes,
                                       view_shape=at_origin(view_shape if view_shape is not None else shape),
                                       inset_view=inset_view, **base))
@@ -283,22 +288,26 @@ def sheets(only=None):
            "Check: a seed plate slides on and off the D-flat by hand."], inset_view=(25, 30))
     sheet("112", "Metering housing", C["housing"].shape, nb("rail_l", "bplate", "hopper", "plate", "door", "shank"),
           "metering housing", "PETG, 3D printed, 4 walls, 40 % infill",
-          ["Body 146 long x 21 wide x 165 tall; a 9 mm slot inside holds the",
-           "  6 mm plate with 1.5 mm each side; front wall 3 mm, others 6 mm.",
+          ["Body 146 long x 25 wide x 165 tall; a 13 mm slot inside holds a 6,",
+           "  8 or 10 mm plate with its liners; front wall 3 mm, others 6 mm.",
            "On top: a collar 80 x 48 x 20 with a 68 x 38 pocket, 10 deep, and a",
-           "  funnel from 60 x 30 down to the 60 x 9 slot. The hopper neck drops in.",
+           "  funnel from 60 x 30 down to the 60 x 13 slot. The hopper neck drops in.",
            "Chain side: a 22 mm hole for the plate hub; two lugs 20 x 37 x 25 with",
            "  6.5 mm holes and an M6 nut slot, 35 mm each side of the shaft.",
            "Door side: an opening 128 x 132; two M4 heat-set inserts for the door.",
-           "Rear wall: a 9 x 10 slot 35 to 45 mm above the shaft for the brush.",
+           "Rear wall: a 13 x 10 slot 35 to 45 mm above the shaft for the brush.",
+           "Chain-side slot wall: two 3.4 mm peg holes, 5 deep, 48 mm each side of the shaft.",
            "Under the outlet: a spigot 16 mm outside, 12 mm bore, 60 long.",
            "Print standing on its bottom face; support the lugs and collar.",
            "Fit: lugs on the chain-side rail's inside face, on the bearing plate",
            "  bolts; the plate turns in the slot without touching.",
-           "Check: a 6 mm plate turns in the slot with the door on."], inset_view=(20, -60))
-    sheet("113", "Door and knob", S("door", "knob"), nb("housing", "plate", "door_screws"),
-          "housing door and plate knob", "Clear polycarbonate sheet 3 mm; knob PETG printed",
-          ["Door: cut 136 x 140 mm from 3 mm clear polycarbonate (score and snap,",
+           "Check: a 6 mm plate with both liners turns in the slot, door on."], inset_view=(20, -60))
+    import build123d as _b
+    _pl = lambda sh, dx: _b.Pos(dx, 0, 0) * sh  # noqa: E731
+    _lc, _ld = C["liner_chain"].shape, C["liner_door"].shape
+    sheet("113", "Door, liners and knob", S("door", "knob", "liner_chain", "liner_door"), nb("housing", "plate", "door_screws"),
+          "housing door, plate liners and plate knob", "UV-stabilized clear polycarbonate sheet 3 mm; liners and knob PETG printed",
+          ["Door: cut 136 x 140 mm from 3 mm UV-stabilized clear polycarbonate (score and snap,",
            "  or a fine saw); round the corners 5 mm; keep the film on to drill.",
            "  13 mm hole for the knob stem, 70 mm from the rear edge, 70 mm up.",
            "  4.5 mm holes for the thumb screws: 12 from the rear edge 125 up,",
@@ -308,11 +317,17 @@ def sheets(only=None):
            "Fit: the door covers the opening on the housing's door side with two",
            "  M4 thumb screws; the knob stem passes the door and screws into the",
            "  shaft end, clamping the plate against the shaft collar.",
-           "Check: door off and knob out in under a minute, no tools."], inset_view=(20, 50))
+           "Liners: two discs 122 mm across, 2 mm thick, with a 22 mm hole and a notch",
+           "  16 mm tall at the brush. Chain side: two 3 mm pegs 4 long, 48 mm each",
+           "  side of centre. Door side: two 5 mm pegs, 6 long, that rest on the door.",
+           "  For an 8 mm plate the chain-side liner is 1 mm; a 10 mm plate has none.",
+           "Check: door off and knob out in under a minute, no tools."],
+          view_shape=_b.Compound(children=[S("door", "knob"), _pl(_lc, -170.0), _pl(_ld, 170.0)]), inset_view=(20, 50))
     sheet("114", "Seed plate", C["plate"].shape, nb("housing", "shaft", "collar"),
           "seed plate (maize, 4 cells)", "PETG, 3D printed (ASA in strong sun)",
-          ["Disc 120 mm across, 6 mm thick, with a hub 20 mm across, 9 mm long,",
-           "  on its chain-side face. Bore 12.4 mm with a flat 4.6 mm from centre.",
+          ["Disc 120 mm across, 6 mm thick, with a hub 20 mm across, 11 mm long,",
+           "  on its chain-side face (14 mm from the centre plane, so a thicker plate",
+           "  has a shorter hub). Bore 12.4 mm with a flat 4.6 mm from centre.",
            "Maize plate: 4 cells in the rim, 14.3 mm long, 8.7 mm deep, through",
            "  the thickness. Other crops: cells from the rule in the model (seed",
            "  length x 1.15 + 0.5, width x 1.05 + 0.3; thickness at least 6).",
@@ -511,9 +526,10 @@ def joints(only=None):
       "Seen from the front. The housing lug shares the bearing plate's bolt through the rail", 18, -30)
     j(4, [("Metering housing", ("housing",), COL["housing"]), ("Seed plate and its hub", ("plate",), COL["plate"]),
           ("Plate shaft", ("shaft",), COL["axle"]), ("Shaft collar", ("collar",), COL["bearing"]),
-          ("Plate knob", ("knob",), COL["knob"]), ("Door", ("door",), COL["door"])],
+          ("Plate knob", ("knob",), COL["knob"]), ("Door", ("door",), COL["door"]),
+          ("Plate liners (2)", ("liner_chain", "liner_door"), COL["liner"])],
       (XM - 60, XM, -30, 30, ZS - 35, ZS + 35), "seed plate on the shaft (housing cut on the shaft centre)",
-      "Seen from the front. The collar and the knob clamp the plate; its hub runs in the housing wall", 8, -20)
+      "Seen from the front. The collar and the knob clamp the plate; its hub runs in the housing wall; a liner lies each side of the plate", 8, -20)
     j(5, [("Housing collar", ("housing",), COL["housing"]), ("Hopper neck", ("hopper",), COL["hopper"])],
       (XM - 60, XM + 60, -40, 0, 300, 390), "hopper neck in the housing collar (cut on the row centre)",
       "Seen from the door side. The neck drops into the pocket and rests on the funnel shoulder", 15, 90)
@@ -583,7 +599,7 @@ def steps(only=None):
     shaft = p("Shaft and bearings", ("shaft", "shaft_bearings", "collar"), COL["bearing"])
     spro = p("Sprockets", ("sprocket_wheel", "sprocket_plate"), COL["sprocket"])
     chain = p("Chain and tensioner", ("chain", "tensioner"), COL["tensioner"])
-    meter = p("Plate, knob, door, brush", ("plate", "knob", "door", "brush"), COL["plate"])
+    meter = p("Plate, liners, knob, door, brush", ("plate", "knob", "door", "brush", "liner_chain", "liner_door"), COL["plate"])
     hop = p("Uprights and hopper", ("uprights", "hopper", "lid"), COL["hopper"])
     opener = p("Opener and drop tube", ("shank", "boot", "drop_tube"), COL["shank"])
     rear = p("Rear drop plates and press wheel", ("drop_rear", "press", "press_axle", "press_spacers"), COL["press"])
@@ -627,9 +643,10 @@ def steps(only=None):
        "tensioner and chain", "Tensioner pivot bolt through the rail; chain round both sprockets, idler on the lower strand",
        elev=8, azim=-88, label_done=False)
     st(10, [frame, fdrop, wheel, hous, shaft, spro, chain],
-       [p("Seed plate", ("plate",), COL["plate"], (0, 140, 0)), p("Knob", ("knob",), COL["knob"], (0, 220, 0)),
-        p("Door", ("door",), COL["door"], (0, 180, 0)), p("Brush", ("brush",), COL["brush"], (-120, 0, 0))],
-       "brush, seed plate, door and knob", "Brush through the rear slot, gap 1 to 2 mm; plate on the D-flat; door; knob finger tight",
+       [p("Chain-side liner", ("liner_chain",), COL["liner"], (0, 60, 0)), p("Seed plate", ("plate",), COL["plate"], (0, 130, 0)),
+        p("Door-side liner", ("liner_door",), COL["liner"], (0, 190, 0)), p("Door", ("door",), COL["door"], (0, 250, 0)),
+        p("Knob", ("knob",), COL["knob"], (0, 320, 0)), p("Brush", ("brush",), COL["brush"], (-120, 0, 0))],
+       "brush, liners, seed plate, door and knob", "Brush through the rear slot, gap 1 to 2 mm; chain-side liner on its pegs; plate on the D-flat; door-side liner on the door; door; knob finger tight",
        elev=18, azim=60, label_done=False)
     st(11, [frame, fdrop, wheel, hous, shaft, spro, chain, meter],
        [p("Hopper uprights (4)", ("uprights",), COL["upright"], (0, 0, 0)), p("Hopper and lid", ("hopper", "lid"), COL["hopper"], (0, 0, 200))],

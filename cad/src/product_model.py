@@ -1,11 +1,11 @@
 """SeedLine product appearance model (build123d), TRL 3.
 
 Finished-product look for photoreal renders: powder-coated bolted frame with rounded tube edges and
-end caps, hex bolts and washers, a spoked drive wheel with its lugs, a trolley-type press wheel with a
+end caps, hex bolts and washers, a pressed steel disc drive wheel with its lugs (a spoked wheel is a labelled render option), a trolley-type press wheel with a
 rubber tread, toothed sprockets and a roller chain behind a printed guard with a raised wordmark, a
-filleted hopper with clear side windows showing maize seed, a lid with hinge knuckles, a metering
-housing with a parting line and a clear side door that shows the printed maize plate (seeds in its
-cells), a knurled plate knob, a strip brush, rubber handle grips, height-adjust collars and a starter
+filleted hopper without a window (decided 2026-10-02), a lid with hinge knuckles, a one-piece metering
+housing with a 13 mm slot and a clear UV-stabilized side door that shows the printed maize plate (seeds in its
+cells) and its two printed liners, a knurled plate knob, a strip brush, rubber handle grips, height-adjust collars and a starter
 set of printed plates for other crops. A compact strip of tilled soil gives the ground context.
 APPEARANCE MODEL ONLY: no tolerances, no fabrication detail. CONCEPT, NOT FOR FABRICATION.
 
@@ -26,7 +26,7 @@ sys.path.insert(0, str(HERE.parent))
 
 from build123d import (Axis, Box, Compound, Cylinder, Plane, Pos, Rectangle, RegularPolygon, Rot,
                        SlotOverall, Text, Torus, chamfer, extrude, fillet, loft)
-from model import (PARAMS, build_parts, cell_size, centers, handle_points, hopper_solids, make_plate,
+from model import (PARAMS, build_parts, cell_size, centers, handle_points, hopper_solids, make_plate, make_liners,
                    sprocket_pd, tube3, ycyl, box)
 
 
@@ -43,7 +43,7 @@ TITLE = "SeedLine: push seeder with 3D-printed seed plates"
 RENDER_VIEWS = [
     {"name": "hero", "groups": ["shell", "internal", "context"], "explode": False, "el": 30, "az": -40,
      "note": "Product render from the front right and above (about 30 deg elevation), on the chain side; "
-             "drive wheel at right, hopper with its seed window in the middle, handle rising to the left, "
+             "drive wheel at right, hopper with its lid in the middle, handle rising to the left, "
              "on a strip of tilled soil"},
     {"name": "exploded", "groups": ["shell", "internal", "accessory"], "explode": True, "el": 28, "az": -55,
      "note": "Exploded view from the front right and above (about 28 deg elevation): lid and hopper on top, "
@@ -53,7 +53,7 @@ RENDER_VIEWS = [
     {"name": "detail", "groups": ["internal"], "explode": False, "el": 20, "az": 60,
      "note": "Detail view of the metering unit on its own, from the left side of the seeder (opposite the "
              "chain) and ahead of it, about 20 deg elevation: printed maize plate with seeds in its cells "
-             "behind the clear housing door, knurled plate knob, strip brush and plate shaft"},
+             "and its two printed liners behind the clear housing door, knurled plate knob, strip brush and plate shaft"},
 ]
 
 # Colours (restrained product palette; kit accent for the printed plate and collars)
@@ -150,14 +150,15 @@ def _kernel(seed=(12.0, 8.0, 5.0)):
 # ---------------------------------------------------------------------------
 # Part builders
 # ---------------------------------------------------------------------------
-def _drive_wheel(P, D):
+def _drive_wheel(P, D, spoked=False):
+    """Steel disc wheel by default (decided 2026-10-02); spoked=True is the labelled render option."""
     xw, zw = D["wheel_c"]
     rim_r = zw - P["LUG_H"]
     W = P["WHEEL_W"]
     rim = ycyl(xw, 0, zw, rim_r, W) - ycyl(xw, 0, zw, rim_r - 12, W + 2)
     rim = _fillet_try(rim, rim.edges(), [2.0, 1.0])
     web = ycyl(xw, 0, zw, rim_r - 10, 5) - ycyl(xw, 0, zw, 21, 6)
-    for k in range(6):   # lightening holes between six spokes
+    for k in range(6 if spoked else 0):   # lightening holes between six spokes (render option only)
         t = 2 * math.pi * (k + 0.5) / 6
         web -= ycyl(xw + 76 * math.cos(t), 0, zw + 76 * math.sin(t), 30, 8)
     web = _fillet_try(web, web.edges(), [1.5, 0.8])
@@ -279,26 +280,13 @@ def _hopper(P):
     lip = _rbox(x - 88, x + 88, -63, 63, 482, 490, 11.5, Axis.Z) - _rbox(x - 84, x + 84, -59, 59, 480, 492, 7.5, Axis.Z)
     lip = _fillet_try(lip, lip.faces().sort_by(Axis.Z)[0].edges(), [1.5, 0.8])
     body = body + lip
-    # window openings on both sides
-    for s in (-1, 1):
-        body = body - box(x - 50, x + 50, s * 55 - 6, s * 55 + 6, 405, 472)
-    panels, bezels, ticks = [], [], []
-    for s in (-1, 1):
-        y_in, y_out = s * 57.4, s * 59.6
-        panels.append(box(x - 50, x + 50, min(y_in, y_out), max(y_in, y_out), 405, 472))
-        b = _rbox(x - 56, x + 56, min(s * 60, s * 61.4), max(s * 60, s * 61.4), 399, 478, 6, Axis.Y) \
-            - box(x - 50, x + 50, -70, 70, 405, 472)
-        bezels.append(b)
-        for k, zt in enumerate((418, 438, 458)):     # fill-level ticks beside the window
-            w = 10 if k == 1 else 6
-            ticks.append(box(x + 58, x + 58 + w, min(s * 60, s * 60.8), max(s * 60, s * 60.8), zt - 0.8, zt + 0.8))
     lid = _rbox(x - 89, x + 89, -64, 64, 490, 496, 12, Axis.Z)
     lid = _fillet_try(lid, lid.faces().sort_by(Axis.Z)[-1].edges(), [3.0, 2.0, 1.0])
     lid = lid + (_rbox(x - 83.6, x + 83.6, -58.6, 58.6, 484, 490.5, 7, Axis.Z)
                  - _rbox(x - 80.6, x + 80.6, -55.6, 55.6, 483, 491, 5, Axis.Z))   # locating skirt
     tab = _rbox(x + 86, x + 100, -22, 22, 490, 494, 4, Axis.Z)
     knuckles = _comp([Pos(x - 92, y, 493) * Rot(90, 0, 0) * Cylinder(4.2, 24) for y in (-36, 36)])
-    return body, _comp(panels), _comp(bezels + ticks), lid, tab, knuckles
+    return body, lid, tab, knuckles
 
 
 def _hopper_seed(P):
@@ -319,28 +307,25 @@ def _hopper_seed(P):
 
 def _housing(P, D):
     xm, zs = P["X_METER"], P["Z_SHAFT"]
-    _, _, thk = D["cell"]
-    hx0, hx1, hz0, hz1 = xm - 80, xm + 80, 165.0, 330.0
-    slot = thk + 3
+    slot = P["SLOT_W"]
     yo = slot / 2 + 6
+    hx0, hx1, hz0, hz1 = xm - 80, xm + 66, 165.0, 330.0     # outer faces as model.py
     h = _rbox(hx0, hx1, -yo, yo, hz0, hz1, 10.0, Axis.Y)
-    h = h - box(hx0 + 6, hx1 - 6, -slot / 2, slot / 2, hz0 + 6, hz1 + 1)
+    h = h - box(hx0 + 6, hx1 - 3, -slot / 2, slot / 2, hz0 + 6, hz1 + 1)
     h = h - box(xm + 20, xm + 44, -slot / 2, slot / 2, hz0 - 1, hz0 + 7)          # outlet to the drop tube
-    h = h - box(xm - 60, xm + 60, slot / 2 - 1, slot / 2 + 7, hz0 + 20, hz1 - 20)  # side door opening
-    # parting line of the two printed halves at Y = 0
-    groove = box(hx0 - 5, hx1 + 5, -0.35, 0.35, hz0 - 5, hz1 + 5) - _rbox(hx0 + 0.7, hx1 - 0.7, -2, 2, hz0 + 0.7, hz1 + 5, 9.3, Axis.Y)
-    h = h - groove
-    door = _rbox(xm - 64, xm + 64, yo, yo + 3, hz0 + 16, hz1 - 16, 6, Axis.Y)
+    h = h - box(xm - 66, xm + 62, slot / 2 - 1, yo + 1, 179.0, 311.0)             # side door opening (model.py)
+    h = h - box(hx0 - 1, hx0 + 7, -slot / 2, slot / 2, zs + 35, zs + 45)          # brush slot in the rear wall
+    # printed whole (decided 2026-10-02): no parting line
+    door = _rbox(xm - 70, xm + 66, yo, yo + 3, 175.0, 315.0, 5, Axis.Y)
     door = _fillet_try(door, door.faces().sort_by(Axis.Y)[-1].edges(), [0.8, 0.4])
     screws = []
-    for sx in (-61.5, 61.5):
-        for zz in (hz0 + 24, hz1 - 24):
-            hd = Pos(xm + sx, yo + 3 + 0.9, zz) * Rot(90, 0, 0) * Cylinder(3.6, 1.8)
-            hd = _fillet_try(hd, hd.faces().sort_by(Axis.Y)[-1].edges(), [0.8, 0.4])
-            hd -= Pos(xm + sx, yo + 3 + 1.8, zz) * Box(4.0, 1.4, 0.8)
-            screws.append(hd)
+    for sx, zz in ((-58.0, 300.0), (54.0, 190.0)):
+        hd = Pos(xm + sx, yo + 3 + 0.9, zz) * Rot(90, 0, 0) * Cylinder(3.6, 1.8)
+        hd = _fillet_try(hd, hd.faces().sort_by(Axis.Y)[-1].edges(), [0.8, 0.4])
+        hd -= Pos(xm + sx, yo + 3 + 1.8, zz) * Box(4.0, 1.4, 0.8)
+        screws.append(hd)
     # knurled plate knob on the door boss (same place and size as model.py)
-    yk = slot / 2 + 16
+    yk = yo + 10
     knob = ycyl(xm, yk, zs, 14, 14)
     for k in range(20):
         t = 2 * math.pi * k / 20
@@ -385,15 +370,17 @@ def _plate_parts(P, D):
 
 
 def _brush(P, D):
+    """Brush on the housing's rear wall, strip through the rear slot (same place and size as model.py)."""
     xm, zs = P["X_METER"], P["Z_SHAFT"]
-    _, _, thk = D["cell"]
-    slot = thk + 3
+    slot = P["SLOT_W"]
+    hy, hb = slot / 2 + 6, xm - 80
     r = P["PLATE_D"] / 2
-    holder = _rbox(xm - 40, xm - 2, -slot / 2 - 6, slot / 2 + 6, zs + r + 22, zs + r + 28, 2.0, Axis.Z)
-    holder = holder + box(xm - 36, xm - 6, -slot / 2 + 0.5, slot / 2 - 0.5, zs + r + 14, zs + r + 22)
-    bristles = box(xm - 34, xm - 8, -slot / 2 + 1, slot / 2 - 1, zs + r - 3, zs + r + 14)
-    for k in range(12):
-        bristles -= box(xm - 33 + 2.1 * k, xm - 32.4 + 2.1 * k, -slot, slot, zs + r - 4, zs + r + 8)
+    zb = zs + 40.0
+    x_rim = xm - math.sqrt(r ** 2 - 36.0 ** 2)
+    holder = _rbox(hb - 6.0, hb, -hy, hy, zs + 25, zs + 60, 2.0, Axis.X)
+    bristles = box(hb, x_rim - 1.5, -slot / 2 + 0.5, slot / 2 - 0.5, zb - 4, zb + 4)
+    for k in range(10):
+        bristles -= box(hb + 1.0 + 4.1 * k, hb + 1.5 + 4.1 * k, -slot, slot, zb - 5, zb - 1)
     return holder, bristles
 
 
@@ -612,7 +599,8 @@ def _soil(P):
 # ---------------------------------------------------------------------------
 # Assembly
 # ---------------------------------------------------------------------------
-def product_parts(P=PARAMS):
+def product_parts(P=PARAMS, wheel_style="disc"):
+    """wheel_style: "disc" (decided default) or "spoked" (labelled render option)."""
     D = derived(P)
     m = build_parts()
     out = []
@@ -622,8 +610,8 @@ def product_parts(P=PARAMS):
                     "bom": bom, "group": group, "explode": tuple(float(v) for v in explode)})
 
     # 1 Drive wheel
-    wheel, hub = _drive_wheel(P, D)
-    add("Drive wheel rim, spokes and lugs", wheel, C_FRAME, "painted", 1, "shell", (300, 0, 0))
+    wheel, hub = _drive_wheel(P, D, spoked=(wheel_style == "spoked"))
+    add("Drive wheel rim, disc and lugs" if wheel_style != "spoked" else "Drive wheel rim, spokes and lugs (render option)", wheel, C_FRAME, "painted", 1, "shell", (300, 0, 0))
     add("Drive wheel hub, axle and nut", hub, C_ZINC, "metal", 1, "shell", (300, 0, 0))
 
     # 2 Chain drive (behind the guard)
@@ -640,21 +628,16 @@ def product_parts(P=PARAMS):
     add("Chain guard wordmark", word, C_DARK, "plastic", 3, "shell", (0, -300, -170))
     add("Chain guard bolts", gbolts, C_ZINC, "metal", 15, "shell", (0, -300, -170))
 
-    # 4 Hopper, windows, lid and seed
-    body, panels, trims, lid, tab, knuckles = _hopper(P)
+    # 4 Hopper (no window), lid
+    body, lid, tab, knuckles = _hopper(P)
     add("Seed hopper", body, C_HOPPER, "plastic", 4, "shell", (0, 0, 330))
-    add("Hopper windows, clear", panels, C_WINDOW, "clear", 4, "shell", (0, 0, 330))
-    add("Hopper window bezels and level ticks", trims, C_BEZEL, "plastic", 4, "shell", (0, 0, 330))
     add("Hopper lid", lid, C_LID, "plastic", 4, "shell", (0, 0, 470))
     add("Hopper lid tab", tab, C_ACCENT, "plastic", 4, "shell", (0, 0, 470))
     add("Hopper lid hinge knuckles", knuckles, C_BEZEL, "plastic", 4, "shell", (0, 0, 470))
-    fill, kernels = _hopper_seed(P)
-    add("Maize seed in the hopper", fill, C_MAIZE, "plastic", None, "shell", (0, 0, 330))
-    add("Maize kernels on top", kernels, C_MAIZE, "plastic", None, "shell", (0, 0, 330))
 
     # 5 Metering housing, door, knob, shaft and bearings
     h, door, screws, knob, cap = _housing(P, D)
-    add("Metering housing (printed, two halves)", h, C_HOUSING, "plastic", 5, "internal", (0, 190, 60))
+    add("Metering housing (printed, one piece)", h, C_HOUSING, "plastic", 5, "internal", (0, 190, 60))
     add("Housing side door, clear", door, C_WINDOW, "clear", 5, "internal", (0, 280, 60))
     add("Door screws", screws, C_ZINC, "metal", 15, "internal", (0, 280, 60))
     add("Plate knob, knurled", knob, C_DARK, "plastic", 5, "internal", (0, 340, 60))
@@ -671,6 +654,10 @@ def product_parts(P=PARAMS):
     add("Printed seed plate, maize 4 cell", plate, C_ACCENT, "plastic", 6, "internal", (0, -40, 170))
     add("Seed plate crop label", plabel, C_TEXT, "plastic", 6, "internal", (0, -40, 170))
     add("Maize seed in the plate cells", pseeds, C_MAIZE, "plastic", None, "internal", (0, -40, 170))
+
+    liner_c, liner_d = make_liners(at=(xm, zs))
+    add("Plate liner, chain side (printed)", liner_c, C_HOUSING, "plastic", 5, "internal", (0, -20, 170))
+    add("Plate liner, door side (printed, clear render option)", liner_d, C_WINDOW, "clear", 5, "internal", (0, 120, 170))
 
     # 7 Singulator brush
     holder, bristles = _brush(P, D)

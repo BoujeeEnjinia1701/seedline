@@ -3,7 +3,7 @@ doc_id: SDL-CAL-001
 title: SeedLine sizing and first-principles checks
 project: SeedLine
 doc_type: Calculation note
-version: "0.4"
+version: "0.5"
 status: Draft
 date: '2026-10-02'
 author: Amish Chadha
@@ -25,11 +25,15 @@ revisions:
   date: '2026-10-02'
   author: Amish Chadha
   change: "SDL-DDR-003 accepted and R17 cost accepted for the prototype (2026-10-02)"
+- version: "0.5"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "Approved decisions carried into the design (SDL-DEC-001): 13 mm housing slot with printed side liners and a UV-stabilized door; mass, push force, cost and requirement figures re-run; no requirement status changed"
 ---
 
 # SeedLine sizing and first-principles checks
 
-On paper the seeder works as a ground-driven single-row planter: the drive covers 22 to 589 mm of in-row spacing with the optional ratio kit, slip from the metering load is under 2 %, the parts are lightly stressed and the work rate is about 0.142 ha/h. Version 0.2 applies the recommendations Amish accepted on 2026-09-25 (SDL-DDR-002): a lighter 22 x 1.2 mm handle tube, the 12 and 18 T wheel sprockets moved to an optional ratio kit, a design-case walking speed of 2.9 km/h (the walking-speed rule for R1), and R8 accepted for field crops on ploughed land. Version 0.3 re-runs every figure on the constructable design of SDL-DDR-003 (2026-10-01), which adds the bearings, spacers, clips, brackets and fixings the concept left out and moves the opener forward of the metering housing; the mass is now taken part by part from the model. Eleven of the eighteen requirements are met on paper, R11 with a thin margin (14.9 kg with the marker kit against 15 kg), and two cannot be verified at TRL 3. Three are **at risk**: R1 (cell speed 0.299 m/s at 2.9 km/h against an assumed 0.30 m/s limit, no margin), R2 (spacing CV about 31 % with assumed miss, double and scatter rates) and R10 (132 N push in the design case, but 178 N at best on a heavy, loose seedbed). None is not met. The two cost requirements are value-engineering targets (STANDARDS section 18): the prototype is USD 138.50 under its USD 400 target (R16), and the base seeder is USD 19.50 over its about USD 200 target (R17).
+On paper the seeder works as a ground-driven single-row planter: the drive covers 22 to 589 mm of in-row spacing with the optional ratio kit, slip from the metering load is under 2 %, the parts are lightly stressed and the work rate is about 0.142 ha/h. Version 0.2 applies the recommendations Amish accepted on 2026-09-25 (SDL-DDR-002): a lighter 22 x 1.2 mm handle tube, the 12 and 18 T wheel sprockets moved to an optional ratio kit, a design-case walking speed of 2.9 km/h (the walking-speed rule for R1), and R8 accepted for field crops on ploughed land. Version 0.3 re-runs every figure on the constructable design of SDL-DDR-003 (2026-10-01), which adds the bearings, spacers, clips, brackets and fixings the concept left out and moves the opener forward of the metering housing; the mass is now taken part by part from the model. Version 0.5 carries the decisions of 2026-10-02 into the figures: the housing slot is 13 mm with two printed side liners, and the door is UV-stabilized polycarbonate. Eleven of the eighteen requirements are met on paper, R11 with a thin margin (14.9 kg with the marker kit against 15 kg), and two cannot be verified at TRL 3. Three are **at risk**: R1 (cell speed 0.299 m/s at 2.9 km/h against an assumed 0.30 m/s limit, no margin), R2 (spacing CV about 31 % with assumed miss, double and scatter rates) and R10 (132 N push in the design case, but 178 N at best on a heavy, loose seedbed). None is not met. The two cost requirements are value-engineering targets (STANDARDS section 18): the prototype is USD 133.90 under its USD 400 target (R16), and the base seeder is USD 24.10 over its about USD 200 target (R17).
 
 Every number in this note is printed by `docs/04-calcs/sizing.py` (run from the repo root: `python docs/04-calcs/sizing.py`), which also writes `docs/04-calcs/results.csv`. The script reads the key dimensions, sprocket geometry, cell sizes, hopper volume and handle geometry from the parametric model `cad/src/model.py`, and the prices from `bom/bom.csv`, so the model, the drawing SDL-DWG-001, the BOM and this note agree. All values are first-principles estimates; nothing here is measured.
 
@@ -121,15 +125,15 @@ From v0.3 the steel and printed parts are weighed from the volumes of the constr
 | Group | Mass (kg) | Notes |
 | --- | --- | --- |
 | Wheels and axles (items 1, 11) | 4.29 | Drive wheel body 1.70 kg (bought estimate) and 18 lugs 0.42 kg (model); drive axle, two 16 mm flange bearings (0.12 kg each) and spacers; press wheel 1.20 kg with its axle bolt, nuts and spacers |
-| Drive and metering (items 2 to 8) | 2.35 | Hubbed sprockets, chain and spring tensioner 0.75 kg; guard, hopper with lid and housing from the model volumes; shaft, two flange bearings, collar, plate, brush, drop tube |
+| Drive and metering (items 2 to 8) | 2.41 | Hubbed sprockets, chain and spring tensioner 0.75 kg; guard, hopper with lid, housing and the two plate liners (0.06 kg) from the model volumes; shaft, two flange bearings, collar, plate, brush, drop tube |
 | Opener and covering (items 9, 10) | 1.20 | Shank and boot plates from the model; covering chains and bracket |
 | Frame and handle (items 12, 13) | 5.61 | Frame 3.44 kg (two 700 mm rails, two cross members, four clips, four 4 mm drop plates, bearing plate, four uprights); handle 2.17 kg (two 973 mm side tubes of 22 x 1.2 round tube, grip, brace, sleeves, rubber grips) |
 | Hardware (item 15) | 0.58 | About 50 M6 and M8 bolt sets, 36 M5 lug screws, inserts, paint |
-| **Base seeder** | **14.03** | |
+| **Base seeder** | **14.09** | |
 | Row marker kit (item 14) | 0.79 | Mount, telescoping arm and 2 mm disc from the model |
-| **With marker kit** | **14.81** | |
+| **With marker kit** | **14.88** | |
 
-Making the design constructable (SDL-DDR-003) added about 0.9 kg of bearings, spacers, clips, brackets, uprights and fixings and took off about 0.8 kg: the opener clamp plate and the rear cross member went, the drop plates are 4 mm instead of 6 mm, the marker kit, measured from the model, is 0.21 kg lighter than the 1.0 kg estimate, and the handle sleeves are now sized. The seeder is 14.0 kg base and 14.8 kg with the marker kit. **R11 is met, with 0.19 kg of margin** with the kit fitted (0.06 kg in v0.2). In v0.1 the handle was 25 x 1.5 mm round tube, which put the seeder over 15 kg; the 22 x 1.2 mm tube Amish accepted on 2026-09-25 (SDL-DDR-002 item 3) saves 0.64 kg. The side tube's factor on yield under the 100 N side load is 1.9 (section 7). The center of mass of the base seeder is 349 mm behind the drive axle and 245 mm above the ground; a full hopper adds 1.74 kg of maize.
+Making the design constructable (SDL-DDR-003) added about 0.9 kg of bearings, spacers, clips, brackets, uprights and fixings and took off about 0.8 kg: the opener clamp plate and the rear cross member went, the drop plates are 4 mm instead of 6 mm, the marker kit, measured from the model, is 0.21 kg lighter than the 1.0 kg estimate, and the handle sleeves are now sized. The seeder is 14.1 kg base and 14.9 kg with the marker kit. The 13 mm housing slot and the two printed plate liners decided on 2026-10-02 add 0.07 kg (liners 57 g, wider housing 5 g). **R11 is met, with 0.12 kg of margin** with the kit fitted (0.19 kg in v0.4, 0.06 kg in v0.2); any further part needs a matching saving. In v0.1 the handle was 25 x 1.5 mm round tube, which put the seeder over 15 kg; the 22 x 1.2 mm tube Amish accepted on 2026-09-25 (SDL-DDR-002 item 3) saves 0.64 kg. The side tube's factor on yield under the 100 N side load is 1.9 (section 7). The center of mass of the base seeder is 348 mm behind the drive axle and 245 mm above the ground; a full hopper adds 1.74 kg of maize.
 
 ## 6. Push force and slip (R10, R4)
 
@@ -139,11 +143,11 @@ The push is found from the planar statics of the seeder on its two wheels, with 
 
 | Seedbed | Along the handle (50°) | Lowest push, at angle | Angles that balance | Rolling / opener / chains (N) | Wheel loads, drive / press (N) |
 | --- | --- | --- | --- | --- | --- |
-| Good | 80 N | 71 N at 21° | 11 to 50° | 25 / 45 / 10 | 91 / 160 |
-| Design | **132 N** | 109 N at 31° | 22 to 50° | 49 / 68 / 15 | 108 / 204 |
-| Heavy, loose | no balance | **178 N at 37°** | 30 to 48° | 68 / 90 / 20 | 210 / 79 (at 37°) |
+| Good | 81 N | 72 N at 15° | 11 to 50° | 26 / 45 / 10 | 91 / 161 |
+| Design | **132 N** | 110 N at 29° | 23 to 50° | 49 / 68 / 15 | 108 / 205 |
+| Heavy, loose | no balance | **178 N at 36°** | 30 to 48° | 68 / 90 / 20 | 216 / 69 (at 36°) |
 
-Three findings follow. First, a purely horizontal push has no balance in any case: at grip height it pitches the seeder forward and lifts the press wheel, so the TRL 2 comparison of a horizontal push against a push along the handle does not apply. Second, in the design case the push along the handle is 132 N, inside the 150 N target with a 12 % margin that rests on assumed soil values; the constructable design moves the center of mass about 9 mm forward and leaves this figure unchanged. Third, on a heavy, loose seedbed a push along the handle drives the press wheel into the soil faster than it moves the seeder (no balance), and the best push is 178 N at 37°. **R10 is at risk.** The equivalent rolling coefficients are 0.102, 0.158 and 0.235, inside the 0.2 to 0.3 range assumed at TRL 2 only for the heavy case.
+Three findings follow. First, a purely horizontal push has no balance in any case: at grip height it pitches the seeder forward and lifts the press wheel, so the TRL 2 comparison of a horizontal push against a push along the handle does not apply. Second, in the design case the push along the handle is 132 N, inside the 150 N target with a 12 % margin that rests on assumed soil values; the constructable design moves the center of mass about 9 mm forward and leaves this figure unchanged. Third, on a heavy, loose seedbed a push along the handle drives the press wheel into the soil faster than it moves the seeder (no balance), and the best push is 178 N at 36°. **R10 is at risk.** The equivalent rolling coefficients are 0.102, 0.158 and 0.240, inside the 0.2 to 0.3 range assumed at TRL 2 only for the heavy case.
 
 **Slip.** The drive wheel must supply the meter torque through the chain: 6.7 N at the rim at a 1.0 ratio and 8.0 N at 1.2. Against 91 to 210 N of wheel load, the Brixius traction relation gives a skid of **1.2 to 1.7 %**, well inside the 8 % of R4. The larger uncertainty is the rolling radius: if the lugs sink fully, the wheel rolls on its rim and travels up to 6.7 % less per turn, which makes the spacing shorter, not longer. The two effects partly cancel. **R4 is met on paper**; the spacing card should be calibrated by counting wheel turns over a measured 10 m on the user's own seedbed.
 
@@ -179,22 +183,22 @@ A Monte Carlo run of 20,000 cells for the maize plate, with the assumed rates in
 
 All 16 BOM lines are priced; costs are estimates, not quotes. Both cost requirements are value-engineering targets, not limits (STANDARDS section 18; Amish, 2026-10-01).
 
-- **R16, prototype.** Value-engineering target: USD 400 (`budget_usd`). Estimated cost of the constructable design: USD 261.50 for the base seeder with the marker kit (USD 24.00) and the optional ratio kit (USD 18.00), **USD 138.50 under the target**.
-- **R17, base seeder.** Value-engineering target: about USD 200. Estimated cost of the constructable design: USD 219.50 for items 1 to 13 and 15, **USD 19.50 over the target**. The concept was USD 197.50; the parts that make it buildable add USD 22.00: the drive axle's two flange bearings and the lug strip (line 1, +6.00), hubbed sprockets and a bought spring tensioner (line 2, +5.00), the clear door, collar and knob (line 5, +4.00), more fasteners and the 36 lug screws (line 15, +3.00), the frame's clips, uprights and opener cross member (line 12, +2.00) and smaller items, less the opener clamp plate (line 9, −2.00). The main cost drivers and the savings worth trying are listed in the design decisions register (SDL-DEC-001, Value engineering).
+- **R16, prototype.** Value-engineering target: USD 400 (`budget_usd`). Estimated cost of the constructable design: USD 266.10 for the base seeder with the marker kit (USD 24.00) and the optional ratio kit (USD 18.00), **USD 133.90 under the target**.
+- **R17, base seeder.** Value-engineering target: about USD 200. Estimated cost of the constructable design: USD 224.10 for items 1 to 13 and 15, **USD 24.10 over the target**. The concept was USD 197.50; the parts that make it buildable add USD 22.00, and the decisions of 2026-10-02 add USD 4.60 more: the drive axle's two flange bearings and the lug strip (line 1, +6.00), hubbed sprockets and a bought spring tensioner (line 2, +5.00), the clear door, collar and knob (line 5, +4.00), then the decisions of 2026-10-02 (line 5, +4.60: the two printed liners about USD 1.60 of filament and the UV-stabilized door grade about USD 3.00 more than plain polycarbonate), more fasteners and the 36 lug screws (line 15, +3.00), the frame's clips, uprights and opener cross member (line 12, +2.00) and smaller items, less the opener clamp plate (line 9, −2.00). The main cost drivers and the savings worth trying are listed in the design decisions register (SDL-DEC-001, Value engineering).
 
 ## 12. Results against requirements
 
-*Table 8. Every requirement in SDL-REQ-001 v0.5, at-risk items first (none is not met).*
+*Table 8. Every requirement in SDL-REQ-001 v0.7, at-risk items first (none is not met).*
 
 | ID | Requirement | Value (this note) | Target | Status |
 | --- | --- | --- | --- | --- |
 | R1 | Single-seed placement | Cell speed 0.299 m/s at the 2.9 km/h walking-speed rule against an assumed 0.30 m/s limit, no margin | Misses and multiples 5 % or less each | **At risk** |
 | R2 | Spacing uniformity | CV 31 % of all spacings; 9 % for singles (assumed rates) | CV 30 % or less | **At risk** |
 | R10 | Push effort | 132 N along the handle (design case); 178 N at best on a heavy, loose seedbed | 150 N or less | **At risk** |
-| R7 | Crop change | Side door and hand knob in the model | 2 min or less, no tools | Not verifiable at TRL 3 |
+| R7 | Crop change | Side door and hand knob in the model; one 13 mm slot with a liner pair for the 6, 8 and 10 mm plates | 2 min or less, no tools | Not verifiable at TRL 3 |
 | R15 | Durability | Stresses low (section 7); wear life unknown | 5 seasons; plates 1 season | Not verifiable at TRL 3 |
-| R11 | Mass and handling | 14.0 kg base; 14.8 kg with the marker kit | 15 kg or less | Met, 0.19 kg margin |
-| R17 | Replication cost | USD 219.50 base seeder | About USD 200 (value-engineering target) | USD 19.50 over the target; accepted for the prototype on 2026-10-02 |
+| R11 | Mass and handling | 14.1 kg base; 14.9 kg with the marker kit | 15 kg or less | Met, 0.12 kg margin |
+| R17 | Replication cost | USD 224.10 base seeder | About USD 200 (value-engineering target) | USD 24.10 over the target; USD 219.50 accepted for the prototype on 2026-10-02, USD 4.60 added by the liners and the UV-stabilized door |
 | R8 | Sowing depth | 10 to 60 mm in 10 mm steps; ±10 mm for wheel-path bumps within about ±15 mm | ±10 mm on a ploughed field-crop seedbed (restated) | Met on paper |
 | R3 | Spacing range | 22 to 589 mm nominal with the ratio kit, every 25 to 400 mm target within 11.1 %; base seeder 26 to 471 mm, within 17.3 % | 25 to 400 mm | Met (with the ratio kit) |
 | R4 | Spacing follows travel | Skid 1.2 to 1.7 %; rolling radius uncertain by up to 6.7 % | Slip 8 % or less | Met |
@@ -204,7 +208,7 @@ All 16 BOM lines are priced; costs are estimates, not quotes. Both cost requirem
 | R12 | Hopper | 2.42 L; 1,451 m of maize row per fill | 2 L or more | Met |
 | R13 | Row-spacing kit | Marker reach 200 to 900 mm, set at 750 mm in the model | 200 to 900 mm, ±25 mm | Met (design review) |
 | R14 | Guarding | Printed shroud with an outboard face plate over both sprockets, the chain and the tensioner's full travel | Nip points covered | Met (design review) |
-| R16 | Prototype cost | USD 261.50 | USD 400 value-engineering target | USD 138.50 under the target |
+| R16 | Prototype cost | USD 266.10 | USD 400 value-engineering target | USD 133.90 under the target |
 | R18 | Local build | Bolted 25 mm square tube, 4 mm plate, angle and flat bar, #35 chain; saw, drill, tap and bolts | Common sections, drill and bolts | Met (design review) |
 
 Summary: 11 met, 3 at risk, 0 not met, 2 not verifiable at TRL 3, and the two cost requirements reported against their value-engineering targets (R16 under, R17 over). (v0.2: 13 met, counting both cost requirements as met; v0.1: 10 met, 4 at risk, 2 not met, 2 not verifiable.)
@@ -251,3 +255,14 @@ Summary: 11 met, 3 at risk, 0 not met, 2 not verifiable at TRL 3, and the two co
 | Slack take-up | Spring idler | Bought spring tensioner, 45 mm take-up, inside the guard |
 
 > **Safety:** These figures are paper estimates. The chain drive, opener point and wheel lugs remain hazards whatever the numbers say; the guard must be fitted in use and plate changes done with the wheel held still (SDL-PRC-001, Safety). Treated seed is toxic; follow the seed label.
+
+*Table 16. Changes in v0.5 from the decisions of 2026-10-02 (SDL-DEC-001).*
+
+| Quantity | v0.4 | v0.5 |
+| --- | --- | --- |
+| Housing slot | 9 mm, for the 6 mm plate only | 13 mm, with printed side liners for the 6, 8 and 10 mm plates |
+| Mass | 14.0 kg base, 14.8 kg with marker (0.19 kg margin) | 14.1 kg base, 14.9 kg with marker (0.12 kg margin) |
+| Push, design case | 109 N at 31° | 110 N at 29° (132 N along the handle, unchanged) |
+| Base parts cost | USD 219.50, USD 19.50 over the about USD 200 target | USD 224.10, USD 24.10 over the target (liners USD 1.60, UV-stabilized door grade USD 3.00) |
+| Prototype parts cost | USD 261.50, USD 138.50 under the USD 400 target | USD 266.10, USD 133.90 under the target |
+| Requirement statuses | | None changed |

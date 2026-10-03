@@ -3,7 +3,7 @@ doc_id: SDL-PRC-001
 title: SeedLine design precis
 project: SeedLine
 doc_type: Design precis
-version: "0.6"
+version: "0.7"
 status: Draft
 date: '2026-10-02'
 author: Amish Chadha
@@ -33,6 +33,10 @@ revisions:
   date: '2026-10-02'
   author: Amish Chadha
   change: "Decisions of 2026-10-02: plate generator, partner rule and first candidate, housing slot and door, no hopper window, R17 cost accepted"
+- version: "0.7"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "Decisions carried into the figures: 13 mm slot with printed liners, UV-stabilized door; mass, cost and push figures from SDL-CAL-001 v0.5; plate generator usage note"
 ---
 
 # SeedLine design precis
@@ -69,7 +73,7 @@ Numbers match the exploded view (Figure 3) and `bom/bom.csv`.
 | 2 | Chain drive | #35 roller chain, 15 T plate and 15 T wheel sprockets, spring idler; 12 and 18 T wheel sprockets in the optional ratio kit | 76 links at 286 mm centers (74 or 77 with the kit); idler deflects up to 35 mm |
 | 3 | Chain guard | Band around the chain loop with an outboard face plate, PETG or sheet steel | Covers the nip points from above, below and outside |
 | 4 | Seed hopper | 2.4 L, 170 x 120 mm top on a funnel to a 60 x 30 mm throat, printed or cut from HDPE, lid | 1.73 kg of maize, 1,438 m of row per fill |
-| 5 | Metering housing, shaft and bearings | Printed housing with seed outlet and side door; 12 mm shaft in two flange bearings | Side door and hand knob give tool-free plate changes |
+| 5 | Metering housing, shaft and bearings | Printed housing with a 13 mm slot, two printed side liners, seed outlet and a clear UV-stabilized polycarbonate side door; 12 mm shaft in two flange bearings | Side door and hand knob give tool-free plate changes; the liners fit the slot to the 6, 8 or 10 mm plate |
 | 6 | Printed seed plate | 120 mm diameter, 6 to 10 mm thick, 1 to 36 rim cells sized to the seed (`make_plate` in the model) | 40 to 54 g of PETG, 1.5 to 2.0 h to print; one plate per crop and spacing |
 | 7 | Singulator brush | Nylon strip brush on a printed holder, adjustable gap | Wear part |
 | 8 | Seed drop tube | 20 mm tube, housing outlet to the opener | Short drop limits bounce |
@@ -102,12 +106,12 @@ The TRL 2 estimates in version 0.2 are replaced by the calculations in SDL-CAL-0
 | Skid from meter torque | 1.2 to 1.7 %; rolling radius uncertain by up to 6.7 % | R4 met |
 | Spacing CV, maize | 31 % of all spacings, 9 % of single spacings (assumed miss and double rates) | R2 at risk |
 | Plates | 40 to 54 g PETG, 1.5 to 2.0 h each; raw seed 3.5 to 15 mm, smaller seed pelleted | R5 met, R6 met with no margin |
-| Push force (horizontal part) | 80 N good, 132 N design case along the handle; 177 N at best on a heavy, loose seedbed | R10 at risk |
-| Mass | 14.0 kg base, 14.8 kg with the marker kit (constructable design, weighed part by part) | R11 met, 0.19 kg margin |
+| Push force (horizontal part) | 81 N good, 132 N design case along the handle; 178 N at best on a heavy, loose seedbed | R10 at risk |
+| Mass | 14.1 kg base, 14.9 kg with the marker kit (constructable design, weighed part by part) | R11 met, 0.12 kg margin |
 | Work rate | 0.142 ha/h (7.1 h/ha) on 0.75 m rows at 2.9 km/h | R9 met |
 | Hopper | 2.42 L, 1,451 m of maize row per fill | R12 met |
 | Depth | ±10 mm needs wheel-path bumps within about ±15 mm under the drive wheel | R8 met on paper, restated for ploughed field-crop seedbeds |
-| Parts cost | USD 219.50 base; USD 261.50 with the marker kit (USD 24) and the ratio kit (USD 18) | R16 USD 138.50 under its value-engineering target; R17 USD 19.50 over |
+| Parts cost | USD 224.10 base; USD 266.10 with the marker kit (USD 24) and the ratio kit (USD 18) | R16 USD 133.90 under its value-engineering target; R17 USD 24.10 over |
 
 A purely horizontal push at the grip pitches the seeder forward and lifts the press wheel, so the operator pushes down along the handle; on a heavy, loose seedbed a push along the full 50° handle angle sinks the press wheel, and a flatter push of about 36° works best. The base seeder costs a little more than an Earthway 1001-B with six plates (about $187) and well under a Jang JP-1 without rollers (about $499) ([UMN Extension](https://blog-fruit-vegetable-ipm.extension.umn.edu/2024/11/lower-cost-equipment-for-seeding-and.html)).
 
@@ -141,6 +145,10 @@ Decided by Amish on 2026-10-02 (SDL-DEC-001):
 - **Metering housing.** One housing with a 13 mm slot and printed side liners for each plate thickness, printed whole; a clear polycarbonate door in a UV-stabilized grade; no hopper window for the prototype; the steel disc drive wheel.
 - **Base cost (R17).** USD 219.50 accepted for the prototype; the bronze bushing and go-kart kit savings are tried at TRL 4.
 
+### Plate generator usage note
+
+The function `make_plate` in `cad/src/model.py` draws a printable plate from the seed size and the cell count. Give it the seed length, width and thickness in millimetres and the number of cells; it returns a 120 mm disc with a 12 mm D-bore, a hub on the chain side and the cells cut through the rim. Cell length is 1.15 times the seed length plus 0.5 mm, cell depth is 1.05 times the seed width plus 0.3 mm, and the plate is the seed thickness times 1.2 rounded up, never under 6 mm. One or two cells make a skip-cell plate. Plates of 6, 8 and 10 mm fit the same 13 mm housing slot; the matching liner pair comes from `make_liners`. Call `python3 cad/src/model.py` to export the maize plate; for another crop, pass its seed size and cell count to `make_plate` and export the result with `export_stl`. The cell sizes are paper estimates until bench tests confirm them, and it stays in this repo until then.
+
 ## Safety
 
 > **Safety:** SeedLine has an exposed roller chain driven by the wheel, a pointed steel opener and lugs, and is often used with chemically treated seed. Treat each as a hazard during use, cleaning, transport and plate changes.
@@ -156,7 +164,7 @@ Decided by Amish on 2026-10-02 (SDL-DEC-001):
 
 TRL 4 is on hold by Amish's instruction. These questions remain for review:
 
-- R11 is met with a thin margin (0.19 kg); R17 is USD 19.50 over its value-engineering target, accepted for the prototype on 2026-10-02. Any added part needs a matching saving.
+- R11 is met with a thin margin (0.12 kg); R17 is USD 24.10 over its value-engineering target (USD 219.50 was accepted for the prototype on 2026-10-02; the plate liners and UV-stabilized door added USD 4.60). Any added part needs a matching saving.
 - Whether the lighter 22 x 1.2 mm handle and its telescoping joint stand up to use (factor 1.9 on yield under the static side load; fatigue needs a test at TRL 4).
 - Whether to reduce the plate diameter to lower cell speed (R1), revisited only with bench data (SDL-DDR-002 item 5).
 - Whether a spring-loaded opener or a depth-gauge shoe is needed on rough, hand-tilled seedbeds (R8), to be reviewed with partner data.

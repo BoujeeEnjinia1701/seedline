@@ -3,7 +3,7 @@ doc_id: SDL-DDR-003
 title: SeedLine design for construction
 project: SeedLine
 doc_type: Design decision record
-version: "0.2"
+version: "0.3"
 status: Draft
 date: '2026-10-02'
 author: Amish Chadha
@@ -17,6 +17,10 @@ revisions:
   date: '2026-10-02'
   author: Amish Chadha
   change: "Accepted by Amish (2026-10-02), with A1 to A3 as recommended; status kept Draft"
+- version: "0.3"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "A1 carried into the model, making sketches and build plan (13 mm slot, printed liners); cost and mass figures updated"
 ---
 
 # 0003: Design for construction
@@ -51,14 +55,14 @@ The changes below keep what the seeder does: the same wheel sizes and wheelbase,
 | P13 | The wheel lugs had no fixing. | Eighteen L-shaped lugs bent from 25 x 3 mm strip (15 mm foot, 10 mm upstand), each fixed to the steel rim with two M5 countersunk screws. | Drill and bolts only (R18); the lug tips stay on a 300 mm circle. |
 | P14 | The marker arm clipped to the front cross member, which P1 removes. | A U-bracket bent from 40 x 3 mm strip is bolted to the front of the chain-side rail (rails are 20 mm longer, 700 mm); the arm pivots on an M8 pin with a spacer each side and folds up. Disc 2 mm (was 3 mm); arm tubes 1.2 mm wall. | Keeps the marker where the concept had it and the 200 to 900 mm reach. |
 | P15 | The seed drop tube was a fixed length that could not follow the six depth settings, and it ended inside the shoe. | The tube slides on a 60 mm printed spigot under the housing outlet, rests on the top edges of the boot plates and is tied to them, so it moves with the opener over the full 50 mm range. | |
-| P16 | Mass: the added bearings, clips, uprights and fixings put the seeder with the marker kit over 15 kg. | Drop plates 4 mm (was 6 mm); lid 2 mm; marker parts as P14. | Keeps R11 met: 14.8 kg with the marker kit, 0.19 kg of margin. |
+| P16 | Mass: the added bearings, clips, uprights and fixings put the seeder with the marker kit over 15 kg. | Drop plates 4 mm (was 6 mm); lid 2 mm; marker parts as P14. | Keeps R11 met (14.9 kg with the marker kit after the decisions of 2026-10-02). |
 
 *Table 2. Knock-on changes.*
 
 | Item | Change | Reason |
 | --- | --- | --- |
 | Mass | 14.0 kg base (13.9), 14.8 kg with the marker kit (14.9), now weighed part by part from the model; R11 met with 0.19 kg of margin. | Parts added for construction, less those removed (SDL-CAL-001 v0.3 section 5). |
-| Cost | Base seeder USD 219.50 (was USD 197.50), USD 19.50 over the about USD 200 value-engineering target of R17; prototype with both kits USD 261.50, USD 138.50 under the USD 400 value-engineering target (`budget_usd`, unchanged). BOM lines 1 to 16 respecified and lines 1, 2, 3, 4, 5, 9, 10, 11, 12, 15 and 16 repriced. | Bearings, hubbed sprockets, tensioner, clips, uprights and fixings (SDL-CAL-001 v0.3 section 11). |
+| Cost | Base seeder USD 224.10 after the decisions of 2026-10-02 (USD 219.50 at this record's v0.2; was USD 197.50), USD 24.10 over the about USD 200 value-engineering target of R17; prototype with both kits USD 261.50, USD 138.50 under the USD 400 value-engineering target (`budget_usd`, unchanged). BOM lines 1 to 16 respecified and lines 1, 2, 3, 4, 5, 9, 10, 11, 12, 15 and 16 repriced. | Bearings, hubbed sprockets, tensioner, clips, uprights and fixings (SDL-CAL-001 v0.3 section 11). |
 | Calculations | SDL-CAL-001 v0.3: push 132 N design case (unchanged), 178 N heavy seedbed (177 N); depth figures unchanged; hopper 2.42 L. | Follows the model. |
 | Requirements | SDL-REQ-001 v0.5: no requirement changes status; R16 and R17 are reported against value-engineering targets. | |
 | Drawings | SDL-DWG-001 Rev P3; making sketches SDL-DWG-101 to 124 added. | Follows the model. |
@@ -75,7 +79,7 @@ The changes below keep what the seeder does: the same wheel sizes and wheelbase,
 ## Consequences
 
 - `design_state: constructable` in `project.yaml`. The build plan SDL-BLD-001 shows every component and step in pictures generated from the model (`cad/src/build_plan_media.py`).
-- With A1 accepted on 2026-10-02, the housing slot becomes 13 mm with printed side liners; the model, the housing making sketch and the build plan text still show the 9 mm slot until the model is updated.
+- With A1 accepted on 2026-10-02, the housing slot becomes 13 mm with printed side liners; the model, the housing making sketch and the build plan now show the 13 mm slot, with a printed liner each side for the 6 and 8 mm plates and a door-side liner for all three. The liners add USD 1.60 and 0.06 kg; the UV-stabilized door adds USD 3.00.
 - Requirement status: 11 met, 3 at risk (R1, R2, R10), 2 not verifiable at TRL 3 (R7, R15), and R16 and R17 reported against their value-engineering targets (under and over). None is not met.
-- The appearance model `cad/src/product_model.py` and the photoreal renders still show the concept frame, posts, opener and guard; they need updating on Amish's Mac, where Blender is.
+- The appearance model `cad/src/product_model.py` now matches the constructable model (13 mm slot and liners, no hopper window, steel disc drive wheel) and the render scenes are exported; the photoreal renders are made on Amish's Mac, where Blender is.
 - The bearings, wheel, press wheel and tensioner are chosen when the parts are bought (TRL 4); their bolt spacings, bores and the press wheel's inner spacer must be checked then and the holes moved to suit.

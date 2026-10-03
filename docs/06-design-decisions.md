@@ -3,7 +3,7 @@ doc_id: SDL-DEC-001
 title: SeedLine design decisions register
 project: SeedLine
 doc_type: Design decisions register
-version: "0.2"
+version: "0.3"
 status: Draft
 date: '2026-10-02'
 author: Amish Chadha
@@ -17,6 +17,10 @@ revisions:
     date: '2026-10-02'
     author: Amish Chadha
     change: "Amish approved the recommendations for open decisions 1 to 10 (2026-10-02); moved to decisions made (SDL-DDR-003 accepted)"
+  - version: "0.3"
+    date: '2026-10-02'
+    author: Amish Chadha
+    change: "Value engineering figures updated for the plate liners and the UV-stabilized door (SDL-CAL-001 v0.5)"
 ---
 
 # SeedLine design decisions register
@@ -40,10 +44,10 @@ None. All open decisions were decided on 2026-10-02.
 
 ## Value engineering
 
-Value-engineering target: USD 400 (a hypothetical control target, not a limit). Estimated cost of the constructable design: USD 261.50 for the prototype with both kits (USD 138.50 under the target). The base seeder's own target (R17) is about USD 200; its estimated cost is USD 219.50 (USD 19.50 over). Main cost drivers and savings worth trying:
+Value-engineering target: USD 400 (a hypothetical control target, not a limit). Estimated cost of the constructable design: USD 266.10 for the prototype with both kits (USD 133.90 under the target). The base seeder's own target (R17) is about USD 200; its estimated cost is USD 224.10 (USD 24.10 over). Main cost drivers and savings worth trying:
 
-- The largest lines are the chain drive (USD 38: hubbed sprockets about USD 9 each and the spring tensioner about USD 12), the frame (USD 30), the drive wheel with its axle and bearings (USD 30), the metering housing, shaft and bearings (USD 23), fasteners (USD 19) and the press wheel (USD 17).
-- Making the design buildable added USD 22.00 to the base seeder: two axle flange bearings and lug strip (line 1), hubbed sprockets and a bought tensioner (line 2), the door, collar and knob (line 5), more fasteners (line 15), clips, uprights and the opener cross member (line 12), less the opener clamp plate (line 9).
+- The largest lines are the chain drive (USD 38: hubbed sprockets about USD 9 each and the spring tensioner about USD 12), the frame (USD 30), the drive wheel with its axle and bearings (USD 30), the metering housing, liners, UV-stabilized door, shaft and bearings (USD 27.60), fasteners (USD 19) and the press wheel (USD 17).
+- Making the design buildable added USD 22.00 to the base seeder: two axle flange bearings and lug strip (line 1), hubbed sprockets and a bought tensioner (line 2), the door, collar and knob (line 5), more fasteners (line 15), clips, uprights and the opener cross member (line 12), less the opener clamp plate (line 9). The decisions of 2026-10-02 added USD 4.60 more: two printed plate liners (about USD 1.60 of filament) and the UV-stabilized door grade (about USD 3.00).
 - Savings worth trying: a fixed, slotted idler in place of the bought spring tensioner (about USD 8, but the spring idler is a decided item); oil-impregnated bronze bushings in the drop plates in place of the two axle flange bearings (about USD 5); welding the lugs where a welder is available (fewer screws, about USD 2); a printed knob and brush holder already in place; buying sprockets, chain and bearings as one kit from a go-kart parts supplier.
 
 ## Decisions made

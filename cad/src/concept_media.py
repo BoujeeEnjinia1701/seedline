@@ -36,7 +36,7 @@ if __name__ == "__main__":
                      "Printed plates: 1 to 36 cells; ratio 1.0 (0.8, 1.2 with ratio kit)",
                      "0.142 ha/h at 0.75 m rows, 2.9 km/h (SDL-CAL-001)",
                      "Push 132 N along the handle, design case (R10 at risk)",
-                     "14.0 kg base, 14.8 kg with marker; parts $220 base, $262 with kits"],
+                     "14.1 kg base, 14.9 kg with marker; parts $224 base, $266 with kits"],
         cut=False,
         flow={"title": "seeds per 100 m of row, maize plate at 250 mm; doubles add seeds (all values are estimates, SDL-CAL-001)",
               "unit": "seeds",

@@ -3,7 +3,7 @@ doc_id: SDL-BLD-001
 title: SeedLine prototype build plan
 project: SeedLine
 doc_type: Build plan
-version: "0.2"
+version: "0.3"
 status: Draft
 date: '2026-10-02'
 author: Amish Chadha
@@ -17,6 +17,10 @@ revisions:
     date: '2026-10-02'
     author: Amish Chadha
     change: "SDL-DDR-003 accepted (2026-10-02); door in UV-stabilized polycarbonate"
+  - version: "0.3"
+    date: '2026-10-02'
+    author: Amish Chadha
+    change: "Decisions carried into the plan: 13 mm housing slot with printed plate liners, longer plate hub, UV-stabilized door, no hopper window, steel disc drive wheel; pictures redrawn; cost and mass figures from SDL-CAL-001 v0.5"
 ---
 
 # SeedLine prototype build plan
@@ -29,7 +33,7 @@ revisions:
 
 *Figure 1. Every component pulled apart and numbered in build order; 24, the row marker, is the optional row-spacing kit.*
 
-The prototype is one SeedLine push seeder set up for maize: a steel frame of two square-tube rails on a 300 mm lugged drive wheel at the front and a 200 mm press wheel at the back, a printed metering housing and hopper in the middle, a roller chain from the drive wheel to the seed plate, a steel opener ahead of the housing, covering chains behind it and a telescoping handle. Figure 1 shows the 24 components in the order you make or fit them. Most are made in a small workshop: the rails, two cross members, four corner clips, four drop plates, the bearing plate, four hopper uprights, the wheel lugs, the drive axle and plate shaft, the opener shank and boot plates, the chain bracket, the handle tubes, brace and grip, and the marker parts; the housing, seed plate, knob, hopper and chain guard are 3D printed and the door is cut from clear sheet. The wheels, bearings, sprockets, chain, tensioner, brush, drop tube and fixings are bought. The work is sawing, drilling, tapping and filing steel tube, bar, angle and plate, flattening tube ends in a vice, bending strip, printing in PETG, and bolting it all together. Nothing is welded. The parts cost about USD 262 with both kits, from the bill of materials.
+The prototype is one SeedLine push seeder set up for maize: a steel frame of two square-tube rails on a 300 mm lugged drive wheel at the front and a 200 mm press wheel at the back, a printed metering housing and hopper in the middle, a roller chain from the drive wheel to the seed plate, a steel opener ahead of the housing, covering chains behind it and a telescoping handle. Figure 1 shows the 24 components in the order you make or fit them. Most are made in a small workshop: the rails, two cross members, four corner clips, four drop plates, the bearing plate, four hopper uprights, the wheel lugs, the drive axle and plate shaft, the opener shank and boot plates, the chain bracket, the handle tubes, brace and grip, and the marker parts; the housing, seed plate, knob, hopper and chain guard are 3D printed and the door is cut from clear sheet. The wheels, bearings, sprockets, chain, tensioner, brush, drop tube and fixings are bought. The work is sawing, drilling, tapping and filing steel tube, bar, angle and plate, flattening tube ends in a vice, bending strip, printing in PETG, and bolting it all together. Nothing is welded. The parts cost about USD 266 with both kits, from the bill of materials.
 
 > **Safety:** SeedLine has a roller chain that moves whenever the wheel turns, a pointed steel opener and steel wheel lugs. Keep the chain guard on whenever the wheel can turn, lift the drive wheel clear and hold it still for plate changes and cleaning, and deburr every cut edge. Cut steel and flattened tube ends are sharp: wear gloves. Seed dressed with fungicide or insecticide is toxic: follow the seed label. Printing PETG gives off fumes; print in a ventilated space.
 
@@ -52,7 +56,7 @@ The concept showed what the seeder does; some of its parts ran through each othe
 | Handle | Tubes ending inside the rails; unjointed grip and brace | Flattened tube ends bolted to the rear drop plates and to the grip; sleeves for height (Figures 26, 29 and 32) | Bolted joints made with a vice and a drill |
 | Corner joints | Flat plates across the tube ends | Four angle clips (Figure 4) | |
 | Lugs, marker, drop tube | No fixings shown | Bolted L-lugs; a bent U-bracket for the marker; a drop tube that slides on a spigot so it follows the depth setting (Figures 7, 34 and 22) | |
-| Mass | The added parts would have put the seeder over 15 kg | Drop plates 4 mm instead of 6 mm, lighter lid and marker parts | 14.8 kg with the marker kit |
+| Mass | The added parts would have put the seeder over 15 kg | Drop plates 4 mm instead of 6 mm, lighter lid and marker parts | 14.9 kg with the marker kit |
 
 ## 3. Making the components
 
@@ -197,13 +201,13 @@ The axle turns in the two flange bearings and carries the wheel and the wheel sp
 
 **How to make it.**
 
-1. Print the body standing on its bottom face, with supports under the lugs and the collar. The body is 146 long, 21 wide and 165 tall, with a 9 mm slot inside for the 6 mm plate (1.5 mm each side); the front wall is 3 mm and the others 6 mm.
-2. Check the features: on top, a collar 80 x 48 x 20 with a 68 x 38 pocket 10 deep and a funnel down to the slot; on the chain side, a 22 mm hole for the plate hub and two lugs 20 x 37 x 25 with 6.5 mm holes and M6 nut slots, 35 each side of the shaft; on the door side, an opening 128 x 132; in the rear wall, a 9 x 10 slot for the brush; under the outlet, a spigot 16 mm across, 12 mm bore, 60 long.
+1. Print the body standing on its bottom face, with supports under the lugs and the collar. The body is 146 long, 25 wide and 165 tall, with a 13 mm slot inside. The slot takes a 6, 8 or 10 mm plate with a printed liner each side, so the plate has 1.5 mm to spare on each face; the front wall is 3 mm and the others 6 mm.
+2. Check the features: on top, a collar 80 x 48 x 20 with a 68 x 38 pocket 10 deep and a funnel down to the slot; on the chain side, a 22 mm hole for the plate hub and two lugs 20 x 37 x 25 with 6.5 mm holes and M6 nut slots, 35 each side of the shaft; on the door side, an opening 128 x 132; in the rear wall, a 13 x 10 slot for the brush; in the chain-side slot wall, two 3.4 mm peg holes 5 deep, 48 mm each side of the shaft, for the liner; under the outlet, a spigot 16 mm across, 12 mm bore, 60 long.
 3. Press two M4 heat-set inserts into the door-side wall for the door screws, at the door's screw positions (section 3.11).
 
 **How it fits the parts next to it.** The lugs bolt to the inside face of the chain-side rail on the bearing plate's two bolts (Figure 12); the hopper neck drops into the collar (Figure 19); the drop tube slides onto the spigot; the brush passes through the rear slot.
 
-**Check before moving on.** A 6 mm plate turns freely in the slot with the door on.
+**Check before moving on.** A 6 mm plate with both liners turns freely in the slot with the door on.
 
 ### 3.8 Bearing plate
 
@@ -258,7 +262,7 @@ The plate bolts to the outside face of the chain-side rail, bottom edge flush wi
 
 **How to make it.**
 
-1. Print flat, hub up, no supports: a disc 120 across and 6 thick, with a hub 20 across and 9 long on its chain-side face, a bore of 12.4 with a flat 4.6 from the centre, and four rim cells 14.3 long and 8.7 deep for maize.
+1. Print flat, hub up, no supports: a disc 120 across and 6 thick, with a hub 20 across and 11 long on its chain-side face (the hub always ends 14 from the plate's centre plane, so a thicker plate has a shorter hub), a bore of 12.4 with a flat 4.6 from the centre, and four rim cells 14.3 long and 8.7 deep for maize.
 2. Mark the crop and cell count on the face in raised text.
 3. Other crops use the same plate with cells sized from the seed; the calculation note lists them.
 
@@ -266,27 +270,28 @@ The plate bolts to the outside face of the chain-side rail, bottom edge flush wi
 
 ![Figure 15. Joint 4: seed plate on the shaft](05-build-plan/joint-04.png)
 
-*Figure 15. The collar and the knob clamp the plate; its hub runs in the housing wall with 1 mm all round, so seed cannot get out.*
+*Figure 15. The collar and the knob clamp the plate; its hub runs in the housing wall with 1 mm all round, and a printed liner lies each side of the plate, so seed cannot get out.*
 
 **Check before moving on.** A maize kernel sits in each cell level with the rim, not standing proud of it.
 
-### 3.11 Housing door and plate knob
+### 3.11 Housing door, plate liners and plate knob
 
-![Figure 16. Making sketch of the door and knob](../cad/drawings/SDL-DWG-113.png)
+![Figure 16. Making sketch of the door, liners and knob](../cad/drawings/SDL-DWG-113.png)
 
-*Figure 16. Housing door and plate knob making sketch (SDL-DWG-113).*
+*Figure 16. Housing door, plate liners and plate knob making sketch (SDL-DWG-113).*
 
-**What they are and what they are made from.** A clear door over the housing's side opening, so you can see the cells fill, and a printed knob that holds the plate on. Clear polycarbonate sheet 3 mm, UV-stabilized grade; the knob in PETG with an M6 x 25 screw as its stud.
+**What they are and what they are made from.** A clear door over the housing's side opening, so you can see the cells fill; two printed liners that narrow the 13 mm slot to the plate; and a printed knob that holds the plate on. Clear polycarbonate sheet 3 mm, UV-stabilized grade; the liners and knob in PETG, the knob with an M6 x 25 screw as its stud.
 
 **How to make them.**
 
 1. Cut the door 136 x 140 (score and snap, or a fine saw) with the film on; round the corners 5 mm.
 2. Drill a 13 mm hole for the knob stem 70 from the rear edge and 70 up, and 4.5 mm holes for the thumb screws 12 from the rear edge at 125 up, and 124 from the rear edge at 15 up.
 3. Print the knob: a 28 mm head, 10 thick, on a 12 mm stem 10.5 long, with a hexagon pocket that holds the screw head; press the screw in.
+4. Print the two liners flat, each a disc 122 across with a 22 mm hole and a notch 16 tall where the brush enters. The chain-side liner is 2 mm thick for the 6 mm plate (1 mm for an 8 mm plate, none for a 10 mm plate) and has two 3 mm pegs 4 long, 48 each side of centre. The door-side liner is 2 mm thick with two 5 mm pegs 6 long (shorter for a thicker plate) that rest on the inside of the door.
 
-**How they fit the parts next to them.** The door covers the opening on the door side with two M4 thumb screws into the inserts; the knob stem passes the door and screws into the shaft end, clamping the plate against the collar.
+**How they fit the parts next to them.** The door covers the opening on the door side with two M4 thumb screws into the inserts; the knob stem passes the door and screws into the shaft end, clamping the plate against the collar. The chain-side liner lies on the slot wall on its two pegs; the door-side liner hangs on the door's pegs, and the door holds it in place.
 
-**Check before moving on.** Knob out and door off in under a minute with no tools.
+**Check before moving on.** Knob out and door off in under a minute with no tools; each liner sits 1.5 mm from the plate face.
 
 ### 3.12 Hopper uprights (make 4)
 
@@ -550,7 +555,7 @@ Buy to specification, not brand. Line numbers are those of the bill of materials
 *Figure 36. The tensioner pivots on an M8 bolt through the chain-side rail, between the two strands, with its idler pressing the lower (slack) strand down. Guard off for clarity.*
 
 - **Plate shaft bearings and collar (line 5).** Two pressed-steel two-bolt flange bearings for 12 mm, and one 12 mm shaft collar with a set screw.
-- **Singulator brush (line 7).** Nylon strip brush about 8 wide and 35 long, on a printed holder screwed to the outside of the housing's rear wall with two M4 screws in slotted holes, so the gap to the plate rim can be set.
+- **Singulator brush (line 7).** Nylon strip brush about 12 wide and 35 long, on a printed holder screwed to the outside of the housing's rear wall with two M4 screws in slotted holes, so the gap to the plate rim can be set.
 - **Seed drop tube (line 8).** PVC or PE tube 20 mm outside, 16 mm bore, 95 long.
 - **Covering chains (line 10).** Two 250 mm lengths of 3 to 4 mm light chain.
 - **Press wheel (line 11).** 200 mm concave rubber tread 70 wide, on two bearings with an inner spacer tube, 16 mm bore; a 16 mm axle bolt about 170 long with nuts and washers; two spacers of 21 x 2.5 mm tube, 37.5 long.
@@ -614,11 +619,11 @@ Fit the 16 mm-bore sprocket on the drive axle and the 12 mm-bore one on the plat
 
 Bolt the tensioner to the chain-side rail on its M8 bolt. Fit the chain round both sprockets with the connecting link's clip facing away from the direction of travel, and let the tensioner's idler bear on the lower strand. **Hold point:** turn the wheel by hand: the chain runs without jumping and the plate shaft turns once per wheel turn.
 
-### Step 10: brush, seed plate, door and knob
+### Step 10: brush, liners, seed plate, door and knob
 
 ![Step 10](05-build-plan/step-10.png)
 
-Fit the brush through the rear slot and set its gap to the plate rim at 1 to 2 mm. Slide the seed plate onto the D-flat until its hub meets the collar, fit the door with its two thumb screws, and screw the knob into the shaft end, finger tight.
+Fit the brush through the rear slot and set its gap to the plate rim at 1 to 2 mm. Press the chain-side liner onto its two pegs against the slot wall, slide the seed plate onto the D-flat until its hub meets the collar, set the door-side liner on the door's pegs, fit the door with its two thumb screws, and screw the knob into the shaft end, finger tight.
 
 ### Step 11: hopper uprights and hopper
 
@@ -677,7 +682,7 @@ These are the checks a TRL 4 test report would record; this plan only lists them
 | Depth settings | R8 | Seeder on a flat floor; measure the shank bottom below the wheel contact line at each of the six settings | 10 to 60 mm in 10 mm steps, within 2 mm |
 | Seed path | R1, R2 | Maize in the hopper, drive wheel lifted, turn it 25 turns by hand over a tray | Seed falls only from the boot; record singles, misses and doubles (100 cells) |
 | Hopper | R12 | Fill with water to the rim, measure | 2 L or more, no leaks |
-| Mass | R11 | Weigh the seeder with and without the marker kit | 15 kg or less with the kit (14.8 kg estimated) |
+| Mass | R11 | Weigh the seeder with and without the marker kit | 15 kg or less with the kit (14.9 kg estimated) |
 | Grip height | R11 | Set the sleeve pin at each hole | 850 to 1,050 mm |
 | Marker | R13 | Set 750 mm; roll 10 m beside a string line | Line within 25 mm of 750 mm |
 | Push | R10 | Spring scale on the grip, along the handle, on a tilled bed | Record the force; 150 N or less in the design case |
@@ -707,7 +712,7 @@ Stop at each point. Carry on only when everything listed is true.
 
 - Model and constructability checks: `cad/src/model.py` (`python cad/src/model.py --check`, 78 checks); STEP and STL exports in `cad/step/` and `cad/stl/`.
 - Pictures: `cad/src/build_plan_media.py`, using `.kit/build_views.py`; written to `docs/05-build-plan/` and `cad/drawings/SDL-DWG-101` to `SDL-DWG-124`.
-- General arrangement: `cad/drawings/SDL-DWG-001.pdf`, Rev P3.
+- General arrangement: `cad/drawings/SDL-DWG-001.pdf`, Rev P4.
 - Calculations: `docs/04-calcs/01-sizing.md` (SDL-CAL-001 v0.3) and `docs/04-calcs/sizing.py`; mass section 5, push force section 6, depth section 9.
 - Bill of materials: `bom/bom.csv`.
 - Decisions: `docs/decisions/0003-design-for-construction.md` (SDL-DDR-003), with SDL-DDR-001 and SDL-DDR-002.

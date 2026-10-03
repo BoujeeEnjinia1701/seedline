@@ -3,7 +3,7 @@ doc_id: SDL-REQ-001
 title: SeedLine requirements
 project: SeedLine
 doc_type: Requirements
-version: "0.6"
+version: "0.7"
 status: Draft
 date: '2026-10-02'
 author: Amish Chadha
@@ -33,6 +33,10 @@ revisions:
   date: '2026-10-02'
   author: Amish Chadha
   change: "R17: USD 219.50 accepted for the prototype (SDL-DDR-003 A3, 2026-10-02); no status changed"
+- version: "0.7"
+  date: '2026-10-02'
+  author: Amish Chadha
+  change: "Figures from SDL-CAL-001 v0.5 after the decisions of 2026-10-02 (13 mm slot with liners, UV-stabilized door): R11, R16 and R17 values updated; no status changed"
 ---
 
 # SeedLine requirements
@@ -53,17 +57,17 @@ Status is from SDL-CAL-001 v0.3: met, at risk, not met, or not verifiable at TRL
 | R4 | Spacing follows travel | Seed spacing set by distance travelled, not speed; wheel slip 8 % or less | Traction estimate (CAL section 6); field test later | Met: skid 1.2 to 1.7 %; rolling radius uncertain by up to 6.7 %, so calibrate per seedbed |
 | R5 | Seed size range | Raw seed from 3.5 to 15 mm in its largest dimension with plates of the same diameter; seed under 2 mm sown as pelleted seed (redefined, SDL-DDR-001 item 6) | Cell tolerance rule (CAL section 4); bench test later | Met on paper: 3.5 to 15 mm raw seed; pelleted carrot fits; raw 1 to 2 mm seed does not |
 | R6 | Printable plates | Each plate prints in 2 h or less on a 180 x 180 mm bed with no supports, in PETG (default) or ASA (strong sun); PLA for trials only; cell size within ±0.2 mm | Print estimate (CAL section 4); measurement later | Met: 1.46 h (maize) to 1.96 h (groundnut), no margin for thick plates; accuracy not verifiable at TRL 3 |
-| R7 | Crop change | Plate swapped in 2 min or less by hand, with no tools, without emptying more than the seed in the housing | Design review; timed trial later | Not verifiable at TRL 3: side door and hand knob are in the model |
+| R7 | Crop change | Plate swapped in 2 min or less by hand, with no tools, without emptying more than the seed in the housing | Design review; timed trial later | Not verifiable at TRL 3: side door and hand knob are in the model; one 13 mm slot takes the 6, 8 and 10 mm plates with a printed liner pair |
 | R8 | Sowing depth | Adjustable 10 to 60 mm in 10 mm steps, held within ±10 mm on a ploughed field-crop seedbed (restated, SDL-DDR-002 item 6; rough, hand-tilled seedbeds to be reviewed with partner data) | Depth geometry (CAL section 9); field check later | Met on paper: ±10 mm holds for wheel-path bumps within about ±15 mm under the drive wheel, taken as the ploughed-seedbed condition |
 | R9 | Work rate | 0.1 ha/h or more in the design case, including turns and refills | Field capacity (CAL section 8) | Met: 0.142 ha/h (7.1 h/ha) at 2.9 km/h |
 | R10 | Push effort | Horizontal push force 150 N or less in the design case | Planar statics with soil model (CAL section 6); spring-scale test later | **At risk:** 132 N along the handle in the design case; 178 N at best on a heavy, loose seedbed |
-| R11 | Handling | Mass 15 kg or less; handle grip height adjustable from 850 to 1,050 mm; lifted and turned at a row end by one person | Mass build-up (CAL section 5); weighing later | Met: 14.0 kg base, 14.8 kg with the marker kit (0.19 kg margin) with the 22 x 1.2 mm handle (SDL-DDR-002 item 3), weighed from the constructable model |
+| R11 | Handling | Mass 15 kg or less; handle grip height adjustable from 850 to 1,050 mm; lifted and turned at a row end by one person | Mass build-up (CAL section 5); weighing later | Met: 14.1 kg base, 14.9 kg with the marker kit (0.12 kg margin) with the 22 x 1.2 mm handle (SDL-DDR-002 item 3), weighed from the constructable model |
 | R12 | Hopper | 2 L or more, fills from a jug without spilling, empties in 1 min or less when changing crops | Model volume (CAL section 8) | Met: 2.42 L |
 | R13 | Row-spacing kit | Telescoping marker arm (decided, SDL-DDR-001 item 3) sets the next row at 200 to 900 mm from the current row, within ±25 mm | Design review | Met on paper |
 | R14 | Guarding | Chain and sprocket nip points covered on the side facing the operator's hands and feet; no exposed sharp edges above the opener | Design review | Met on paper: printed shroud with an outboard face plate over both sprockets, the chain and the tensioner's full travel |
 | R15 | Durability | Frame, drive and opener last 5 seasons of about 2 ha each with only chain, brush and plate replacement; plates last 1 season or more | Stress checks (CAL section 7); wear test later | Not verifiable at TRL 3: stresses are low, wear life unknown |
-| R16 | Prototype cost | Prototype parts against the USD 400 value-engineering target (`budget_usd`) | Priced BOM (`bom/bom.csv`) | USD 261.50 estimated, USD 138.50 under the target |
-| R17 | Replication cost | Base seeder (all items except the row marker kit and the optional ratio kit) about USD 200 in parts, a value-engineering target | Priced BOM | USD 219.50 estimated, USD 19.50 over the target; accepted for the prototype on 2026-10-02 (SDL-DDR-003 A3), with the bronze bushing and go-kart kit savings to try at TRL 4 |
+| R16 | Prototype cost | Prototype parts against the USD 400 value-engineering target (`budget_usd`) | Priced BOM (`bom/bom.csv`) | USD 266.10 estimated, USD 133.90 under the target |
+| R17 | Replication cost | Base seeder (all items except the row marker kit and the optional ratio kit) about USD 200 in parts, a value-engineering target | Priced BOM | USD 224.10 estimated, USD 24.10 over the target; USD 219.50 accepted for the prototype on 2026-10-02 (SDL-DDR-003 A3), and the plate liners and UV-stabilized door added USD 4.60 after it, with the bronze bushing and go-kart kit savings to try at TRL 4 |
 | R18 | Local build | Frame, handle and opener made from common steel sections with a drill and bolts (default, SDL-DDR-001 item 8) or a welder; drive from standard #35 roller chain or bicycle parts | Design review | Met on paper |
 
 ## Requirements not met or at risk
@@ -73,8 +77,8 @@ No requirement is not met on paper after SDL-DDR-003. Three are at risk, one is 
 - **R1 at risk:** under the walking-speed rule (2.9 km/h) the maize cells move at 0.299 m/s, at the assumed 0.30 m/s fill limit with no margin, and the limit itself needs a bench test. Plate size is revisited only with bench data.
 - **R2 at risk:** the all-spacings CV depends on miss and double rates that need a bench test.
 - **R10 at risk:** the design case is inside 150 N with a 12 % margin on assumed soil values; a heavy, loose seedbed needs about 178 N.
-- **R11 thin margin:** 14.8 kg with the marker kit against 15 kg (0.19 kg margin), with the lighter 22 x 1.2 mm handle.
-- **R17 over its value-engineering target:** base parts USD 219.50 against about USD 200, USD 19.50 over. The bearings, hubbed sprockets, tensioner, clips and fixings that make the design buildable added USD 22.00 (SDL-CAL-001 section 11); savings worth trying are in the design decisions register (SDL-DEC-001). On 2026-10-02 Amish accepted the USD 219.50 for the prototype; the bronze bushing and go-kart kit savings are tried at TRL 4.
+- **R11 thin margin:** 14.9 kg with the marker kit against 15 kg (0.12 kg margin), with the lighter 22 x 1.2 mm handle.
+- **R17 over its value-engineering target:** base parts USD 224.10 against about USD 200, USD 24.10 over. The bearings, hubbed sprockets, tensioner, clips and fixings that make the design buildable added USD 22.00 (SDL-CAL-001 section 11); savings worth trying are in the design decisions register (SDL-DEC-001). On 2026-10-02 Amish accepted USD 219.50 for the prototype (the liners and UV-stabilized door then added USD 4.60); the bronze bushing and go-kart kit savings are tried at TRL 4.
 - **R8 restated:** met on paper for ploughed field-crop seedbeds; the rigid opener follows the wheels, so clods under the drive wheel on rough, hand-tilled seedbeds will change the depth.
 
 ## Assumptions

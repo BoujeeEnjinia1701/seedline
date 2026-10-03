@@ -1,4 +1,4 @@
-"""SeedLine general arrangement drawing SDL-DWG-001 (Rev P3).
+"""SeedLine general arrangement drawing SDL-DWG-001 (Rev P4).
 
 Run from the repo root:  python cad/src/sheets.py
 Builds cad/drawings/SDL-DWG-001.svg, .pdf and .png from the parametric model.
@@ -25,13 +25,14 @@ work = ROOT / "cad/drawings/_views"
 views = project_views(asm, work)
 
 s = Sheet(project="SeedLine", title="General arrangement, TRL 3 model", dwg_no="SDL-DWG-001",
-          rev="P3", author="Amish Chadha", date="2026-10-01", concept=True,
+          rev="P4", author="Amish Chadha", date="2026-10-02", concept=True,
           material="Bolted 25 x 25 x 1.5 steel tube frame, 4 mm plates; PETG printed plate, housing, hopper, guard; #35 chain. See bom/bom.csv",
           revisions=[("P1", "Preliminary GA from the TRL 3 model (SDL-CAL-001)", "2026-09-25", "AC"),
                      ("P2", "DDR-002: 22 x 1.2 handle, ratio kit, mass and notes", "2026-09-25", "AC"),
-                     ("P3", "DDR-003: constructable design; making sketches SDL-DWG-101 to 124", "2026-10-01", "AC")])
+                     ("P3", "DDR-003: constructable design; making sketches SDL-DWG-101 to 124", "2026-10-01", "AC"),
+                     ("P4", "SDL-DEC-001: 13 mm housing slot with plate liners; mass and notes", "2026-10-02", "AC")])
 s.add_ortho(views, ["front", "top", "right"])
-s.add_svg(views["iso"], 276, 30, 140, 80, label="Isometric view", sublabel="Not to scale; marker deployed")
+s.add_svg(views["iso"], 276, 38, 140, 72, label="Isometric view", sublabel="Not to scale; marker deployed")
 s.add_notes("Key dimensions (mm) and data", [
     f"Overall {bb.size.X:.0f} L x {bb.size.Y:.0f} W x {bb.size.Z:.0f} H (marker at {P['ROW_SPACING']:.0f})",
     f"Drive wheel {P['WHEEL_D']:.0f} dia x {P['WHEEL_W']:.0f}, {P['N_LUGS']} lugs; press wheel {P['PRESS_D']:.0f} x {P['PRESS_W']:.0f}",
@@ -42,7 +43,7 @@ s.add_notes("Key dimensions (mm) and data", [
     f"Opener depth {P['DEPTH']:.0f} shown; 10 to 60 in 10 mm steps; opener cross member {P['X_WHEEL'] - P['OPENER_BAR_X']:.0f} behind axle",
     f"Grip {P['GRIP_H']:.0f} high (850 to 1,050); handle {P['HANDLE_OD']:.0f} x {P['HANDLE_T']} tube, {P['HANDLE_ANGLE']:.0f} deg",
     f"Hopper {model.hopper_volume_l():.1f} L; marker reach 200 to 900",
-    "Mass 14.0 kg base, 14.8 kg with marker (SDL-CAL-001 v0.3)",
+    "Mass 14.1 kg base, 14.9 kg with marker (SDL-CAL-001 v0.5)",
     "Chain guard must be fitted in use; parts and fixings per SDL-BLD-001",
     "PRELIMINARY, NOT FOR FABRICATION",
 ], x=276, y=124, width=140)

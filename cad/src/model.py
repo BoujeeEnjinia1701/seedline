@@ -68,6 +68,11 @@ PARAMS = {
     "PLATE_D": 120.0,
     "Z_SHAFT": 245.0,
     "SHAFT_D": 12.0,
+    "SLOT_W": 13.0,          # housing slot width (SDL-DEC-001, 2026-10-02: one slot for 6, 8 and 10 mm plates)
+    "SLOT_GAP": 1.5,         # clearance each side of a plate, kept by the printed side liners
+    "HUB_Y": 14.0,           # plate hub end, from the plate centre plane (the hub is longer on a thinner plate)
+    "LINER_R": 61.0,         # radius of the printed side liners
+    "LINER_DOOR_T": 2.0,     # door-side liner thickness
     "N_CELLS": 4,            # design case: maize, 250 mm target
     "SEED": (12.0, 8.0, 5.0),  # maize kernel length, width, thickness
     # Drive: #35 chain, 9.525 mm pitch
@@ -296,15 +301,48 @@ def make_plate(n_cells=None, seed=None, at=None):
     clen, cdep, thk = cell_size(seed)
     x, z = at or (0.0, 0.0)
     r = P["PLATE_D"] / 2
-    plate = ycyl(x, 0, z, r, thk) + ycyl2(x, z, 10.0, -thk / 2 - 9.0, -thk / 2)
+    plate = ycyl(x, 0, z, r, thk) + ycyl2(x, z, 10.0, -P["HUB_Y"], -thk / 2)
     for k in range(n):
         t = 2 * math.pi * k / n
         c = (x + (r - cdep / 2) * math.cos(t), z + (r - cdep / 2) * math.sin(t))
         cutter = Pos(c[0], 0, c[1]) * Rot(0, -math.degrees(t), 0) * Box(cdep + 1, thk + 2, clen)
         plate = plate - cutter
-    bore = ycyl2(x, z, P["SHAFT_D"] / 2 + 0.2, -thk / 2 - 12, thk / 2 + 2) - \
-        box(x - 10, x + 10, -thk - 12, thk + 2, z + 4.6, z + 10)
+    bore = ycyl2(x, z, P["SHAFT_D"] / 2 + 0.2, -P["HUB_Y"] - 2, thk / 2 + 2) - \
+        box(x - 10, x + 10, -P["HUB_Y"] - 2, thk + 2, z + 4.6, z + 10)
     return plate - bore
+
+
+def liner_sizes(seed=None):
+    """(chain-side liner thickness, door-side liner thickness, door-side liner inner face y) for a plate.
+    The 13 mm slot is wider than the plate by SLOT_GAP on each side plus the liners."""
+    P = PARAMS
+    _, _, thk = cell_size(seed)
+    t_chain = max(0.0, (P["SLOT_W"] - thk - 2 * P["SLOT_GAP"]) / 2)
+    return t_chain, P["LINER_DOOR_T"], thk / 2 + P["SLOT_GAP"]
+
+
+def make_liners(seed=None, at=None):
+    """Printed side liners that keep the seed in a slot only as wide as the plate (SDL-DEC-001, 2026-10-02).
+    Returns (chain-side liner or None, door-side liner). The chain-side liner lies on the slot wall and is
+    pegged into it; the door-side liner stands off the door on two pegs and is clamped by the door."""
+    P = PARAMS
+    x, z = at or (P["X_METER"], P["Z_SHAFT"])
+    t_c, t_d, y_in = liner_sizes(seed)
+    hy = P["SLOT_W"] / 2 + 6.0
+    rl = P["LINER_R"]
+    notch = box(x - 80, x - 30, -50, 50, z + 32.0, z + 48.0)          # clear of the singulator brush strip
+
+    def disc(y0, y1):
+        return ycyl2(x, z, rl, y0, y1) - ycyl2(x, z, 11.0, y0 - 1, y1 + 1) - notch
+
+    chain = None
+    if t_c > 0.05:
+        y1 = -y_in
+        chain = disc(y1 - t_c, y1)
+        chain = chain + union([ycyl2(x + dx, z, 1.5, y1 - t_c - 4.0, y1 - t_c) for dx in (-48.0, 48.0)])
+    door = disc(y_in, y_in + t_d)
+    door = door + union([ycyl2(x + dx, z, 2.5, y_in + t_d, hy) for dx in (-48.0, 48.0)])
+    return chain, door
 
 
 def hopper_solids():
@@ -431,8 +469,8 @@ def build_components(p=None, marker=True):
     xmid = P["X_MID"]
     xu_f, xu_r = ob0 - 15.0, xm - 75.0          # hopper upright centres (front one shares the clip bolt)
     _, _, thk = cell_size()
-    slot = thk + 3.0
-    hy = slot / 2 + 6.0                          # housing side wall outer face (10.5)
+    slot = P["SLOT_W"]
+    hy = slot / 2 + 6.0                          # housing side wall outer face (12.5)
     hf = xm + 66.0                               # housing front outer face
     hb = xm - 80.0                               # housing rear outer face
     hz0, hz1 = 165.0, 330.0
@@ -615,6 +653,7 @@ def build_components(p=None, marker=True):
     housing = housing - box(xm - 66, xm + 62, slot / 2 - 1, hy + 1, 179.0, 311.0)              # side door opening
     housing = housing - ycyl2(xm, zs, 11.0, -hy - 1, 0)                                        # plate hub runs here
     housing = housing - box(hb - 1, hb + 7, -slot / 2, slot / 2, zs + 35, zs + 45)            # brush slot in the rear wall
+    housing = housing - union([ycyl2(xm + dx, zs, 1.7, -slot / 2 - 5.0, -slot / 2 + 0.5) for dx in (-48.0, 48.0)])   # liner peg holes
     housing = housing - zcyl2(xm + 32, 0, 7.0, hz0 - 1, hz0 + 7)                               # seed outlet
     spig_z0 = hz0 - 60.0
     housing = housing + (zcyl2(xm + 32, 0, 8.0, spig_z0, hz0) - zcyl2(xm + 32, 0, 6.0, spig_z0 - 1, hz0 + 1))
@@ -639,7 +678,7 @@ def build_components(p=None, marker=True):
     sbr.append(box(xm - 15, xm + 15, yb_out0 - 3.0, yb_out0, zs - 36, zs + 36) + ycyl2(xm, zs, 15.0, yb_out0 - 3.0, yb_out0 - 12.0))
     sbr.append(box(xm - 36, xm + 36, -ro, -ro + 3.0, zs - 15, zs + 15) + ycyl2(xm, zs, 15.0, -ro + 3.0, -ro + 12.0))
     add("shaft_bearings", "Plate shaft flange bearings (2)", union(sbr) - ycyl2(xm, zs, P["SHAFT_D"] / 2, -300, 300), 5, "bought")
-    add("collar", "Shaft collar, 12 mm", ycyl2(xm, zs, 11.0, -thk / 2 - 17.0, -thk / 2 - 9.0) - ycyl2(xm, zs, P["SHAFT_D"] / 2, -300, 300), 5, "bought")
+    add("collar", "Shaft collar, 12 mm", ycyl2(xm, zs, 11.0, -P["HUB_Y"] - 8.0, -P["HUB_Y"]) - ycyl2(xm, zs, P["SHAFT_D"] / 2, -300, 300), 5, "bought")
     hb_ = []
     for dz in (-24.0, 24.0):
         hb_.append(bolt_y(xm, zs + dz, 6, yb_out0 - 3.0, -ro if dz > 0 else -ri))
@@ -651,6 +690,10 @@ def build_components(p=None, marker=True):
 
     # ------------------------------------------------------------- seed plate (6)
     add("plate", "Seed plate (maize, 4 cells)", make_plate(at=(xm, zs)), 6, "made")
+    liner_c, liner_d = make_liners(at=(xm, zs))
+    if liner_c is not None:
+        add("liner_chain", "Plate liner, chain side (printed)", liner_c, 5, "made")
+    add("liner_door", "Plate liner, door side (printed)", liner_d, 5, "made")
 
     # ------------------------------------------------------------- brush (7): holder on the rear wall, strip through the slot
     r = P["PLATE_D"] / 2
@@ -862,6 +905,7 @@ def checks(p=None):
         rows.append((desc, v, gp, expect, ok))
 
     rails = S("rail_l") + S("rail_r")
+    P_GAP = (p or PARAMS)["SLOT_GAP"]
     # frame
     chk("Middle cross member between the rails", "cross_mid", rails, "touch")
     chk("Opener cross member between the rails", "opener_bar", rails, "touch")
@@ -908,6 +952,27 @@ def checks(p=None):
     chk("Plate on the shaft collar", "plate", "collar", "touch")
     chk("Shaft collar on the shaft", "collar", "shaft", "touch")
     chk("Collar clear of the housing and bearings", "collar", S("housing") + S("shaft_bearings"), 1.0)
+    chk("Chain-side liner on the slot wall", "liner_chain", "housing", "joined")
+    chk("Chain-side liner clear of the plate and its hub", "liner_chain", "plate", 1.0)
+    chk("Chain-side liner clear of the brush", "liner_chain", "brush", 2.0)
+    chk("Door-side liner clear of the plate", "liner_door", "plate", P_GAP - 1e-3)
+    chk("Door-side liner pegs on the door", "liner_door", "door", "touch")
+    chk("Door-side liner clear of the housing", "liner_door", "housing", 0.5)
+    chk("Door-side liner clear of the brush and knob", "liner_door", S("brush") + S("knob"), 2.0)
+    chk("Door-side liner clear of the door screws", "liner_door", "door_screws", 10.0)
+    # the 8 and 10 mm plates in the same slot (groundnut and sorghum class seed)
+    xm_, zs_ = (p or PARAMS)["X_METER"], (p or PARAMS)["Z_SHAFT"]
+    for label, seed in (("8 mm", (13.0, 9.0, 6.5)), ("10 mm", (16.0, 10.0, 8.1))):
+        pl = make_plate(seed=seed, at=(xm_, zs_))
+        lc, ld = make_liners(seed=seed, at=(xm_, zs_))
+        if lc is not None:
+            chk(f"{label} plate: chain-side liner clear of the plate", lc, pl, 1.0)
+            chk(f"{label} plate: chain-side liner on the slot wall", lc, "housing", "joined")
+        chk(f"{label} plate: door-side liner clear of the plate", ld, pl, P_GAP - 1e-3)
+        chk(f"{label} plate: door-side liner pegs on the door", ld, "door", "touch")
+        chk(f"{label} plate: housing clear of the plate", "housing", pl, 0.5)
+        chk(f"{label} plate: hub end on the shaft collar", pl, "collar", "touch")
+        chk(f"{label} plate: knob clear of the door-side liner", "knob", ld, 0.2)
     chk("Knob on the plate", "knob", "plate", "touch")
     chk("Knob clear of the housing", "knob", "housing", 0.2)
     chk("Door on the housing", "door", "housing", "touch")

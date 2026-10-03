@@ -219,7 +219,8 @@ MASS = [  # (item, group, kg, x of center in mm, z of center in mm)
     ("Sprockets with hubs (0.15 kg each), chain (0.25), tensioner (0.20)", "drive and metering", 0.30 + 0.25 + 0.20, -135, 200),
     ("Chain guard, PETG (model), spacers", "drive and metering", petg("guard") + 0.02, -135, 200),
     ("Hopper and lid, PETG (model)", "drive and metering", hopper_kg, xm, 440),
-    ("Housing, PETG (model); clear door; knob", "drive and metering", petg("housing") + vol("door") * 1.2e-6 + 0.01, xm, 260),
+    ("Housing and two plate liners, PETG (model); clear door; knob", "drive and metering",
+     petg("housing", "liner_chain", "liner_door") + vol("door") * 1.2e-6 + 0.01, xm, 260),
     ("Shaft (model), two flange bearings (0.30), collar", "drive and metering", steel("shaft") + 0.30 + 0.02, xm, 245),
     ("Seed plate, brush, drop tube", "drive and metering", plate_kg + 0.05 + 0.03, xm, 230),
     ("Opener shank and boot plates (model)", "opener and covering", steel("shank", "boot") + 0.01, -215, 0),
@@ -241,6 +242,9 @@ for k, v in groups.items():
 print(f"frame {frame:.2f} kg ({rail_len:.2f} m of rail); handle {handle:.2f} kg "
       f"({h_len * 1000:.0f} mm per side tube, {HOD:.0f} x {HT} round); 25 x 1.5 handle would be {handle_old:.2f} kg, "
       f"saving {handle_old - handle:.2f} kg")
+liner_g = petg("liner_chain", "liner_door") * 1000
+print(f"plate liners (SDL-DEC-001, 13 mm slot): {liner_g:.0f} g printed solid, about ${liner_g / 1000 * PETG_USD_KG * 1.1:.2f} of filament with 10 % waste; "
+      f"housing {petg('housing') * 1000:.0f} g")
 print(f"base seeder {base:.2f} kg, with marker kit {full:.2f} kg; center of mass x = {xcg:.0f} mm, z = {zcg:.0f} mm")
 seed_kg = model.hopper_volume_l() * 0.72
 print(f"seed load, full hopper of maize: {seed_kg:.2f} kg")
@@ -450,7 +454,7 @@ req("R17", "Replication cost, base seeder", f"${base_usd:.2f} estimated", "about
 # ---------------------------------------------------------------------------
 # Design-review requirements (no number to calculate at TRL 3)
 # ---------------------------------------------------------------------------
-req("R7", "Crop change", "Side door and hand knob in the model; no tools", "2 min or less, no tools", "not verifiable at TRL 3")
+req("R7", "Crop change", "Side door and hand knob in the model; no tools; 13 mm slot with a printed liner pair for the 6, 8 and 10 mm plates", "2 min or less, no tools", "not verifiable at TRL 3")
 req("R13", "Row spacing kit", f"Marker reach 200 to 900 mm in the model, set at {P['ROW_SPACING']:.0f} mm", "200 to 900 mm, +/-25 mm", "met")
 req("R14", "Guarding", "Printed shroud with an outboard face plate over both sprockets, the chain and the tensioner's full travel, on two spacers", "Nip points covered", "met")
 req("R15", "Durability", "Stresses low (section 7); wear life of plates, brush and chain unknown", "5 seasons; plates 1 season", "not verifiable at TRL 3")

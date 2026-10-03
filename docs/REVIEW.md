@@ -358,3 +358,45 @@ Raised when the recommendations were written (2026-10-01) and kept here so they 
 - The design for construction already builds in the clear housing door (SDL-DDR-003, P5) while it was still an open appearance item, so item 5 is effectively decided by accepting item 1.
 - Item 4 compares like with like (base seeder against R17's about USD 200), but note that R17 was met in SDL-DDR-002 only by moving the 12 and 18 T sprockets to an optional ratio kit; the base seeder covers 26 to 471 mm and needs the kit for 25 mm pelleted seed.
 - R11 is met with only 0.19 kg of margin (14.8 kg with the marker kit) after the drop plates were thinned from 6 to 4 mm to hold it; the 4 mm plates now carry the axle bearings, so their stiffness should be checked at TRL 4.
+
+## Session 2026-10-02: approved follow-ups carried out
+
+Amish approved on 2026-10-02 that every follow-up action from the open-decision sign-off be carried out. trl stays 3; nothing was built, bought or tested. `budget_usd` is unchanged.
+
+### Follow-ups
+
+1. Done. Decision 2, model and pictures: the housing slot is 13 mm; printed side liners (chain side 2 mm for the 6 mm plate, 1 mm for 8 mm, none for 10 mm; door-side liner for all three, held by pegs against the door); plate hub now ends 14 mm from the plate centre plane so every thickness meets the shaft collar; brush strip and rear slot widened to the slot. Constructability checks: 98 of 98 pass (86 before, plus checks for the liners and the 8 and 10 mm plates). STEP and STL regenerated. Making sketches SDL-DWG-107, 111, 112, 113 and 114 are now Rev P2; overview, joints 4 and 5, steps 1 to 17 and the general arrangement (Rev P4) regenerated; build plan section 3.7, 3.10, 3.11 and step 10 text updated.
+2. Done. Decision 2, BOM: line 5 now $27.60 (was $23.00): liners about 57 g of PETG at about $25/kg plus 10 % waste, $1.60; UV-stabilized door grade $3.00.
+3. Done. Decision 5, BOM: line 5 specifies a 3 mm UV-stabilized polycarbonate door (about $120 per square metre against about $75 plain, bought as a 300 x 300 mm offcut, +$3.00).
+4. Done. Decisions 6 and 7: `cad/src/product_model.py` has no hopper window, a steel disc drive wheel as the default (`wheel_style="spoked"` gives the labelled render option), a one-piece housing with the model's size, slot, door and rear brush slot, and the two liners. The photoreal renders are for Amish's Mac.
+5. Not done: bronze bushing and go-kart kit savings are TRL 4 work.
+6. Not done: partner outreach to CIMMYT is Amish's action.
+7. Done. Decision 10: usage note for `make_plate` added to `docs/02-concept.md` (section "Plate generator usage note").
+
+### Results
+
+- Requirement status changes: none. R11 mass 14.1 kg base, 14.9 kg with the marker kit (0.12 kg margin, was 0.19 kg). R10 design case 110 N at 29 degrees (132 N along the handle, unchanged). R7 value text now mentions the liner pair.
+- Value-engineering target: USD 400. Estimated cost of the constructable design: USD 266.10 for the prototype with both kits (USD 133.90 under the target). Base seeder (R17, target about USD 200): USD 224.10 (USD 24.10 over).
+- Also corrected in `bom/bom-notes.md`: stale figures ($197.50, $237.50, $16.00 ratio kit) replaced; brush strip width is 12 mm in the model (was 8 mm in line 7).
+
+### Proposed, awaiting Amish
+
+- The door-side liner hides the plate behind the clear door. For the render it is drawn clear; proposed to print it in clear or translucent PETG for the prototype, or to cut the door-side liner as a ring so the plate shows. Recommendation: clear PETG.
+- The 10 mm plate needs no chain-side liner (13 mm slot less 10 mm less 1.5 mm each side is exact); the "liner for each thickness" decision is met by the door-side liner alone for that plate.
+- R11 margin is now 0.12 kg; any further part needs a matching saving.
+
+### Render scenes
+
+Appearance model updated; scenes exported to `/home/claude/renders/seedline` (hero, exploded, detail; one .npz and .json each, and `seedline__jobs.json`). Photoreal images, card.png and social-preview.png are made on Amish's Mac.
+
+### Cross-repo actions
+
+None.
+
+### Documents changed
+
+`docs/02-concept.md` v0.7, `docs/03-requirements.md` v0.7, `docs/04-calcs/01-sizing.md` v0.5 (with sizing.py and results.csv), `docs/05-build-plan.md` v0.3, `docs/06-design-decisions.md` v0.3, `docs/decisions/0003-design-for-construction.md` v0.3, `README.md`, `bom/bom.csv`, `bom/bom-notes.md`, drawings SDL-DWG-001 (Rev P4) and 107, 111 to 115 (Rev P2 where redrawn).
+
+## 2026-10-02: photoreal renders redone on the constructable design
+
+Rendered with Blender Cycles on Amish's Mac from the updated appearance model; captioned with `.kit/photo_caption.py`; `media/card.png` and `media/social-preview.png` regenerated with `.kit/cards.py`. Views: hero, exploded, detail. image_qc passes. Appearance deviations are those logged above as proposed, awaiting Amish.
