@@ -23,8 +23,9 @@ from model import PARAMS as P, build_components, box, union  # noqa: E402
 
 OUT = ROOT / "docs" / "05-build-plan"
 DWG = ROOT / "cad" / "drawings"
-DATE = "2026-10-02"
+DATE = "2026-10-24"
 REV2 = {"107", "111", "112", "113", "114", "115"}      # making sketches revised by the decisions of 2026-10-02
+REV3 = {"114", "105", "106", "107", "108", "109", "110", "112", "113", "115", "116", "120", "121", "122", "123", "124"}   # kit 1.9 model, F1 to F8
 C = build_components()
 XM, ZS, YC = P["X_METER"], P["Z_SHAFT"], P["Y_CHAIN"]
 
@@ -125,10 +126,12 @@ def sheets(only=None):
     def sheet(no, name, shape, neighbours, title, material, notes, view_shape=None, inset_view=(24, -130)):
         if only and no not in only:
             return
-        rv = {}
+        revs = [("P1", "Making sketch for the prototype build plan", "2026-10-01", "AC")]
         if no in REV2:
-            rv = dict(rev="P2", revisions=[("P1", "Making sketch for the prototype build plan", "2026-10-01", "AC"),
-                                           ("P2", "SDL-DEC-001: 13 mm slot, plate liners, UV-stabilized door", "2026-10-02", "AC")])
+            revs.append(("P2", "SDL-DEC-001: 13 mm slot, plate liners, UV-stabilized door", "2026-10-02", "AC"))
+        if no in REV3:
+            revs.append((f"P{len(revs) + 1}", "Kit 1.9 detailed model; SDL-DEC-001 F1 to F8", "2026-10-24", "AC"))
+        rv = dict(rev=revs[-1][0], revisions=revs) if len(revs) > 1 else {}
         out.append(bv.component_sheet(Part(name, shape, COL.get("rail")), neighbours, dwg_no=f"SDL-DWG-{no}", **rv,
                                       title=f"SeedLine {title}: making sketch", material=material, notes=notes,
                                       view_shape=at_origin(view_shape if view_shape is not None else shape),
@@ -192,8 +195,8 @@ def sheets(only=None):
            "Check: both legs sit flat with the cross member square to the rail."], inset_view=(30, 60))
     dropf = side(C["drop_front"].shape, -1)
     sheet("105", "Front drop plate", dropf, nb("rail_l", "axle_bearings", "axle", "wheel", "guard_spacers"),
-          "front drop plate (make 2)", "Steel plate 4 mm, S235 class",
-          ["Cut two 50 x 117.5 mm blanks of 4 mm plate; round the corners 3 mm.",
+          "front drop plate (make 2)", "Steel plate 3 mm, S235 class",
+          ["Cut two 50 x 117.5 mm blanks of 3 mm plate; round the corners 3 mm.",
            "Measure down from the top edge and sideways from the centre line:",
            "  rail bolts 6.5 mm at 12.5 down, 12 each side of centre;",
            "  axle hole 20 mm at 77.5 down, centred;",
@@ -207,8 +210,8 @@ def sheets(only=None):
            "Check: the axle hole lines up across both plates (sight through)."])
     dropr = side(C["drop_rear"].shape, 1)
     sheet("106", "Rear drop plate", dropr, nb("rail_r", "press_axle", "press_spacers", "handle_lower"),
-          "rear drop plate (make 2)", "Steel plate 4 mm, S235 class",
-          ["Cut two 50 x 147.5 mm blanks of 4 mm plate; round the corners 3 mm.",
+          "rear drop plate (make 2)", "Steel plate 3 mm, S235 class",
+          ["Cut two 50 x 147.5 mm blanks of 3 mm plate; round the corners 3 mm.",
            "Measure down from the top edge and sideways from the centre line:",
            "  rail bolts 6.5 mm at 12.5 down, 15 each side of centre;",
            "  press axle hole 16.5 mm at 127.5 down, centred;",
@@ -220,8 +223,8 @@ def sheets(only=None):
            "  handle tube bolts flat to its outside face.",
            "Check: the axle hole lines up across both plates."])
     sheet("107", "Bearing plate", C["bplate"].shape, nb("rail_l", "shaft_bearings", "shaft", "housing"),
-          "bearing plate", "Steel plate 4 mm, S235 class",
-          ["Cut one 90 x 87.5 mm blank of 4 mm plate; round the corners 3 mm.",
+          "bearing plate", "Steel plate 3 mm, S235 class",
+          ["Cut one 90 x 87.5 mm blank of 3 mm plate; round the corners 3 mm.",
            "Measure up from the bottom edge and sideways from the centre line:",
            "  rail and housing bolts 6.5 mm at 12.5 up, 35 each side;",
            "  shaft clearance hole 16 mm at 42.5 up, centred;",
@@ -236,8 +239,8 @@ def sheets(only=None):
            "Check: the shaft hole is square to the plate; bearing bolts line up."])
     up1 = C["uprights"].shape & box(xu_r - 15, xu_r + 15, 0, 100, 0, 600)
     sheet("108", "Hopper upright", up1, nb("rail_r", "hopper", "clips"),
-          "hopper upright (make 4)", "Steel flat bar 20 x 3 mm",
-          ["Cut four 302.5 mm lengths of 20 x 3 flat bar; round the top corners.",
+          "hopper upright (make 4)", "Steel flat bar 20 x 2 mm",
+          ["Cut four 302.5 mm lengths of 20 x 2 flat bar; round the top corners.",
            "On the centre line, from the bottom end: 6.5 mm at 12.5 (rail bolt);",
            "  5.5 mm at 237.5 and 287.5 (hopper screws).",
            "Drill all four clamped together so the hopper holes match.",
@@ -266,7 +269,7 @@ def sheets(only=None):
           ["Cut a 177 mm length of 16 mm bright bar; chamfer both ends 1 mm.",
            "From the chain-side end: file a 1 mm flat 0 to 12 mm (sprocket set",
            "  screw), 34.5 to 46.5 mm and 165 to 177 mm (bearing set screws).",
-           "Drill a 6.5 mm cross hole at 107 mm, through the centre: this takes",
+           "Drill a 6.5 mm cross hole at 122 mm (15 mm off the wheel's web), through the centre; it takes",
            "  the M6 bolt that fixes the wheel hub to the axle. Drill it with the",
            "  hub fitted, so the holes line up.",
            "Spacers: two 38 mm lengths of 21 x 2.5 mm tube (16 mm bore), ends",
@@ -294,7 +297,9 @@ def sheets(only=None):
            "  funnel from 60 x 30 down to the 60 x 13 slot. The hopper neck drops in.",
            "Chain side: a 22 mm hole for the plate hub; two lugs 20 x 37 x 25 with",
            "  6.5 mm holes and an M6 nut slot, 35 mm each side of the shaft.",
-           "Door side: an opening 128 x 132; two M4 heat-set inserts for the door.",
+           "Door side: an opening 128 x 132; two M4 heat-set inserts in the solid wall,",
+           "  7 from the rear face 135 up and 134 from it 7 up (door screws).",
+           "Rear wall: two M4 inserts on the centre line, 29 and 56 above the shaft (brush).",
            "Rear wall: a 13 x 10 slot 35 to 45 mm above the shaft for the brush.",
            "Chain-side slot wall: two 3.4 mm peg holes, 5 deep, 48 mm each side of the shaft.",
            "Under the outlet: a spigot 16 mm outside, 12 mm bore, 60 long.",
@@ -307,11 +312,11 @@ def sheets(only=None):
     _lc, _ld = C["liner_chain"].shape, C["liner_door"].shape
     sheet("113", "Door, liners and knob", S("door", "knob", "liner_chain", "liner_door"), nb("housing", "plate", "door_screws"),
           "housing door, plate liners and plate knob", "UV-stabilized clear polycarbonate sheet 3 mm; liners and knob PETG printed",
-          ["Door: cut 136 x 140 mm from 3 mm UV-stabilized clear polycarbonate (score and snap,",
+          ["Door: cut 146 x 150 mm from 3 mm UV-stabilized clear polycarbonate (score and snap,",
            "  or a fine saw); round the corners 5 mm; keep the film on to drill.",
-           "  13 mm hole for the knob stem, 70 mm from the rear edge, 70 mm up.",
-           "  4.5 mm holes for the thumb screws: 12 from the rear edge 125 up,",
-           "  and 124 from the rear edge 15 up.",
+           "  13 mm hole for the knob stem, 80 mm from the rear edge, 80 mm up.",
+           "  4.5 mm holes for the thumb screws: 7 from the rear edge 135 up,",
+           "  and 134 from the rear edge 7 up (into inserts in the housing wall).",
            "Knob: print a 28 mm head, 10 thick, on a 12 mm stem 10.5 long; press",
            "  an M6 x 25 screw through its centre as a stud (head moulded in).",
            "Fit: the door covers the opening on the housing's door side with two",
@@ -331,7 +336,8 @@ def sheets(only=None):
            "Maize plate: 4 cells in the rim, 14.3 mm long, 8.7 mm deep, through",
            "  the thickness. Other crops: cells from the rule in the model (seed",
            "  length x 1.15 + 0.5, width x 1.05 + 0.3; thickness at least 6).",
-           "Print flat, hub up, no supports: about 44 g and 1.5 h in PETG.",
+           "Print flat, hub up, no supports, 3 walls, 20 % infill: about 38 g and",
+           "  1.4 h in PETG (groundnut plate, 10 mm: about 1.9 h).",
            "Mark the crop and cell count on the face (raised text).",
            "Fit: slides onto the shaft's D-flat until the hub meets the collar; the",
            "  hub runs in the housing's 22 mm hole; the knob holds it.",
@@ -342,7 +348,7 @@ def sheets(only=None):
            "  12 tall, 3 mm walls throughout; 2.42 L inside.",
            "Four bosses on each long side face, 20 x 12.5 x 20, at 100 and 150",
            "  mm above the neck bottom, 74 mm ahead and 75 mm behind the centre,",
-           "  with 4 mm holes for M5 heat-set inserts pressed in with a soldering iron.",
+           "  with 6.5 mm holes for M5 heat-set inserts pressed in with a soldering iron.",
            "Lid: 174 x 124 x 2 with a 6 mm skirt that drops inside the rim.",
            "Print the hopper upside down on its rim, the lid flat.",
            "Fit: the neck drops into the housing collar with 1 mm all round and",
@@ -360,7 +366,7 @@ def sheets(only=None):
            "Print face down, no supports; split in two at mid-length and glue",
            "  if your printer bed is under 370 mm.",
            "Spacers: 8 mm tube, 38.5 mm (drive end) and 39.5 mm (plate end).",
-           "Fit: two M5 x 50 screws through the face and spacers into the tapped",
+           "Fit: two M5 x 45 screws through the face and spacers into the tapped",
            "  holes in the drop plate and bearing plate.",
            "Check: turn the wheel: nothing touches the guard."], inset_view=(15, -100))
     sheet("117", "Opener shank", C["shank"].shape, nb("opener_bar", "boot", "wheel"),
@@ -417,7 +423,8 @@ def sheets(only=None):
            "Sleeve: 250 mm of 25 x 1.2 tube (22.6 mm bore). Pin holes 6.5 mm:",
            "  through sleeve and lower tube once; in the upper tube every 25 mm",
            "  over 250 mm, for 850 to 1,050 mm grip height.",
-           "Fit: the lower flat on the rear drop plate's outside face, two M8 bolts.",
+           "Fit: the lower flat on the rear drop plate's outside face, two M8 bolts;",
+           "  a third hole, 6.5 mm, takes the drop plate's front rail bolt (it clamps the flat).",
            "Check: the upper tube slides in the sleeve by hand; pins go in freely."],
           view_shape=flat(hs, tuple(a0), tuple(n), tuple(d)), inset_view=(20, -150))
     sheet("121", "Cross grip", C["grip"].shape, nb("handle_upper"),
@@ -445,7 +452,7 @@ def sheets(only=None):
           ["Cut 100 mm of 40 x 3 strip. Bend 25 mm at each end to 90 degrees,",
            "  same way, to make a U: base 50 mm, two lugs 25 mm.",
            "Base: two 6.5 mm holes, 10 and 38 mm from the rear end, centred.",
-           "Lugs: one 8 mm hole each, 15 mm from the base face, centred.",
+           "Lugs: one 8.4 mm hole each, 15 mm from the base face, centred.",
            "Fit: base flat on the outside of the chain-side rail at its front end,",
            "  lugs pointing outward; two M6 bolts through the rail.",
            "The arm pivots on an M8 pin through both lugs with a 12 mm spacer",
@@ -457,12 +464,13 @@ def sheets(only=None):
     end = b2.Vector(55.0, -P["ROW_SPACING"] + 22.0, P["MARKER_D"] / 2 + 4.0)
     da = (end - piv).normalized()
     sheet("124", "Marker arm and disc", ma, nb("marker_mount", "rail_l"),
-          "row marker arm and disc (row-spacing kit)", "Steel tube 20 x 1.2 and 16 x 1.2 mm; disc 2 mm plate",
-          ["Outer arm: 380 mm of 20 x 1.2 tube; 8 mm cross hole 10 mm from one",
-           "  end (pivot); 6.5 mm pin holes every 50 mm along the last 250 mm.",
-           "Inner arm: 360 mm of 16 x 1.2 tube; 6.5 mm hole near one end; slides",
+          "row marker arm and disc (row-spacing kit)", "Aluminium tube 20 x 1.5 and 16 x 1.5 mm, 6061-T6; disc 1.5 mm steel plate",
+          ["Outer arm: 380 mm of 20 x 1.5 aluminium tube; 8.4 mm cross hole 12 mm",
+           "  from one end (pivot), that end cut square to clear the mount;",
+           "  6.5 mm pin holes every 50 mm along the last 250 mm.",
+           "Inner arm: 360 mm of 16 x 1.5 tube; 6.5 mm hole near one end; slides",
            "  in the outer arm for 200 to 900 mm reach; one pin sets it.",
-           "Disc: cut a 140 mm disc from 2 mm plate, 16.5 mm centre hole; bolt it",
+           "Disc: cut a 140 mm disc from 1.5 mm plate, 16.5 mm centre hole; bolt it",
            "  to a hub of 28 mm bar 28 long, bored 16 mm, which takes the inner",
            "  arm's end and turns on an M8 bolt.",
            "Set the reach so the disc runs at the next row's centre (750 mm for",
@@ -478,22 +486,28 @@ def make_plate_local():
 
 # ----------------------------------------------------------------- joints
 def win(sh, x0, x1, y0, y1, z0, z1):
+    """The part of a shape inside a box, solid by solid: solids wholly inside are kept as they are, solids wholly
+    outside dropped, and only those across the box's faces are cut (a boolean on a whole compound such as the
+    76-link chain runs out of memory)."""
+    from build123d import Compound
     b_ = box(x0, x1, y0, y1, z0, z1)
-    try:
-        r = sh & b_
-        if r is not None and r.volume > 1e-6:
-            return r
-    except Exception:
-        pass
     pieces = []
-    for so in sh.solids():          # fall back to solid by solid when a fused shape will not cut
+    for so in sh.solids():
+        bb = so.bounding_box()
+        if bb.max.X < x0 or bb.min.X > x1 or bb.max.Y < y0 or bb.min.Y > y1 or bb.max.Z < z0 or bb.min.Z > z1:
+            continue
+        if bb.min.X >= x0 and bb.max.X <= x1 and bb.min.Y >= y0 and bb.max.Y <= y1 and bb.min.Z >= z0 and bb.max.Z <= z1:
+            pieces.append(so)
+            continue
         try:
             q = so & b_
             if q is not None and q.volume > 1e-6:
-                pieces.append(q)
+                pieces.extend(q.solids())
         except Exception:
             pass
-    return union(pieces)
+    if not pieces:
+        return None
+    return pieces[0] if len(pieces) == 1 else Compound(children=pieces)
 
 
 def joints(only=None):
@@ -546,8 +560,8 @@ def joints(only=None):
     j(8, [("Chain-side rail", ("rail_l",), COL["rail"]), ("Spring tensioner and idler", ("tensioner",), COL["tensioner"]),
           ("Chain", ("chain",), COL["chain"]), ("Wheel sprocket", ("sprocket_wheel",), COL["sprocket"])],
       (-230, 40, -115, -60, 100, 260), "spring tensioner on the slack (lower) strand, guard off",
-      "Seen from the chain side. The pivot bolts through the rail; the idler presses the lower strand down", 8, -90)
-    j(9, [("Chain guard (part)", ("guard",), COL["guard"]), ("Spacer and M5 screw", ("guard_spacers",), COL["bolt"]),
+      "Seen from the chain side. An M8 screw from inside the rail holds the pivot; the idler presses the lower strand down", 8, -90)
+    j(9, [("Chain guard (part)", ("guard",), COL["guard"]), ("Spacer and M5 screw", ("guard_spacers", "guard_screws"), COL["bolt"]),
           ("Bearing plate", ("bplate",), COL["bplate"]), ("Outboard bearing", ("shaft_bearings",), COL["bearing"]),
           ("Plate sprocket", ("sprocket_plate",), COL["sprocket"])],
       (-330, -240, -125, -70, 205, 262), "chain guard fixing at the plate end (a piece of the guard shown)",
@@ -604,7 +618,7 @@ def steps(only=None):
     opener = p("Opener and drop tube", ("shank", "boot", "drop_tube"), COL["shank"])
     rear = p("Rear drop plates and press wheel", ("drop_rear", "press", "press_axle", "press_spacers"), COL["press"])
     cover = p("Covering chains", ("chain_bracket", "cover_chains"), COL["cover"])
-    guard = p("Chain guard", ("guard", "guard_spacers"), COL["guard"])
+    guard = p("Chain guard", ("guard", "guard_spacers", "guard_screws"), COL["guard"])
     handle = p("Handle", ("handle_lower", "handle_upper", "sleeves", "brace", "grip"), COL["handle"])
     kw = dict(elev=22, azim=-55)
 
@@ -640,7 +654,7 @@ def steps(only=None):
        "sprockets", "Hubs inward; line the two up with a straight edge; set screws on the flats", elev=12, azim=-80, label_done=False)
     st(9, [frame, fdrop, wheel, hous, shaft, spro], [p("Chain (76 links)", ("chain",), COL["chain"], (0, -140, 0)),
                                                      p("Spring tensioner", ("tensioner",), COL["tensioner"], (0, -90, -40))],
-       "tensioner and chain", "Tensioner pivot bolt through the rail; chain round both sprockets, idler on the lower strand",
+       "tensioner and chain", "Tensioner on its M8 screw from inside the rail; chain round both sprockets, idler on the lower strand",
        elev=8, azim=-88, label_done=False)
     st(10, [frame, fdrop, wheel, hous, shaft, spro, chain],
        [p("Chain-side liner", ("liner_chain",), COL["liner"], (0, 60, 0)), p("Seed plate", ("plate",), COL["plate"], (0, 130, 0)),
@@ -665,8 +679,8 @@ def steps(only=None):
        "rear drop plates and press wheel", "Plates on the rails; axle through plates, spacers and wheel; nuts tight to clamp the stack",
        **kw)
     st(15, [frame, fdrop, wheel, hous, shaft, spro, chain, meter, hop, opener, rear, cover],
-       [p("Chain guard and spacers", ("guard", "guard_spacers"), COL["guard"], (0, -160, 0))],
-       "chain guard", "Two M5 x 50 screws through the face and spacers into the tapped plates; turn the wheel: nothing rubs",
+       [p("Chain guard, spacers and screws", ("guard", "guard_spacers", "guard_screws"), COL["guard"], (0, -160, 0))],
+       "chain guard", "Two M5 x 45 screws through the face and spacers into the tapped plates; turn the wheel: nothing rubs",
        elev=12, azim=-75, label_done=False)
     st(16, [frame, fdrop, wheel, hous, shaft, spro, chain, meter, hop, opener, rear, cover, guard],
        [p("Handle", ("handle_lower", "handle_upper", "sleeves", "brace", "grip"), COL["handle"], (-150, 0, 80))],

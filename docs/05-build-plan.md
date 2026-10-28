@@ -3,9 +3,9 @@ doc_id: SDL-BLD-001
 title: SeedLine prototype build plan
 project: SeedLine
 doc_type: Build plan
-version: "0.3"
+version: "0.4"
 status: Draft
-date: '2026-10-02'
+date: '2026-10-24'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -21,6 +21,10 @@ revisions:
     date: '2026-10-02'
     author: Amish Chadha
     change: "Decisions carried into the plan: 13 mm housing slot with printed plate liners, longer plate hub, UV-stabilized door, no hopper window, steel disc drive wheel; pictures redrawn; cost and mass figures from SDL-CAL-001 v0.5"
+  - version: "0.4"
+    date: '2026-10-24'
+    author: Amish Chadha
+    change: "Kit 1.9.1 upgrade: fit details found by the detailed model and fixed (SDL-DEC-001 F1 to F4, F6 to F8): door 146 x 150 with screws into inserts in the housing wall, hub cross hole at 122 mm, tensioner pivot screw from inside the rail, 6.5 mm insert holes in the hopper bosses, 3 mm drop and bearing plates, 20 x 2 mm uprights, aluminium marker arm, rear rail bolt through the handle tab, 20 % plate infill, chain wear limit; pictures redrawn from the kit 1.9 model"
 ---
 
 # SeedLine prototype build plan
@@ -56,7 +60,12 @@ The concept showed what the seeder does; some of its parts ran through each othe
 | Handle | Tubes ending inside the rails; unjointed grip and brace | Flattened tube ends bolted to the rear drop plates and to the grip; sleeves for height (Figures 26, 29 and 32) | Bolted joints made with a vice and a drill |
 | Corner joints | Flat plates across the tube ends | Four angle clips (Figure 4) | |
 | Lugs, marker, drop tube | No fixings shown | Bolted L-lugs; a bent U-bracket for the marker; a drop tube that slides on a spigot so it follows the depth setting (Figures 7, 34 and 22) | |
-| Mass | The added parts would have put the seeder over 15 kg | Drop plates 4 mm instead of 6 mm, lighter lid and marker parts | 14.9 kg with the marker kit |
+| Mass | The added parts would have put the seeder over 15 kg | Drop plates and bearing plate 3 mm (6 mm in the concept), lighter lid, 20 x 2 mm hopper uprights, an aluminium marker arm and a 1.5 mm marker disc (SDL-DEC-001 F6) | 14.8 kg with the marker kit |
+| Housing door (kit 1.9 model) | Thumb screws over the housing's opening, with nothing to screw into | A 146 x 150 mm door reaching the housing's rear and bottom edges; its two thumb screws go into heat-set inserts in the solid wall (Figure 16; SDL-DEC-001 F1) | The door holds |
+| Wheel hub cross bolt (kit 1.9 model) | A cross hole in the plane of the wheel's centre web | The cross hole 15 mm toward the door side of the hub's centre, clear of the web (section 3.6; F2) | The bolt head and nut fit |
+| Tensioner pivot (kit 1.9 model) | A bolt whose head or nut sat in the chain's upper strand | An M8 screw from inside the rail into the tensioner's boss (Figure 36; F3) | The chain runs clear |
+| Hopper bosses (kit 1.9 model) | 4 mm holes, too small for the M5 heat-set inserts | 6.5 mm holes (section 3.13; F4) | The inserts fit |
+| Rear rail bolt (kit 1.9 model) | The rear drop plate's front rail bolt under the handle's flattened end | The bolt passes the flattened end too and clamps it (sections 3.17 and 3.19; F7) | One bolt, no clash |
 
 ## 3. Making the components
 
@@ -130,7 +139,7 @@ The rail-leg bolt passes through the rail; at the opener cross member the same b
 
 *Figure 5. Front drop plate making sketch (SDL-DWG-105).*
 
-**What it is and what it is made from.** The plate on each rail that carries a drive axle bearing. Steel plate 4 mm, 50 x 117.5 mm.
+**What it is and what it is made from.** The plate on each rail that carries a drive axle bearing. Steel plate 3 mm, 50 x 117.5 mm.
 
 **How to make it.**
 
@@ -178,7 +187,7 @@ The rail-leg bolt passes through the rail; at the opener cross member the same b
 
 1. Cut 177 mm and chamfer both ends 1 mm. Mark the chain-side end.
 2. File 1 mm flats for the set screws, measured from the chain-side end: 0 to 12 (sprocket), 34.5 to 46.5 and 165 to 177 (bearings).
-3. Slide the wheel hub onto the axle with its centre 107 from the chain-side end and drill 6.5 mm through hub and axle together, square to the flats.
+3. Slide the wheel hub onto the axle with its centre 107 from the chain-side end, and drill 6.5 mm through hub and axle together at 122 from that end (15 mm toward the door side of the hub's centre, clear of the wheel's centre web), square to the flats.
 4. Cut two 38 mm spacers from 21 x 2.5 mm tube with square ends.
 
 **How it fits the parts next to it.**
@@ -203,7 +212,7 @@ The axle turns in the two flange bearings and carries the wheel and the wheel sp
 
 1. Print the body standing on its bottom face, with supports under the lugs and the collar. The body is 146 long, 25 wide and 165 tall, with a 13 mm slot inside. The slot takes a 6, 8 or 10 mm plate with a printed liner each side, so the plate has 1.5 mm to spare on each face; the front wall is 3 mm and the others 6 mm.
 2. Check the features: on top, a collar 80 x 48 x 20 with a 68 x 38 pocket 10 deep and a funnel down to the slot; on the chain side, a 22 mm hole for the plate hub and two lugs 20 x 37 x 25 with 6.5 mm holes and M6 nut slots, 35 each side of the shaft; on the door side, an opening 128 x 132; in the rear wall, a 13 x 10 slot for the brush; in the chain-side slot wall, two 3.4 mm peg holes 5 deep, 48 mm each side of the shaft, for the liner; under the outlet, a spigot 16 mm across, 12 mm bore, 60 long.
-3. Press two M4 heat-set inserts into the door-side wall for the door screws, at the door's screw positions (section 3.11).
+3. Press two M4 heat-set inserts (5.2 mm holes) into the door-side wall for the door screws, where the wall is solid round the opening: 7 mm in from the rear face at 135 mm above the bottom, and 134 mm from the rear face at 7 mm above the bottom. Press two more into the rear wall on the row centre line, 29 and 56 mm above the shaft centre, for the brush holder screws.
 
 **How it fits the parts next to it.** The lugs bolt to the inside face of the chain-side rail on the bearing plate's two bolts (Figure 12); the hopper neck drops into the collar (Figure 19); the drop tube slides onto the spigot; the brush passes through the rear slot.
 
@@ -215,7 +224,7 @@ The axle turns in the two flange bearings and carries the wheel and the wheel sp
 
 *Figure 11. Bearing plate making sketch (SDL-DWG-107).*
 
-**What it is and what it is made from.** The plate that carries both plate-shaft bearings. Steel plate 4 mm, 90 x 87.5 mm.
+**What it is and what it is made from.** The plate that carries both plate-shaft bearings. Steel plate 3 mm, 90 x 87.5 mm.
 
 **How to make it.**
 
@@ -262,7 +271,7 @@ The plate bolts to the outside face of the chain-side rail, bottom edge flush wi
 
 **How to make it.**
 
-1. Print flat, hub up, no supports: a disc 120 across and 6 thick, with a hub 20 across and 11 long on its chain-side face (the hub always ends 14 from the plate's centre plane, so a thicker plate has a shorter hub), a bore of 12.4 with a flat 4.6 from the centre, and four rim cells 14.3 long and 8.7 deep for maize.
+1. Print flat, hub up, no supports, with 3 walls (1.2 mm) and 20 % infill (the 10 mm groundnut plate then prints in about 1.9 h): a disc 120 across and 6 thick, with a hub 20 across and 11 long on its chain-side face (the hub always ends 14 from the plate's centre plane, so a thicker plate has a shorter hub), a bore of 12.4 with a flat 4.6 from the centre, and four rim cells 14.3 long and 8.7 deep for maize.
 2. Mark the crop and cell count on the face in raised text.
 3. Other crops use the same plate with cells sized from the seed; the calculation note lists them.
 
@@ -284,8 +293,8 @@ The plate bolts to the outside face of the chain-side rail, bottom edge flush wi
 
 **How to make them.**
 
-1. Cut the door 136 x 140 (score and snap, or a fine saw) with the film on; round the corners 5 mm.
-2. Drill a 13 mm hole for the knob stem 70 from the rear edge and 70 up, and 4.5 mm holes for the thumb screws 12 from the rear edge at 125 up, and 124 from the rear edge at 15 up.
+1. Cut the door 146 x 150 (score and snap, or a fine saw) with the film on; round the corners 5 mm. It covers the housing's door side from the rear face to 4 mm short of the front and from the bottom to 15 mm short of the top.
+2. Drill a 13 mm hole for the knob stem 80 from the rear edge and 80 up, and 4.5 mm holes for the thumb screws 7 from the rear edge at 135 up, and 134 from the rear edge at 7 up.
 3. Print the knob: a 28 mm head, 10 thick, on a 12 mm stem 10.5 long, with a hexagon pocket that holds the screw head; press the screw in.
 4. Print the two liners flat, each a disc 122 across with a 22 mm hole and a notch 16 tall where the brush enters. The chain-side liner is 2 mm thick for the 6 mm plate (1 mm for an 8 mm plate, none for a 10 mm plate) and has two 3 mm pegs 4 long, 48 each side of centre. The door-side liner is 2 mm thick with two 5 mm pegs 6 long (shorter for a thicker plate) that rest on the inside of the door.
 
@@ -299,7 +308,7 @@ The plate bolts to the outside face of the chain-side rail, bottom edge flush wi
 
 *Figure 17. Hopper upright making sketch (SDL-DWG-108).*
 
-**What it is and what it is made from.** The four bars that carry the hopper. Steel flat bar 20 x 3 mm, 302.5 mm long.
+**What it is and what it is made from.** The four bars that carry the hopper. Steel flat bar 20 x 2 mm, 302.5 mm long.
 
 **How to make it.**
 
@@ -321,7 +330,7 @@ The plate bolts to the outside face of the chain-side rail, bottom edge flush wi
 **How to make it.**
 
 1. Print the hopper upside down on its rim: a box 170 x 120 x 100 on a funnel 60 tall, down to a straight neck 66 x 36, 12 tall.
-2. Check the four bosses on each long side (20 x 12.5 x 20, at 100 and 150 above the neck bottom, 74 ahead of and 75 behind the centre) and press an M5 heat-set insert into each 4 mm hole with a soldering iron.
+2. Check the four bosses on each long side (20 x 12.5 x 20, at 100 and 150 above the neck bottom, 74 ahead of and 75 behind the centre) and press an M5 heat-set insert into each 6.5 mm hole with a soldering iron.
 3. Print the lid flat: 174 x 124 x 2 with a 6 mm skirt that drops inside the rim.
 
 **How it fits the parts next to it.**
@@ -402,7 +411,7 @@ The lowest pair of tapped holes gives 60 mm depth; each pair up is 10 mm shallow
 
 *Figure 25. Rear drop plate making sketch (SDL-DWG-106).*
 
-**What it is and what it is made from.** The plate on each rail that carries the press axle and the bottom of a handle tube. Steel plate 4 mm, 50 x 147.5 mm.
+**What it is and what it is made from.** The plate on each rail that carries the press axle and the bottom of a handle tube. Steel plate 3 mm, 50 x 147.5 mm.
 
 **How to make it.**
 
@@ -438,9 +447,9 @@ Each plate bolts to the outside face of a rail, top edge flush with the rail top
 
 ![Figure 28. Joint 9: chain guard fixing at the plate end](05-build-plan/joint-09.png)
 
-*Figure 28. An M5 x 50 screw passes the guard face and a spacer into the tapped bearing plate; the drive end is the same into the drop plate.*
+*Figure 28. An M5 x 45 screw passes the guard face and a spacer into the tapped bearing plate; the drive end is the same into the drop plate.*
 
-The guard's outline clears both sprockets by 17 mm and the tensioner over its full 45 mm of travel; the chain runs at least 8.5 mm from it.
+The guard's outline clears both sprockets by 17 mm and the tensioner over its full 45 mm of travel; the chain's side plates run at least 6.8 mm from its face.
 
 **Check before moving on.** With the guard on, turn the wheel ten times: nothing touches the guard.
 
@@ -454,7 +463,7 @@ The guard's outline clears both sprockets by 17 mm and the tensioner over its fu
 
 **How to make them.**
 
-1. Lower tube: cut 560 mm. Flatten the bottom 60 mm in a vice to about 5 mm, keeping one face in line with the tube wall, and set the flat about 10 degrees to the tube (the handle splays outward). Drill two 8.5 mm holes 26 and 50 from the end.
+1. Lower tube: cut 560 mm. Flatten the bottom 60 mm in a vice to about 5 mm, keeping one face in line with the tube wall, and set the flat about 10 degrees to the tube (the handle splays outward). Drill two 8.5 mm holes 26 and 50 from the end. Offer the flat up to the rear drop plate and drill a third hole, 6.5 mm, through it where the drop plate's front rail bolt passes; that bolt clamps the flat too.
 2. Upper tube: cut 490 mm. Flatten the top 40 mm and drill 6.5 mm 20 from the end, square to the flat.
 3. Sleeve: cut 250 mm (22.6 mm bore). Drill a 6.5 mm pin hole through the sleeve and lower tube together; drill 6.5 mm pin holes in the upper tube every 25 mm over 250 mm, for grip heights of 850 to 1,050 mm.
 
@@ -528,11 +537,11 @@ The guard's outline clears both sprockets by 17 mm and the tensioner over its fu
 
 *Figure 35. Row marker arm and disc making sketch (SDL-DWG-124).*
 
-**What it is and what it is made from.** A telescoping arm with a small disc that scratches the line of the next row. Steel tube 20 x 1.2 and 16 x 1.2 mm; disc of 2 mm plate on a hub of 28 mm bar.
+**What it is and what it is made from.** A telescoping arm with a small disc that scratches the line of the next row. Aluminium tube 20 x 1.5 and 16 x 1.5 mm, 6061-T6 (stronger than 6063 at the full 900 mm reach); disc of 1.5 mm steel plate on a hub of 28 mm bar.
 
 **How to make it.**
 
-1. Outer arm: cut 380 mm of 20 mm tube; an 8 mm cross hole 10 from one end for the pivot, and 6.5 mm pin holes every 50 mm along the last 250 mm.
+1. Outer arm: cut 380 mm of 20 mm tube; an 8.4 mm cross hole 12 from one end for the pivot, and 6.5 mm pin holes every 50 mm along the last 250 mm; trim the pivot end square so it clears the mount's base when the arm folds.
 2. Inner arm: cut 360 mm of 16 mm tube with a 6.5 mm hole near one end; it slides in the outer arm.
 3. Disc: cut a 140 mm disc with a 16.5 mm centre hole; bolt it to a hub of 28 mm bar, 28 long, bored 16 mm, that takes the inner arm's end and turns on an M8 bolt.
 4. Fit two 12 mm spacers on the pivot pin, one each side of the arm.
@@ -548,18 +557,18 @@ Buy to specification, not brand. Line numbers are those of the bill of materials
 - **Drive wheel (line 1).** Steel disc wheel 280 mm across the rim, flat rim 45 mm wide, plain 16 mm hub that can be cross-drilled, no bearings.
 - **Drive axle bearings (line 1).** Two pressed-steel two-bolt flange bearings for a 16 mm (5/8 in) shaft, with set-screw inserts.
 - **Sprockets and chain (line 2).** Two 15 T #35 sprockets with hubs and set screws, bored 16 mm and 12 mm; #35 roller chain, 76 links with two connecting links.
-- **Chain tensioner (line 2).** Spring-loaded #35 chain tensioner of the go-kart kind, with a 10 T idler, about 45 mm of take-up, mounting on one M8 bolt.
+- **Chain tensioner (line 2).** Spring-loaded #35 chain tensioner of the go-kart kind, with a 10 T idler, about 45 mm of take-up, pivoting on one M8 screw; its boss must be threaded M8, or be tapped M8.
 
 ![Figure 36. Joint 8: spring tensioner on the slack strand](05-build-plan/joint-08.png)
 
-*Figure 36. The tensioner pivots on an M8 bolt through the chain-side rail, between the two strands, with its idler pressing the lower (slack) strand down. Guard off for clarity.*
+*Figure 36. The tensioner pivots on an M8 screw from inside the chain-side rail into its boss, between the two strands, with its idler pressing the lower (slack) strand down; nothing stands proud of the boss into the upper strand. Guard off for clarity.*
 
 - **Plate shaft bearings and collar (line 5).** Two pressed-steel two-bolt flange bearings for 12 mm, and one 12 mm shaft collar with a set screw.
 - **Singulator brush (line 7).** Nylon strip brush about 12 wide and 35 long, on a printed holder screwed to the outside of the housing's rear wall with two M4 screws in slotted holes, so the gap to the plate rim can be set.
 - **Seed drop tube (line 8).** PVC or PE tube 20 mm outside, 16 mm bore, 95 long.
 - **Covering chains (line 10).** Two 250 mm lengths of 3 to 4 mm light chain.
 - **Press wheel (line 11).** 200 mm concave rubber tread 70 wide, on two bearings with an inner spacer tube, 16 mm bore; a 16 mm axle bolt about 170 long with nuts and washers; two spacers of 21 x 2.5 mm tube, 37.5 long.
-- **Fixings (line 15).** About 50 M6 and M8 bolts with nuts and washers (nyloc where a bolt is a pivot or takes vibration), 36 M5 countersunk screws with nuts for the lugs, M4 and M5 screws, two M4 thumb screws, eight M5 and two M4 heat-set inserts, pins and spring clips, threadlocker, grease, paint.
+- **Fixings (line 15).** About 50 M6 and M8 bolts with nuts and washers (nyloc where a bolt is a pivot or takes vibration), 36 M5 countersunk screws with nuts for the lugs, M4 and M5 screws, two M4 thumb screws, an M8 x 40 tensioner pivot screw, eight M5 and four M4 heat-set inserts, pins and spring clips, threadlocker, grease, paint.
 
 ## 4. Putting it together
 
@@ -617,7 +626,7 @@ Fit the 16 mm-bore sprocket on the drive axle and the 12 mm-bore one on the plat
 
 ![Step 9](05-build-plan/step-09.png)
 
-Bolt the tensioner to the chain-side rail on its M8 bolt. Fit the chain round both sprockets with the connecting link's clip facing away from the direction of travel, and let the tensioner's idler bear on the lower strand. **Hold point:** turn the wheel by hand: the chain runs without jumping and the plate shaft turns once per wheel turn.
+Fix the tensioner to the chain-side rail with its M8 screw, from inside the rail into the tensioner's boss. Fit the chain round both sprockets with the connecting link's clip facing away from the direction of travel, and let the tensioner's idler bear on the lower strand. **Hold point:** turn the wheel by hand: the chain runs without jumping and the plate shaft turns once per wheel turn. New, the idler takes up about 35 of its 45 mm of travel. Mark the arm's position: when the idler reaches the end of its travel (about 0.8 % chain wear), shorten the chain by a link pair or fit a new chain (SDL-CAL-001 section 7).
 
 ### Step 10: brush, liners, seed plate, door and knob
 
@@ -653,7 +662,7 @@ Bolt the rear drop plates to the outsides of the rails. Pass the axle bolt throu
 
 ![Step 15](05-build-plan/step-15.png)
 
-Hold the guard over the chain with the spacers behind its face and fit the two M5 x 50 screws into the tapped holes. **Hold point:** safety stop S2 in section 6.
+Hold the guard over the chain with the spacers behind its face and fit the two M5 x 45 screws into the tapped holes (M5 x 50 would reach the drive axle bearing's flange). **Hold point:** safety stop S2 in section 6.
 
 ### Step 16: handle
 
@@ -676,16 +685,16 @@ These are the checks a TRL 4 test report would record; this plan only lists them
 | Check | Requirement | How | Pass when |
 | --- | --- | --- | --- |
 | Travel per wheel turn | R3, R4 | Chalk a lug, roll the seeder 10 turns on a hard floor, measure | 9.42 m, within 1 %, on a hard floor |
-| Cells per wheel turn | R3 | Lift the drive wheel, turn it one turn by hand, count cells passing the outlet | 4 cells with the maize plate (ratio 1.0) |
-| Chain and guard | R14 | Turn the wheel 20 turns with the guard on; look and listen | No rubbing, no jumping; no nip point reachable with a finger from outside |
-| Plate change | R7 | Time a change from maize to another plate, no tools | 2 minutes or less |
-| Depth settings | R8 | Seeder on a flat floor; measure the shank bottom below the wheel contact line at each of the six settings | 10 to 60 mm in 10 mm steps, within 2 mm |
+| Cells per wheel turn | PR-003 (R3) | Lift the drive wheel, turn it one turn by hand, count cells passing the outlet | 4 cells with the maize plate (ratio 1.0) |
+| Chain and guard | PR-014 (R14) | Turn the wheel 20 turns with the guard on; look and listen | No rubbing, no jumping; no nip point reachable with a finger from outside |
+| Plate change | PR-007 (R7) | Time a change from maize to another plate, no tools | 2 minutes or less |
+| Depth settings | PR-008 (R8) | Seeder on a flat floor; measure the shank bottom below the wheel contact line at each of the six settings | 10 to 60 mm in 10 mm steps, within 2 mm |
 | Seed path | R1, R2 | Maize in the hopper, drive wheel lifted, turn it 25 turns by hand over a tray | Seed falls only from the boot; record singles, misses and doubles (100 cells) |
-| Hopper | R12 | Fill with water to the rim, measure | 2 L or more, no leaks |
-| Mass | R11 | Weigh the seeder with and without the marker kit | 15 kg or less with the kit (14.9 kg estimated) |
-| Grip height | R11 | Set the sleeve pin at each hole | 850 to 1,050 mm |
-| Marker | R13 | Set 750 mm; roll 10 m beside a string line | Line within 25 mm of 750 mm |
-| Push | R10 | Spring scale on the grip, along the handle, on a tilled bed | Record the force; 150 N or less in the design case |
+| Hopper | PR-012 (R12) | Fill with water to the rim, measure | 2 L or more, no leaks |
+| Mass | PR-011 (R11) | Weigh the seeder with and without the marker kit | 15 kg or less with the kit (14.8 kg estimated) |
+| Grip height | PR-011 (R11) | Set the sleeve pin at each hole | 850 to 1,050 mm |
+| Marker | PR-013 (R13) | Set 750 mm; roll 10 m beside a string line | Line within 25 mm of 750 mm |
+| Push | PR-010 (R10) | Spring scale on the grip, along the handle, on a tilled bed | Record the force and the handle angle; horizontal part 150 N or less in the design case |
 
 ## 6. Safety stops
 

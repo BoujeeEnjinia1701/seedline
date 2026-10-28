@@ -1,0 +1,37 @@
+{
+ "level": "D3",
+ "stage": "P3",
+ "hash": "d6cf0a5a98904f10",
+ "options": {
+  "A": {
+   "title": "Cell plate on a chain drive",
+   "parts": 511,
+   "made_or_bought": 165,
+   "fasteners": 346,
+   "welds": 0,
+   "bare": [],
+   "bare_share": 0.0,
+   "interference": [],
+   "mass_kg": 14.5,
+   "step_files": 165
+  },
+  "B": {
+   "title": "Punch wheel with a hub meter",
+   "parts": 181,
+   "made_or_bought": 61,
+   "fasteners": 83,
+   "welds": 37,
+   "bare": [
+    "Singulator brush strip, nylon"
+   ],
+   "bare_share": 0.016,
+   "interference": [],
+   "mass_kg": 12.5,
+   "step_files": 0
+  }
+ },
+ "failures": [],
+ "warnings": [],
+ "passed": true,
+ "seconds": 164.1
+}

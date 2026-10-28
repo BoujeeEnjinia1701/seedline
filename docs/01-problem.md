@@ -3,9 +3,9 @@ doc_id: SDL-PRB-001
 title: SeedLine problem statement
 project: SeedLine
 doc_type: Problem statement
-version: "0.4"
+version: "0.5"
 status: Draft
-date: '2026-10-02'
+date: '2026-10-24'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -25,6 +25,10 @@ revisions:
   date: '2026-10-02'
   author: Amish Chadha
   change: "Partner rule and first candidate to approach (SDL-DEC-001, 2026-10-02)"
+- version: "0.5"
+  date: '2026-10-24'
+  author: Amish Chadha
+  change: "Kit 1.8 pipeline (kit 1.9.1 upgrade): users-and-needs and stakeholders tables (Tables 1 and 2), the source of SDL-URS-001; requirements now in SDL-URS-001 and SDL-PRS-001"
 ---
 
 # SeedLine problem statement
@@ -47,13 +51,28 @@ SeedLine is a single-row push seeder whose ground wheel drives a vertical meteri
 
 ## Users and context
 
-| User | Need | Context |
+The user requirements in SDL-URS-001 are drawn from Tables 1 and 2. Both are desk research and proposals until co-design sessions with a partner confirm them (see "User research and co-design" below).
+
+Table 1. Users and needs.
+
+| User type | Goals and needs | Typical use scenario | Pain points and challenges |
+| --- | --- | --- | --- |
+| Smallholder farmer | Plant maize, beans, sorghum or groundnut at the right spacing and depth in the planting window, with less labour and less seed | Plots of 0.2 to 2 ha, hand-tilled or ox-ploughed soil, rain-fed, often one worker pushing for several hours after the first rains | Hoe planting takes about 56 h/ha; hand-dropped seed clumps; plate seeders drop several seeds per cell; no plate exists for local varieties; cash for tools is short |
+| Market gardener | Sow vegetables in beds without thinning, at low cost | Beds of 0.75 to 1.2 m, fine tilled soil, 3 to 6 rows per bed, pelleted seed for small seed | Thinning labour; the Earthway is inaccurate with small seed and has no in-row adjustment; singulating seeders cost about USD 500 before rollers |
+| Cooperative or agro-dealer with a printer | Print plates on demand for members' crops and varieties; lend or rent seeders | Rural town, one FDM printer, basic tools; members bring seed samples | Needs a plate file per seed size and a way to check cell size; printer time and filament cost |
+| Local welder or maker | Build and repair the frame and drive from common steel tube and bicycle or roller chain parts | Workshop with a welder or a drill, taps and spanners; bicycle and trolley spares in town | Drawings that assume tools or stock they do not have; parts that need a lathe |
+| Extension worker or researcher | Recommend spacings, demonstrate row planting and check stands | Field demonstrations and trial plots, conservation agriculture programmes | Uneven stands hide the effect of spacing advice; no low-cost tool that sets spacing reliably |
+
+Table 2. Stakeholders.
+
+| Stakeholder group | Role or interest | Engagement needed |
 | --- | --- | --- |
-| Smallholder farmer | Plant maize, beans, sorghum or groundnuts at the right spacing in the planting window, with less labor and less seed | Plots of 0.2 to 2 ha, hand-tilled or ox-ploughed soil, rain-fed, often one worker |
-| Market gardener | Sow vegetables in beds without thinning, at low cost | Beds of 0.75 to 1.2 m, fine tilled soil, 3 to 6 rows per bed |
-| Cooperative or agro-dealer with a printer | Print plates on demand for members' crops and varieties; lend or rent seeders | Rural town, one FDM printer, basic tools |
-| Local welder or maker | Build and repair the frame from common steel tube and bicycle parts | Workshop with a welder or drill, bicycle spares available |
-| Extension worker or researcher | Recommend spacings and check stands | Field demonstrations, trial plots |
+| Co-design and field-trial partner (first candidate: CIMMYT small-scale mechanization work in Eastern and Southern Africa; SDL-DEC-001) | Validates crops, spacings, soils and cost; runs field trials | Co-design sessions and trial plots before the design is frozen; nothing is agreed yet |
+| Seed companies and agro-dealers | Sell seed, could print plates matched to the varieties they sell, rent seeders | Interviews on plate demand and treated-seed handling |
+| Extension services and NGOs | Promote row planting and conservation agriculture; train farmers | Demonstration and training material; feedback on safety notes |
+| Local workshops and maker spaces | Build, repair and adapt the seeder; print plates as a service | Review of the build plan and drawings for local stock and tools |
+| Regulators and standards bodies | Machinery and pesticide-handling rules where the seeder is made or sold | Register in SDL-REG-001; items marked "to assess" need a qualified reviewer |
+| Design Molecule (Amish Chadha) | Owns the open design, its decisions and its licence | Decisions recorded in SDL-DEC-001 |
 
 ### Operating environment
 
@@ -101,4 +120,4 @@ Requirements must come from the people who will use the seeder.
 - [ ] Identify a local partner organization (farmer cooperative, extension service, NGO or university)
 - [ ] Run co-design sessions with intended users; record who, where and what was learned
 - [ ] Validate crop list, spacing, soil and cost assumptions in the field
-- [ ] Revise requirements (REQ) from findings before freezing the design
+- [ ] Revise the user and product requirements (SDL-URS-001, SDL-PRS-001) from findings before freezing the design

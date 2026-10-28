@@ -3,9 +3,9 @@ doc_id: SDL-PRC-001
 title: SeedLine design precis
 project: SeedLine
 doc_type: Design precis
-version: "0.7"
+version: "0.8"
 status: Draft
-date: '2026-10-02'
+date: '2026-10-24'
 author: Amish Chadha
 license: CERN-OHL-S-2.0
 revisions:
@@ -37,11 +37,15 @@ revisions:
   date: '2026-10-02'
   author: Amish Chadha
   change: "Decisions carried into the figures: 13 mm slot with printed liners, UV-stabilized door; mass, cost and push figures from SDL-CAL-001 v0.5; plate generator usage note"
+- version: "0.8"
+  date: '2026-10-24'
+  author: Amish Chadha
+  change: "Kit 1.9.1 upgrade: this precis describes option A of SDL-OPT-001 (concept choice Proposed, awaiting Amish); figures from SDL-CAL-001 v0.6 (fasteners weighed from the detailed model, fixes SDL-DEC-001 F1 to F8); requirements now SDL-PRS-001"
 ---
 
 # SeedLine design precis
 
-SeedLine is a single-row push seeder. A 300 mm lugged ground wheel drives a vertical, 3D-printed seed plate through a #35 roller chain, so seeds are placed at a spacing set by distance travelled, not by walking speed. A runner opener cuts the furrow, chains cover the seed and a concave press wheel firms the row. Crop and spacing change by swapping a printed plate (1 to 36 cells) and, if needed, a 12 or 18 T wheel sprocket from an optional ratio kit. An optional telescoping marker arm scratches the line of the next row. The design is now constructable: every part can be made with a saw, drill, tap, vice and a 3D printer and bolts to the parts next to it (SDL-DDR-003), and the prototype build plan SDL-BLD-001 shows how. The TRL 3 calculations (SDL-CAL-001 v0.3) give an in-row spacing range of 22 to 589 mm with the ratio kit, a work rate of 0.142 ha/h for maize on 0.75 m rows at 2.9 km/h (7.1 h/ha against about 56 h/ha by hoe), a push of about 132 N in the design case and a mass of 14.0 kg (14.8 kg with the marker kit). Value-engineering target: USD 400. Estimated cost of the constructable design: USD 261.50 with both kits (USD 138.50 under the target); the base seeder is USD 219.50, USD 19.50 over its about USD 200 target. Every requirement is met on paper or cannot be verified at TRL 3 except placement quality (R1, R2) and push effort (R10), which are at risk; mass (R11) is met with a thin margin.
+SeedLine is a single-row push seeder. A 300 mm lugged ground wheel drives a vertical, 3D-printed seed plate through a #35 roller chain, so seeds are placed at a spacing set by distance travelled, not by walking speed. A runner opener cuts the furrow, chains cover the seed and a concave press wheel firms the row. Crop and spacing change by swapping a printed plate (1 to 36 cells) and, if needed, a 12 or 18 T wheel sprocket from an optional ratio kit. An optional telescoping marker arm scratches the line of the next row. The design is now constructable: every part can be made with a saw, drill, tap, vice and a 3D printer and bolts to the parts next to it (SDL-DDR-003), and the prototype build plan SDL-BLD-001 shows how. The TRL 3 calculations (SDL-CAL-001 v0.3) give an in-row spacing range of 22 to 589 mm with the ratio kit, a work rate of 0.142 ha/h for maize on 0.75 m rows at 2.9 km/h (7.1 h/ha against about 56 h/ha by hoe), a horizontal push of about 132 N in the design case and a mass of 14.2 kg (14.8 kg with the marker kit, SDL-CAL-001 v0.6). Value-engineering target: USD 400. Estimated cost of the constructable design: USD 261.50 with both kits (USD 138.50 under the target); the base seeder is USD 219.50, USD 19.50 over its about USD 200 target. Every requirement is met on paper or cannot be verified at TRL 3 except placement quality (R1, R2) and push effort (R10), which are at risk; mass (R11) is met with a small margin. This precis describes option A of the concept options (SDL-OPT-001); the concept choice is Proposed, awaiting Amish (SDL-DEC-001 D1).
 
 ![Hero render](../media/hero.png)
 
@@ -80,7 +84,7 @@ Numbers match the exploded view (Figure 3) and `bom/bom.csv`.
 | 9 | Furrow opener and depth bracket | Runner shoe on a steel shank, clamped in a slotted bracket (10 to 60 mm depth) | Depth set against the wheels |
 | 10 | Covering chains | Two short lengths of light chain on a bracket | Low cost, self-cleaning |
 | 11 | Press wheel | 200 mm diameter, 70 mm wide concave rubber tread | Firms the row; carries part of the load |
-| 12 | Steel frame | 25 x 25 x 1.5 mm square tube rails and cross members, 6 mm axle drop plates, 20 mm hopper posts, corner plates | Bolted (decided); welding optional |
+| 12 | Steel frame | 25 x 25 x 1.5 mm square tube rails and cross members, 3 mm axle drop plates and bearing plate, 20 x 2 mm hopper uprights, angle corner clips (SDL-DEC-001 F6) | Bolted (decided); welding optional |
 | 13 | Handle | Two 22 x 1.2 mm round tubes with a cross grip and brace, telescoping for 850 to 1,050 mm grip height | Model grip at 950 mm, 50° to the ground; 2.3 kg (lighter tube, SDL-DDR-002) |
 | 14 | Row marker arm (row-spacing kit) | Telescoping arm and 140 mm marker disc, 200 to 900 mm reach, folds up for transport | Optional kit |
 
@@ -106,8 +110,8 @@ The TRL 2 estimates in version 0.2 are replaced by the calculations in SDL-CAL-0
 | Skid from meter torque | 1.2 to 1.7 %; rolling radius uncertain by up to 6.7 % | R4 met |
 | Spacing CV, maize | 31 % of all spacings, 9 % of single spacings (assumed miss and double rates) | R2 at risk |
 | Plates | 40 to 54 g PETG, 1.5 to 2.0 h each; raw seed 3.5 to 15 mm, smaller seed pelleted | R5 met, R6 met with no margin |
-| Push force (horizontal part) | 81 N good, 132 N design case along the handle; 178 N at best on a heavy, loose seedbed | R10 at risk |
-| Mass | 14.1 kg base, 14.9 kg with the marker kit (constructable design, weighed part by part) | R11 met, 0.12 kg margin |
+| Push force (horizontal part) | 81 N good, 132 N design case pushing along the handle; 179 N at best on a heavy, loose seedbed | R10 at risk |
+| Mass | 14.2 kg base, 14.8 kg with the marker kit (weighed part by part, every fastener from the kit 1.9 model; mass fix SDL-DEC-001 F6) | R11 met, 0.18 kg margin |
 | Work rate | 0.142 ha/h (7.1 h/ha) on 0.75 m rows at 2.9 km/h | R9 met |
 | Hopper | 2.42 L, 1,451 m of maize row per fill | R12 met |
 | Depth | ±10 mm needs wheel-path bumps within about ±15 mm under the drive wheel | R8 met on paper, restated for ploughed field-crop seedbeds |
@@ -164,7 +168,7 @@ The function `make_plate` in `cad/src/model.py` draws a printable plate from the
 
 TRL 4 is on hold by Amish's instruction. These questions remain for review:
 
-- R11 is met with a thin margin (0.12 kg); R17 is USD 24.10 over its value-engineering target (USD 219.50 was accepted for the prototype on 2026-10-02; the plate liners and UV-stabilized door added USD 4.60). Any added part needs a matching saving.
+- R11 is met with a small margin (0.18 kg, after the mass fix SDL-DEC-001 F6); R17 is USD 24.10 over its value-engineering target (USD 219.50 was accepted for the prototype on 2026-10-02; the plate liners and UV-stabilized door added USD 4.60). Any added part needs a matching saving.
 - Whether the lighter 22 x 1.2 mm handle and its telescoping joint stand up to use (factor 1.9 on yield under the static side load; fatigue needs a test at TRL 4).
 - Whether to reduce the plate diameter to lower cell speed (R1), revisited only with bench data (SDL-DDR-002 item 5).
 - Whether a spring-loaded opener or a depth-gauge shoe is needed on rough, hand-tilled seedbeds (R8), to be reviewed with partner data.

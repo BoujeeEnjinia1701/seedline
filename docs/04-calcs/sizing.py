@@ -41,7 +41,7 @@ CELL_V_LIMIT = 0.30           # m/s, assumed working limit for cell fill (to be 
 FDM_TOL = 0.2                 # mm, cell size tolerance on a 0.4 mm nozzle (R6)
 TOL_RATIO_MAX = 0.10          # tolerance must be 10 % or less of the smallest cell dimension
 PRINT_RATE = 6.0              # mm^3/s average volumetric rate on a common desktop FDM printer, incl. travel
-INFILL = 0.25                 # infill fraction for a plate
+INFILL = 0.20                 # infill fraction for a plate (SDL-DEC-001 F8: was 0.25)
 SKIN, WALL = 1.6, 1.2         # mm: top plus bottom skins, perimeter wall thickness
 RHO_PETG = 1.27               # g/cm^3
 PETG_USD_KG = 25.0
@@ -165,7 +165,9 @@ for crop, seed, n in CROPS:
     nmax = int(circ // (cl + 2.0))
     tol = FDM_TOL / min(cd, cl)
     area = math.pi * (P["PLATE_D"] / 2) ** 2 - n * cl * cd - math.pi * (P["SHAFT_D"] / 2) ** 2
-    perim = math.pi * P["PLATE_D"] + 2 * n * cd + math.pi * P["SHAFT_D"]
+    # walls run round the rim, round each cell (both its sides and its inner end: v0.6 had only the sides, found by
+    # the independent review of 2026-10-24) and round the bore
+    perim = math.pi * P["PLATE_D"] + 2 * n * (cd + cl) + math.pi * P["SHAFT_D"]
     v_print = area * SKIN + perim * WALL * th + INFILL * max(area * (th - SKIN) - perim * WALL * th, 0)
     t_h = v_print / PRINT_RATE / 3600
     g = v_print / 1000 * RHO_PETG
@@ -199,6 +201,9 @@ vol = lambda *ks: sum(COMP[k].shape.volume for k in ks)  # noqa: E731  mm^3
 steel = lambda *ks: vol(*ks) * STEEL  # noqa: E731
 petg = lambda *ks: vol(*ks) * RHO_PETG / 1e6  # noqa: E731  kg, printed solid
 frame_keys = ("rail_l", "rail_r", "cross_mid", "opener_bar", "clips", "drop_front", "drop_rear", "bplate", "uprights")
+# kit 1.9: the fasteners are modelled one by one (ISO 4017, 4032, 7089, 10642, 2341 geometry), so they are weighed from the
+# model like the made parts; the press axle bolt and the marker kit's fixings are counted with their own lines
+FIX_KEYS = tuple(k for k, c in COMP.items() if c.kind == "fixing" and k not in ("press_axle", "marker_bolts"))
 frame = steel(*frame_keys)
 rail_len = 2 * (P["X_FRONT"] - P["X_REAR"]) / 1000
 HG = model.handle_geometry()
@@ -215,7 +220,7 @@ MASS = [  # (item, group, kg, x of center in mm, z of center in mm)
     ("Wheel lugs (18), model", "wheels", steel("lugs"), 0, 150),
     ("Drive axle, flange bearings (0.12 kg each), spacers", "wheels", steel("axle", "axle_spacers") + 0.24, 0, 150),
     ("Press wheel, 200 mm, with bearings (bought)", "wheels", 1.20, xp, 100),
-    ("Press axle bolt with nuts (0.30 kg), spacers", "wheels", 0.30 + steel("press_spacers"), xp, 100),
+    ("Press axle bolt M16 with nut and washers (model), spacers", "wheels", steel("press_axle", "press_spacers"), xp, 100),
     ("Sprockets with hubs (0.15 kg each), chain (0.25), tensioner (0.20)", "drive and metering", 0.30 + 0.25 + 0.20, -135, 200),
     ("Chain guard, PETG (model), spacers", "drive and metering", petg("guard") + 0.02, -135, 200),
     ("Hopper and lid, PETG (model)", "drive and metering", hopper_kg, xm, 440),
@@ -227,9 +232,12 @@ MASS = [  # (item, group, kg, x of center in mm, z of center in mm)
     ("Covering chains (0.30) and bracket (model)", "opener and covering", 0.30 + steel("chain_bracket"), -440, 100),
     ("Frame: rails, cross members, clips, drop plates, bearing plate, uprights (model)", "frame and handle", frame, -280, 240),
     ("Handle: tubes, grip, brace, sleeves, rubber grips", "frame and handle", handle, (hbx + gx) / 2, (hbz + gz) / 2),
-    ("Fasteners: about 50 M6 and M8 sets, 36 M5 lug screws, inserts; paint", "hardware", 0.58, -300, 215),
+    ("Fasteners, every bolt, nut, washer, screw, pin and insert (model, kit 1.9); paint and threadlocker 0.10 kg", "hardware",
+     steel(*FIX_KEYS) + 0.10, -300, 215),
 ]
-MARKER = ("Row marker kit (model)", "marker", steel("marker_mount", "marker_arm", "marker_disc", "marker_bolts"), 47, 150)
+ALU = 2.70e-6                 # kg/mm^3, aluminium marker arm tubes (SDL-DEC-001 F6)
+MARKER = ("Row marker kit (model; aluminium arm)", "marker", steel("marker_mount", "marker_spacers", "marker_disc", "marker_bolts")
+          + vol("marker_arm") * ALU, 47, 150)
 base = sum(m[2] for m in MASS)
 xcg = sum(m[2] * m[3] for m in MASS) / base
 zcg = sum(m[2] * m[4] for m in MASS) / base
@@ -306,7 +314,7 @@ for case in SOIL:
     PUSH[case] = dict(along=along, horiz=horiz, best=best, use=use,
                       band=(min(r["phi"] for r in feas), max(r["phi"] for r in feas)) if feas else None)
     fmt = lambda r: "no balance" if r is None else f"{r['H']:.0f} N"  # noqa: E731
-    print(f"  {case:6s}: along the handle {fmt(along)}; horizontal {fmt(horiz)}; "
+    print(f"  {case:6s}: horizontal push H pushing along the handle {fmt(along)}; pushing horizontally {fmt(horiz)}; "
           f"lowest {fmt(best)} at {best['phi']:.0f} deg; balance possible from {PUSH[case]['band'][0]:.0f} "
           f"to {PUSH[case]['band'][1]:.0f} deg")
     u = use
@@ -318,8 +326,10 @@ print(f"handle angle {P['HANDLE_ANGLE']:.0f} deg; grip at x = {gx:.0f} mm, {P['G
 pd = PUSH["design"]["along"]["H"]
 print(f"grip {xp - gx:.0f} mm behind the press wheel; design case margin to 150 N: {100 * (150 - pd) / 150:.0f} %")
 ph = PUSH["heavy"]["best"]
-req("R10", "Push effort, design case", f"{pd:.0f} N along the handle, {PUSH['design']['best']['H']:.0f} N at the best "
-    f"angle ({PUSH['design']['best']['phi']:.0f} deg); heavy loose seedbed {ph['H']:.0f} N at best, no balance along the handle",
+pv = PUSH["design"]["along"]["V"]
+req("R10", "Push effort, design case", f"{pd:.0f} N horizontal pushing along the handle ({math.hypot(pd, pv):.0f} N along it, {pv:.0f} N "
+    f"down), {PUSH['design']['best']['H']:.0f} N at the best angle ({PUSH['design']['best']['phi']:.0f} deg); heavy loose seedbed "
+    f"{ph['H']:.0f} N horizontal at best, no balance along the handle",
     "150 N or less", "not met" if pd > 150 else "at risk")
 
 h("6a Slip")
@@ -364,6 +374,47 @@ print(f"handle side tube {HOD:.0f} x {HT}: {LAT_GRIP:.0f} N lateral at the grip,
       f"{s_h:.0f} MPa, factor {YIELD / s_h:.1f} (25 x 1.5 tube: factor {YIELD / (M_h * 1000 / Z_rnd_old):.1f})")
 print(f"press axle: {M_ax:.1f} N m (x{IMPACT:.0f}), {s_ax:.0f} MPa; chain tension {chain_t:.0f} N "
       f"(about 7.8 kN minimum tensile for #35); plate D-flat bearing {dflat:.1f} MPa in PETG")
+# kit 1.9 mass fix (SDL-DEC-001 F6): 3 mm drop plates, 20 x 2 mm hopper uprights, aluminium marker arm
+M_turn = (W * (xcg_s - P["X_PRESS"]) / 1000) / 2           # per rear drop plate, pressing the handle down to lift the front at a row end
+Z_drop = P["DROP_T"] * 50.0 ** 2 / 6                       # 50 mm wide plate bent in its own plane
+s_drop = M_turn * 1000 / Z_drop * IMPACT
+print(f"rear drop plate ({P['DROP_T']:.0f} mm), row-end lift: {M_turn:.1f} N m per plate in plane, {s_drop:.0f} MPa (x{IMPACT:.0f}), "
+      f"factor {YIELD / s_drop:.1f}")
+L_up = (P["HOPPER_Z0"] + 165.0 - (P["RAIL_Z"] - P["RAIL_S"] / 2)) / 1000
+I_up = 20.0 * P["UPRIGHT_T"] ** 3 / 12
+P_cr = math.pi ** 2 * 200e3 * I_up / (4 * (L_up * 1000) ** 2)
+load_up = (hopper_kg + seed_kg) * G / 4 * IMPACT
+print(f"hopper upright 20 x {P['UPRIGHT_T']:.0f} flat bar, {L_up * 1000:.0f} mm as a free-standing strut: Euler {P_cr:.0f} N "
+      f"against {load_up:.0f} N each (full hopper, x{IMPACT:.0f}), factor {P_cr / load_up:.0f}")
+Z_arm = math.pi * (20 ** 4 - 17 ** 4) / (32 * 20)
+s_arm = 20.0 * (P["ROW_SPACING"] - 100) / 1000 * 1000 / Z_arm
+print(f"marker arm, aluminium 20 x 1.5: 20 N side drag at the disc, {s_arm:.0f} MPa against about 170 MPa (6063-T6 class), "
+      f"factor {170 / s_arm:.1f}")
+# independent review of 2026-10-24: the arm at its full 900 mm reach with the dynamic factor; 6061-T6 tube specified
+s_arm9 = 20.0 * (900 - 100) / 1000 * 1000 / Z_arm * IMPACT
+print(f"marker arm at 900 mm reach, x{IMPACT:.0f}: {s_arm9:.0f} MPa against about 240 MPa (6061-T6, typical minimum), factor {240 / s_arm9:.1f}")
+# handle side tube, combined: the heavy-seedbed push at its best angle (36 deg) on the 50 deg handle bends each tube across
+# its axis too; with the 100 N side load at the same time
+F_heavy = PUSH["heavy"]["best"]["H"] / math.cos(math.radians(PUSH["heavy"]["best"]["phi"]))
+M_push = F_heavy * math.sin(math.radians(P["HANDLE_ANGLE"] - PUSH["heavy"]["best"]["phi"])) / 2 * h_len
+s_comb = math.hypot(s_h, M_push * 1000 / Z_rnd)
+print(f"handle side tube, combined: {F_heavy:.0f} N push at {PUSH['heavy']['best']['phi']:.0f} deg gives {M_push:.0f} N m per tube across it; "
+      f"with the side load {s_comb:.0f} MPa, factor {YIELD / s_comb:.1f}")
+# hopper uprights, sideways: they sway until the hopper's neck bears in the housing collar (1 mm clearance, SDL-DDR-003 P7)
+L_side = (P["HOPPER_Z0"] + 125.0 - P["RAIL_Z"])
+I_w = 20.0 * P["UPRIGHT_T"] ** 3 / 12
+F_side = (hopper_kg + seed_kg) * G / 4 * IMPACT
+d_free = F_side * L_side ** 3 / (3 * 200e3 * I_w)
+s_side = 3 * 200e3 * I_w * min(d_free, 1.0) / L_side ** 2 * L_side / (20.0 * P["UPRIGHT_T"] ** 2 / 6) / L_side
+print(f"hopper upright sideways: free sway {d_free:.1f} mm at x{IMPACT:.0f} g would bend it to {F_side * L_side / (20.0 * P['UPRIGHT_T'] ** 2 / 6):.0f} MPa; "
+      f"the neck bears in the collar after 1 mm, at {s_side:.0f} MPa, and the printed collar carries the rest")
+# a jammed plate: the wheel then drives until it skids; traction about 0.7 of the drive-wheel load at the 150 mm radius
+T_jam = 0.7 * PUSH["design"]["along"]["N1"] * P["WHEEL_D"] / 2000
+print(f"jammed plate: up to {T_jam:.1f} N m at the plate shaft; chain {T_jam / (model.sprocket_pd(15) / 2000):.0f} N against 7.8 kN; "
+      f"plate D-flat {T_jam / 0.005 / (6 * 7):.0f} MPa against about 50 MPa for PETG, so the printed plate's bore strips first")
+# chain wear: take-up left at 1 % elongation of the 76-link chain
+slack_w = (76 - model.chain_links_exact(15, 15)) * P["PITCH"] + 0.01 * 76 * P["PITCH"]
+print(f"chain at 1 % elongation: idler deflection {math.sqrt(slack_w * C / 2):.0f} mm against 45 mm of take-up")
 
 # ---------------------------------------------------------------------------
 # 8. Work rate and hopper (R9, R12)
@@ -458,7 +509,7 @@ req("R7", "Crop change", "Side door and hand knob in the model; no tools; 13 mm 
 req("R13", "Row spacing kit", f"Marker reach 200 to 900 mm in the model, set at {P['ROW_SPACING']:.0f} mm", "200 to 900 mm, +/-25 mm", "met")
 req("R14", "Guarding", "Printed shroud with an outboard face plate over both sprockets, the chain and the tensioner's full travel, on two spacers", "Nip points covered", "met")
 req("R15", "Durability", "Stresses low (section 7); wear life of plates, brush and chain unknown", "5 seasons; plates 1 season", "not verifiable at TRL 3")
-req("R18", "Local build", "Bolted 25 mm square tube, 4 mm plate, angle and flat bar, #35 chain; saw, drill, tap and bolts", "Common sections and parts", "met")
+req("R18", "Local build", "Bolted 25 mm square tube, 3 mm plate, angle and flat bar, #35 chain; saw, drill, tap and bolts", "Common sections and parts", "met")
 
 h("Requirements")
 order = {"not met": 0, "at risk": 1, "not verifiable at TRL 3": 2, "met": 3}

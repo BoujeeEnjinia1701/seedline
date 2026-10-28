@@ -5,22 +5,43 @@ repo: BoujeeEnjinia1701/seedline         # GitHub repository, shown on every dra
 area: Agriculture
 trl: 3                   # Technology Readiness Level, see .kit/STANDARDS.md section 9
 trl_target: 3
+stage: P3                # pipeline stage, STANDARDS section 19; P3 on 2026-10-24 (kit 1.9.1 upgrade)
+stem_check: open         # SDL-STM-001: S6 to S10, S16, S17 (option A) and OB4, OB6 (option B) need bench, print, weighing, ergonomic or field data
+concept_options: [A, B]  # SDL-OPT-001: A cell plate on a chain drive (current design), B punch wheel with a hub meter
+# concept_chosen is left unset: option A recommended, Proposed, awaiting Amish (SDL-DEC-001 D1, SDL-DDR-004)
 design_state: constructable   # concept or constructable, see .kit/STANDARDS.md section 18
 trl_evidence:
   - docs/01-problem.md
+  - docs/01b-stem-check.md
   - docs/02-concept.md
+  - docs/02a-concept-options.md
+  - docs/03a-user-requirements.md
   - docs/03-requirements.md
+  - docs/03b-traceability.md
   - docs/decisions/0001-trl2-review-decisions.md
   - docs/decisions/0002-recommendations-accepted.md
   - docs/decisions/0003-design-for-construction.md
+  - docs/decisions/0004-concept-selection.md
   - docs/04-calcs/01-sizing.md
   - docs/04-calcs/sizing.py
+  - docs/04-calcs/stem_check.py
   - cad/src/model.py
-  - cad/step/seedline-assembly.step
+  - cad/src/punch_wheel.py
+  - cad/fidelity.json
+  - cad/step/A-assembly.step
+  - cad/step/B-assembly.step
   - cad/drawings/SDL-DWG-001.pdf
   - bom/bom.csv
   - docs/05-build-plan.md
+  - docs/05-build-plan/overview.png
   - docs/06-design-decisions.md
+  - docs/07-regulatory.md
+  - docs/08-feasibility.md
+  - docs/09-risk.md
+  - docs/10-market.md
+  - docs/11-plan.md
+  - media/hero.png
+  - media/concept-blueprint.png
 shortlisted: false
 pitch: >-
   Push seeder whose metering plates are 3D printed per crop and driven by the ground wheel, with an optional row-spacing kit.
